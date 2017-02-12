@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
+import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         ListView listViewMembro;
         ListView listViewReuniao;
         MembroCustomAdapter membroCustomAdapter;
+        ReuniaoCustomAdapter reuniaoCustomAdapter;
 
 
         @Override
@@ -188,8 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
                     reuniaoList = new ArrayList<>();
                     MembroModel lider = new MembroModel(1, "João José", "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br", "x", 2);
-                    CelulaModel celula = new CelulaModel(1, membroList.get(1), new EnderecoModel(), lider);
-
+                    CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(), lider);
 
                     reuniaoList.add(new ReuniaoModel(
                             1,
@@ -220,6 +221,10 @@ public class MainActivity extends AppCompatActivity {
                             celula,
                             "Novo")
                     );
+
+                    Collections.reverse(reuniaoList);
+                    reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());
+                    listViewReuniao.setAdapter(reuniaoCustomAdapter);
 
                     break;
                 default:

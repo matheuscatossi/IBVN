@@ -14,11 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.project.impacta.ibvn.InfoMembroActivity;
+import com.project.impacta.ibvn.InfoReuniaoActivity;
 import com.project.impacta.ibvn.R;
 import com.project.impacta.ibvn.model.MembroModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by proje on 12/02/2017.
@@ -31,7 +35,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
 
     // View lookup cache
     private static class ViewHolder {
-        ImageView img_user;
+        ImageView img_reuniao;
         TextView tv_tema;
         TextView tv_data;
         LinearLayout ll_linha;
@@ -76,11 +80,11 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item_reuniao, parent, false);
 
-            viewHolder.img_user = (ImageView) convertView.findViewById(R.id.img_user);
+            viewHolder.img_reuniao = (ImageView) convertView.findViewById(R.id.img_reuniao);
             // viewHolder.img_about = (ImageView) convertView.findViewById(R.id.img_about);
 
-            viewHolder.tv_tema = (TextView) convertView.findViewById(R.id.tv_email);
-            viewHolder.tv_data = (TextView) convertView.findViewById(R.id.tv_nome);
+            viewHolder.tv_tema = (TextView) convertView.findViewById(R.id.tv_tema);
+            viewHolder.tv_data = (TextView) convertView.findViewById(R.id.tv_data);
 
             viewHolder.ll_linha = (LinearLayout) convertView.findViewById(R.id.ll_linha);
 
@@ -95,28 +99,31 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
         result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.img_user.setImageResource(R.drawable.reuniao);
-
+        viewHolder.img_reuniao.setImageResource(R.drawable.reunion);
 
         viewHolder.tv_tema.setText(reuniaoModel.getTema());
         viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
 
-        viewHolder.tv_data.setText(reuniaoModel.getData());
+        Calendar dataReuniao = reuniaoModel.getData();
+        Date data = dataReuniao.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        viewHolder.tv_data.setText(sdf.format(data));
 
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, InfoMembroActivity.class);
+                Intent i = new Intent(mContext, InfoReuniaoActivity.class);
 
-                i.putExtra("codigo", String.valueOf(membroModel.getCodigo()));
-                i.putExtra("celula", String.valueOf(membroModel.getCelula()));
-                i.putExtra("codigoLider", String.valueOf(membroModel.getCodigoLider()));
-                i.putExtra("cpf", String.valueOf(membroModel.getCpf()));
-                i.putExtra("nome", String.valueOf(membroModel.getNome()));
-                i.putExtra("sexo", String.valueOf(membroModel.getSexo()));
-                i.putExtra("endereco", String.valueOf(membroModel.getEndereco()));
-                i.putExtra("email", String.valueOf(membroModel.getEmail()));
-                i.putExtra("tipo", String.valueOf(membroModel.getTipo()));
+                i.putExtra("codigo", String.valueOf(reuniaoModel.getCodigo()));
+                i.putExtra("tema", String.valueOf(reuniaoModel.getCelula().getCodigo()));
+                i.putExtra("data", String.valueOf(sdf.format(data)));
+/*                i.putExtra("codigoLider", String.valueOf(reuniaoModel.getCodigoLider()));
+                i.putExtra("cpf", String.valueOf(reuniaoModel.getCpf()));
+                i.putExtra("nome", String.valueOf(reuniaoModel.getNome()));
+                i.putExtra("sexo", String.valueOf(reuniaoModel.getSexo()));
+                i.putExtra("endereco", String.valueOf(reuniaoModel.getEndereco()));
+                i.putExtra("email", String.valueOf(reuniaoModel.getEmail()));
+                i.putExtra("tipo", String.valueOf(reuniaoModel.getTipo()));*/
 
                 mContext.startActivity(i);
             }
