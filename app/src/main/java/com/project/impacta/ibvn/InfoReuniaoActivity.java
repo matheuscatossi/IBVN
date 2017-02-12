@@ -16,7 +16,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
 
         Intent myIntent     = getIntent();
         String codigo       = myIntent.getStringExtra("codigo");
-        String tema       = myIntent.getStringExtra("celula");
+        String tema       = myIntent.getStringExtra("tema");
         String data       = myIntent.getStringExtra("data");
 /*        String codigoLider  = myIntent.getStringExtra("codigoLider");
         String cpf          = myIntent.getStringExtra("cpf");

@@ -112,11 +112,17 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Calendar dataReuniao = reuniaoModel.getData();
+                Date data = dataReuniao.getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
                 Intent i = new Intent(mContext, InfoReuniaoActivity.class);
 
                 i.putExtra("codigo", String.valueOf(reuniaoModel.getCodigo()));
                 i.putExtra("tema", String.valueOf(reuniaoModel.getCelula().getCodigo()));
                 i.putExtra("data", String.valueOf(sdf.format(data)));
+
 /*                i.putExtra("codigoLider", String.valueOf(reuniaoModel.getCodigoLider()));
                 i.putExtra("cpf", String.valueOf(reuniaoModel.getCpf()));
                 i.putExtra("nome", String.valueOf(reuniaoModel.getNome()));
