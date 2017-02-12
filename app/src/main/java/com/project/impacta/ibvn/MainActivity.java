@@ -21,10 +21,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
+import com.project.impacta.ibvn.model.CelulaModel;
+import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
+import com.project.impacta.ibvn.model.ReuniaoModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -144,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public ArrayList<MembroModel> membroList;
+        public ArrayList<ReuniaoModel> reuniaoList;
         ListView listViewMembro;
+        ListView listViewReuniao;
         MembroCustomAdapter membroCustomAdapter;
 
 
@@ -155,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             View rootView;
             TextView textView;
 
-            switch (getArguments().getInt(ARG_SECTION_NUMBER)){
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_evento, container, false);
                     break;
@@ -164,19 +171,56 @@ public class MainActivity extends AppCompatActivity {
                     listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
                     membroList = new ArrayList<>();
 
-                    membroList.add(new MembroModel(1, "João José",       "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br",             "x", 2));
-                    membroList.add(new MembroModel(1, "Cesar Astolfo",   "M", 1, "Rua Fernandez Palero", "15095785870", "castolfo@hotmail.com",     "x", 2));
-                    membroList.add(new MembroModel(1, "Carlos Junior",   "M", 1, "Rua Fernandez Palero", "15095785870", "carlosj@gmail.com",        "x", 2));
-                    membroList.add(new MembroModel(1, "Maria de Fatima", "F", 1, "Rua Fernandez Palero", "15095785870", "mrfcatossi@terra.com.br",  "x", 2));
+                    membroList.add(new MembroModel(1, "João José", "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br", "x", 2));
+                    membroList.add(new MembroModel(1, "Cesar Astolfo", "M", 1, "Rua Fernandez Palero", "15095785870", "castolfo@hotmail.com", "x", 2));
+                    membroList.add(new MembroModel(1, "Carlos Junior", "M", 1, "Rua Fernandez Palero", "15095785870", "carlosj@gmail.com", "x", 2));
+                    membroList.add(new MembroModel(1, "Maria de Fatima", "F", 1, "Rua Fernandez Palero", "15095785870", "mrfcatossi@terra.com.br", "x", 2));
                     membroList.add(new MembroModel(1, "Matheus Catossi", "M", 1, "Rua Fernandez Palero", "45084552802", "matheuscatossi@gmail.com", "x", 2));
 
 
                     Collections.reverse(membroList);
-                    membroCustomAdapter = new MembroCustomAdapter(membroList ,getContext());
+                    membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
                     listViewMembro.setAdapter(membroCustomAdapter);
                     break;
                 case 3:
+
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
+                    listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
+                    reuniaoList = new ArrayList<>();
+                    MembroModel lider = new MembroModel(1, "João José", "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br", "x", 2);
+                    CelulaModel celula = new CelulaModel(1, membroList.get(1), new EnderecoModel(), lider);
+
+
+                    reuniaoList.add(new ReuniaoModel(
+                            1,
+                            Calendar.getInstance(),
+                            "Jovem em cristo",
+                            celula,
+                            "Novo")
+                    );
+
+                    reuniaoList.add(new ReuniaoModel(
+                            2,
+                            Calendar.getInstance(),
+                            "Assembléia com Deus",
+                            celula,
+                            "Novo")
+                    );
+                    reuniaoList.add(new ReuniaoModel(
+                            3,
+                            Calendar.getInstance(),
+                            "Novos Membros",
+                            celula,
+                            "Novo")
+                    );
+                    reuniaoList.add(new ReuniaoModel(
+                            4,
+                            Calendar.getInstance(),
+                            "Domingo Evangelizador",
+                            celula,
+                            "Novo")
+                    );
+
                     break;
                 default:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);

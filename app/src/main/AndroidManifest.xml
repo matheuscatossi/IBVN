@@ -18,8 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoMembroActivity"
-            android:label="MEMBRO"></activity>
+        <activity
+            android:name=".InfoMembroActivity"
+            android:label="MEMBRO" />
+        <activity android:name=".InfoReuniaoActivity"></activity>
     </application>
 
 </manifest>
