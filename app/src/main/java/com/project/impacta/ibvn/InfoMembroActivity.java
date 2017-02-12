@@ -3,6 +3,7 @@ package com.project.impacta.ibvn;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class InfoMembroActivity extends AppCompatActivity {
@@ -23,6 +24,26 @@ public class InfoMembroActivity extends AppCompatActivity {
         String tipo         = myIntent.getStringExtra("tipo");
         String sexo         = myIntent.getStringExtra("sexo");
 
+        ImageView img_user = (ImageView) findViewById(R.id.img_user);
+        if(sexo.equals("M")) {
+            img_user.setImageResource(R.drawable.user_m);
+        } else {
+            img_user.setImageResource(R.drawable.user_f);
+        }
+
+        TextView tv_nome = (TextView) findViewById(R.id.tv_nome);
+        tv_nome.setText(nome);
+
+        TextView tv_email = (TextView) findViewById(R.id.tv_email);
+        tv_email.setText(email);
+
+        TextView tv_endereco = (TextView) findViewById(R.id.tv_endereco);
+        tv_endereco.setText(endereco);
+
+
+
+
+
         TextView tv_codigo = (TextView) findViewById(R.id.codigo);
         tv_codigo.setText("x"+ codigo);
 
@@ -35,20 +56,11 @@ public class InfoMembroActivity extends AppCompatActivity {
         TextView tv_cpf = (TextView) findViewById(R.id.cpf);
         tv_cpf.setText(cpf);
 
-        TextView tv_nome = (TextView) findViewById(R.id.nome);
-        tv_nome.setText(nome);
-
-        TextView tv_endereco = (TextView) findViewById(R.id.endereco);
-        tv_endereco.setText(endereco);
-
-        TextView tv_email = (TextView) findViewById(R.id.email);
-        tv_email.setText(email);
-
         TextView tv_tipo = (TextView) findViewById(R.id.tipo);
         tv_tipo.setText(tipo);
 
         TextView tv_sexo = (TextView) findViewById(R.id.sexo);
-        tv_sexo.setText(sexo);
+        tv_sexo.setText("x"+sexo+"x");
 
 
     }
