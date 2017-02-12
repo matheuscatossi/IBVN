@@ -162,11 +162,13 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
                     listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
-
                     membroList = new ArrayList<>();
 
+                    membroList.add(new MembroModel(1, "João José",       "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br",             "x", 2));
+                    membroList.add(new MembroModel(1, "Cesar Astolfo",   "M", 1, "Rua Fernandez Palero", "15095785870", "castolfo@hotmail.com",     "x", 2));
+                    membroList.add(new MembroModel(1, "Carlos Junior",   "M", 1, "Rua Fernandez Palero", "15095785870", "carlosj@gmail.com",        "x", 2));
+                    membroList.add(new MembroModel(1, "Maria de Fatima", "F", 1, "Rua Fernandez Palero", "15095785870", "mrfcatossi@terra.com.br",  "x", 2));
                     membroList.add(new MembroModel(1, "Matheus Catossi", "M", 1, "Rua Fernandez Palero", "45084552802", "matheuscatossi@gmail.com", "x", 2));
-                    membroList.add(new MembroModel(1, "Maria de Fatima", "F", 1, "Rua Fernandez Palero", "15095785870", "mrfcatossi@terra.com", "x", 2));
 
 
                     Collections.reverse(membroList);

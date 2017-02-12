@@ -1,6 +1,7 @@
 package com.project.impacta.ibvn.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.project.impacta.ibvn.InfoMembroActivity;
 import com.project.impacta.ibvn.R;
 import com.project.impacta.ibvn.model.MembroModel;
 
@@ -33,7 +35,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
         ImageView img_about;
         TextView tv_nome;
         TextView tv_email;
-
+        LinearLayout ll_linha;
     }
 
     public MembroCustomAdapter(ArrayList<MembroModel> data, Context context) {
@@ -64,7 +66,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        MembroModel membroModel = getItem(position);
+        final MembroModel membroModel = getItem(position);
         ViewHolder viewHolder;
 
         final View result;
@@ -80,6 +82,8 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
 
             viewHolder.tv_email = (TextView) convertView.findViewById(R.id.tv_email);
             viewHolder.tv_nome = (TextView) convertView.findViewById(R.id.tv_nome);
+
+            viewHolder.ll_linha = (LinearLayout) convertView.findViewById(R.id.ll_linha);
 
             result=convertView;
             convertView.setTag(viewHolder);
@@ -104,7 +108,27 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
 
         viewHolder.tv_email.setText(membroModel.getEmail());
 
-        viewHolder.img_about.setImageResource(R.drawable.about);
+        viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, InfoMembroActivity.class);
+
+                i.putExtra("codigo",      String.valueOf(membroModel.getCodigo()));
+                i.putExtra("celula",      String.valueOf(membroModel.getCelula()));
+                i.putExtra("codigoLider", String.valueOf(membroModel.getCodigoLider()));
+                i.putExtra("cpf",         String.valueOf(membroModel.getCpf()));
+                i.putExtra("nome",        String.valueOf(membroModel.getNome()));
+                i.putExtra("sexo",        String.valueOf(membroModel.getSexo()));
+                i.putExtra("endereco",    String.valueOf(membroModel.getEndereco()));
+                i.putExtra("email",       String.valueOf(membroModel.getEmail()));
+                i.putExtra("tipo",        String.valueOf(membroModel.getTipo()));
+
+                mContext.startActivity(i);
+            }
+        });
+
+
+        //viewHolder.img_about.setImageResource(R.drawable.about);
 
         return convertView;
     }
