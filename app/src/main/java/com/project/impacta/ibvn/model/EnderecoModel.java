@@ -64,4 +64,9 @@ public class EnderecoModel {
     public String getComplemento() {return complemento;}
 
     public void setComplemento(String complemento) {this.complemento = complemento;}
+
+    @Override
+    public String toString() {
+        return String.format("%s, Nº %s, CEP: %s",this.logradouro,this.numero,this.cep);
+    }
 }

@@ -11,7 +11,7 @@ public class CelulaModel {
     EnderecoModel Endereco;
     int endereco_cod;
     MembroModel criado_por;
-    int criado_po_cod;
+    int criado_por_cod;
 
     public CelulaModel( ) {}
 
@@ -58,14 +58,15 @@ public class CelulaModel {
 
     public void setCriado_por(MembroModel criado_por) {
         this.criado_por = criado_por;
-        this.criado_po_cod = criado_por.codigo;
+        this.criado_por_cod = criado_por.codigo;
     }
 
     public int getId_criado_por() {
-        return criado_po_cod;
+        return criado_por_cod;
     }
 
     public void setId_criado_por(int criado_po_cod) {
-        this.criado_po_cod = criado_po_cod;
+        this.criado_por_cod = criado_po_cod;
     }
+
 }

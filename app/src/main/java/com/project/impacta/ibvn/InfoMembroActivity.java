@@ -40,10 +40,6 @@ public class InfoMembroActivity extends AppCompatActivity {
         TextView tv_endereco = (TextView) findViewById(R.id.tv_endereco);
         tv_endereco.setText(endereco);
 
-
-
-
-
         TextView tv_codigo = (TextView) findViewById(R.id.codigo);
         tv_codigo.setText("x"+ codigo);
 

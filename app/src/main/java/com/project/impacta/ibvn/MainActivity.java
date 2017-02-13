@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
                     reuniaoList = new ArrayList<>();
                     MembroModel lider = new MembroModel(1, "João José", "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br", "x", 2);
-                    CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(), lider);
+                    CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(1,"Tipo?","R morrinhos","2","06246-090","Munhoz Junior","Osasco","SP","Casa"), lider);
 
                     reuniaoList.add(new ReuniaoModel(
                             1,

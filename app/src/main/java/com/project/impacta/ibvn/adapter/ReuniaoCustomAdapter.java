@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.project.impacta.ibvn.InfoMembroActivity;
 import com.project.impacta.ibvn.InfoReuniaoActivity;
 import com.project.impacta.ibvn.R;
+import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
 
@@ -99,7 +100,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
         result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.img_reuniao.setImageResource(R.drawable.reunion);
+        viewHolder.img_reuniao.setImageResource(R.drawable.reuniao_1);
 
         viewHolder.tv_tema.setText(reuniaoModel.getTema());
         viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
@@ -120,16 +121,12 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
                 Intent i = new Intent(mContext, InfoReuniaoActivity.class);
 
                 i.putExtra("codigo", String.valueOf(reuniaoModel.getCodigo()));
-                i.putExtra("tema", String.valueOf(reuniaoModel.getCelula().getCodigo()));
+                i.putExtra("tema", String.valueOf(reuniaoModel.getTema()));
                 i.putExtra("data", String.valueOf(sdf.format(data)));
-
-/*                i.putExtra("codigoLider", String.valueOf(reuniaoModel.getCodigoLider()));
-                i.putExtra("cpf", String.valueOf(reuniaoModel.getCpf()));
-                i.putExtra("nome", String.valueOf(reuniaoModel.getNome()));
-                i.putExtra("sexo", String.valueOf(reuniaoModel.getSexo()));
-                i.putExtra("endereco", String.valueOf(reuniaoModel.getEndereco()));
-                i.putExtra("email", String.valueOf(reuniaoModel.getEmail()));
-                i.putExtra("tipo", String.valueOf(reuniaoModel.getTipo()));*/
+                i.putExtra("endereco", String.valueOf(reuniaoModel.getCelula().getEndereco().toString()));
+                i.putExtra("lider", String.valueOf(reuniaoModel.getCelula().getLider().getNome()));
+                i.putExtra("lider_email", String.valueOf(reuniaoModel.getCelula().getLider().getEmail()));
+                i.putExtra("agendado_por", String.valueOf(reuniaoModel.getCelula().getCriado_por().getNome()));
 
                 mContext.startActivity(i);
             }
