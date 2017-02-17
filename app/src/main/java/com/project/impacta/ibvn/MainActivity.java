@@ -12,9 +12,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,22 +38,10 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
-    public FloatingActionButton fabReuniao;
-    public FloatingActionButton fabUser;
+    private static SectionsPagerAdapter mSectionsPagerAdapter;
+    private static ViewPager mViewPager;
+    public static FloatingActionButton fabReuniao;
+    public static FloatingActionButton fabUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+
+
         fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
         fabUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +81,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tabLayout.setOnTabSelectedListener( new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
 
+                if(tab.getPosition() == 3) {
+                    MainActivity.fabReuniao.setVisibility(View.INVISIBLE);
+                    MainActivity.fabUser.setVisibility(View.INVISIBLE);
+                } else {
+                    MainActivity.fabReuniao.setVisibility(View.VISIBLE);
+                    MainActivity.fabUser.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     protected void onResume() {
@@ -119,23 +124,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -163,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
             super.onViewStateRestored(savedInstanceState);
+
             //mWebView.restoreState(savedInstanceState);
         }
 
@@ -177,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_evento, container, false);
+
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
@@ -192,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.reverse(membroList);
                     membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
                     listViewMembro.setAdapter(membroCustomAdapter);
+
                     break;
                 case 3:
 
@@ -240,14 +237,11 @@ public class MainActivity extends AppCompatActivity {
                 case 4:
                     rootView = inflater.inflate(R.layout.fragment_chat, container, false);
 
-                    //fabReuniao.setVisibility(View.VISIBLE);
-
                     mWebView = (WebView) rootView.findViewById(R.id.webView);
                     mWebView.getSettings().setJavaScriptEnabled(true);
                     mWebView.getSettings().setDomStorageEnabled(true);
                     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                     mWebView.loadUrl("http://bankbox.net.br/john-deere/watson/");
-
 
 
                     break;
@@ -259,10 +253,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -271,8 +261,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
         }
 
