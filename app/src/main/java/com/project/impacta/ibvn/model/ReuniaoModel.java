@@ -3,49 +3,77 @@ package com.project.impacta.ibvn.model;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by Sebastiao Martins on 12/02/2017.
- */
 
 public class ReuniaoModel {
 
-    private long  codigo;
-    private Calendar data;
-    private String tema;
-    private CelulaModel Celula;
+    private long codReuniao;           // Código da Reunião
+    private String dataReuniao;        // Data da Reunião
+    private String temaReuniao;        // Tema da Reunião
+    private String statusReuniao;      // Status da Reunião
+    private String descricaoReuniao;   // Descrição da Reunião
+
     private int celula_cod;
-    private String status;
 
-    public ReuniaoModel(){};
+    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String statusReuniao, String descricaoReuniao, int celula_cod, CelulaModel celula) {
+        this.codReuniao = codReuniao;
+        this.dataReuniao = dataReuniao;
+        this.temaReuniao = temaReuniao;
+        this.statusReuniao = statusReuniao;
+        this.descricaoReuniao = descricaoReuniao;
+        this.celula_cod = celula_cod;
 
-    public ReuniaoModel(long codigo, Calendar data, String tema, CelulaModel celula, String status) {
-        this.codigo = codigo;
-        this.data = data;
-        this.tema = tema;
-        this.Celula = celula;
-        this.status = status;
     }
 
-    public long getCodigo() {return codigo;}
 
-    public void setCodigo(long codigo) {this.codigo = codigo;}
-
-    public Calendar getData() {return data;}
-
-    public void setData(Calendar data) {this.data = data;}
-
-    public String getTema() {return tema;}
-
-    public void setTema(String tema) {this.tema = tema;}
-
-    public CelulaModel getCelula() {return Celula;}
-
-    public void setCelula(CelulaModel celula) {
-        Celula = celula;
-        celula_cod =  celula.codigo;
+    public long getCodReuniao() {
+        return codReuniao;
     }
 
-    public String getStatus() {return status;}
+    public void setCodReuniao(long codReuniao) {
+        this.codReuniao = codReuniao;
+    }
 
-    public void setStatus(String status) {this.status = status;}
+    public String getDataReuniao() {
+        return dataReuniao;
+    }
+
+    public void setDataReuniao(String dataReuniao) {
+        this.dataReuniao = dataReuniao;
+    }
+
+    public String getTemaReuniao() {
+        return temaReuniao;
+    }
+
+    public void setTemaReuniao(String temaReuniao) {
+        this.temaReuniao = temaReuniao;
+    }
+
+    public String getStatusReuniao() {
+        return statusReuniao;
+    }
+
+    public void setStatusReuniao(String statusReuniao) {
+        this.statusReuniao = statusReuniao;
+    }
+
+    public String getDescricaoReuniao() {
+        return descricaoReuniao;
+    }
+
+    public void setDescricaoReuniao(String descricaoReuniao) {
+        this.descricaoReuniao = descricaoReuniao;
+    }
+
+    public int getCelula_cod() {
+        return celula_cod;
+    }
+
+    public void setCelula_cod(int celula_cod) {
+        this.celula_cod = celula_cod;
+    }
+
+    public ReuniaoModel() {};
+
+
 }

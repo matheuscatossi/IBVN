@@ -101,6 +101,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
         lastPosition = position;
 
         viewHolder.img_reuniao.setImageResource(R.drawable.reuniao_1);
+/*
 
         viewHolder.tv_tema.setText(reuniaoModel.getTema());
         viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
@@ -131,6 +132,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
                 mContext.startActivity(i);
             }
         });
+*/
 
 
         //viewHolder.img_about.setImageResource(R.drawable.about);

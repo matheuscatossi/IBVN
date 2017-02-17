@@ -1,72 +1,128 @@
 package com.project.impacta.ibvn.model;
 
-/**
- * Created by Sebastiao Martins on 12/02/2017.
- */
-
 public class EnderecoModel {
-    int codigo;
-    String tipo;
-    String logradouro;
-    String numero;
-    String cep;
-    String bairro;
-    String cidade;
-    String uf;
-    String complemento;
 
-    public EnderecoModel(){};
+    int codEndereco;              // Código do Endereço
+    String logradouroEndereco;    // Logradouro do Endereço
+    String numeroEndereco;        // Numero do Endereço
+    String cepEndereco;           // Cep do Endereço
+    String complementoEndereco;   // Complemento do Endereço
+    String bairroEndereco;        // Bairro do Endereço
+    String cidadeEndereco;        // Cidade do Endereço
+    String ufEndereco;            // UF do Endereço
 
-    public EnderecoModel(int codigo, String tipo, String logradouro, String numero, String cep, String bairro, String cidade, String uf, String complemento) {
-        this.codigo = codigo;
-        this.tipo = tipo;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.cep = cep;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.uf = uf;
-        this.complemento = complemento;
+    //TIPO DE ENDERECO
+    int codTipoEndereco;          // Codigo Tipo do Endereço
+    String tipoEndereco;          // Nome do Tipo de Endereço
+
+
+    public EnderecoModel(String cepEndereco, String logradouroEndereco, String numeroEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco) {
+        this.cepEndereco = cepEndereco;
+        this.logradouroEndereco = logradouroEndereco;
+        this.numeroEndereco = numeroEndereco;
+        this.bairroEndereco = bairroEndereco;
+        this.cidadeEndereco = cidadeEndereco;
+        this.ufEndereco = ufEndereco;
     }
 
-    public int getCodigo() {return codigo;}
+    public EnderecoModel(int codEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String complementoEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, int codTipoEndereco, String tipoEndereco) {
 
-    public void setCodigo(int codigo) {this.codigo = codigo;}
+        this.codEndereco = codEndereco;
+        this.logradouroEndereco = logradouroEndereco;
+        this.numeroEndereco = numeroEndereco;
+        this.cepEndereco = cepEndereco;
+        this.complementoEndereco = complementoEndereco;
+        this.bairroEndereco = bairroEndereco;
+        this.cidadeEndereco = cidadeEndereco;
+        this.ufEndereco = ufEndereco;
+        this.codTipoEndereco = codTipoEndereco;
+        this.tipoEndereco = tipoEndereco;
 
-    public String getTipo() {return tipo;}
+    }
 
-    public void setTipo(String tipo) {this.tipo = tipo;}
 
-    public String getLogradouro() {return logradouro;}
+    public int getCodEndereco() {
+        return codEndereco;
+    }
 
-    public void setLogradouro(String logradouro) {this.logradouro = logradouro;}
+    public void setCodEndereco(int codEndereco) {
+        this.codEndereco = codEndereco;
+    }
 
-    public String getNumero() {return numero;}
+    public String getLogradouroEndereco() {
+        return logradouroEndereco;
+    }
 
-    public void setNumero(String numero) {this.numero = numero;}
+    public void setLogradouroEndereco(String logradouroEndereco) {
+        this.logradouroEndereco = logradouroEndereco;
+    }
 
-    public String getCep() {return cep;}
+    public String getNumeroEndereco() {
+        return numeroEndereco;
+    }
 
-    public void setCep(String cep) {this.cep = cep;}
+    public void setNumeroEndereco(String numeroEndereco) {
+        this.numeroEndereco = numeroEndereco;
+    }
 
-    public String getBairro() {return bairro;}
+    public String getCepEndereco() {
+        return cepEndereco;
+    }
 
-    public void setBairro(String bairro) {this.bairro = bairro;}
+    public void setCepEndereco(String cepEndereco) {
+        this.cepEndereco = cepEndereco;
+    }
 
-    public String getCidade() {return cidade;}
+    public String getComplementoEndereco() {
+        return complementoEndereco;
+    }
 
-    public void setCidade(String cidade) {this.cidade = cidade;}
+    public void setComplementoEndereco(String complementoEndereco) {
+        this.complementoEndereco = complementoEndereco;
+    }
 
-    public String getUf() {return uf;}
+    public String getBairroEndereco() {
+        return bairroEndereco;
+    }
 
-    public void setUf(String uf) {this.uf = uf;}
+    public void setBairroEndereco(String bairroEndereco) {
+        this.bairroEndereco = bairroEndereco;
+    }
 
-    public String getComplemento() {return complemento;}
+    public String getCidadeEndereco() {
+        return cidadeEndereco;
+    }
 
-    public void setComplemento(String complemento) {this.complemento = complemento;}
+    public void setCidadeEndereco(String cidadeEndereco) {
+        this.cidadeEndereco = cidadeEndereco;
+    }
+
+    public String getUfEndereco() {
+        return ufEndereco;
+    }
+
+    public void setUfEndereco(String ufEndereco) {
+        this.ufEndereco = ufEndereco;
+    }
+
+    public int getCodTipoEndereco() {
+        return codTipoEndereco;
+    }
+
+    public void setCodTipoEndereco(int codTipoEndereco) {
+        this.codTipoEndereco = codTipoEndereco;
+    }
+
+    public String getTipoEndereco() {
+        return tipoEndereco;
+    }
+
+    public void setTipoEndereco(String tipoEndereco) {
+        this.tipoEndereco = tipoEndereco;
+    }
 
     @Override
     public String toString() {
-        return String.format("%s, Nº %s, CEP: %s",this.logradouro,this.numero,this.cep);
+        return String.format("%s, Nº %s, CEP: %s", this.logradouroEndereco, this.numeroEndereco, this.cepEndereco);
     }
 }

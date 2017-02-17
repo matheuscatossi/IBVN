@@ -6,68 +6,33 @@ package com.project.impacta.ibvn.model;
 
 public class CelulaModel {
 
-    int codigo;
-    MembroModel Lider;
-    EnderecoModel Endereco;
-    int endereco_cod;
-    MembroModel criado_por;
-    int criado_por_cod;
+    //CÉLULA
+    int codCelula;                               // Código da Célula
+    int descricaoCelula;                         // Descrição da Célula
+    String criado;                               // Criado em da Célula
+    String atualizado;                           // Atualizado em da Célula
 
-    public CelulaModel( ) {}
+    //CRIADOR
+    int codCriadoPor;                            // Código do membro criador
+    String criadoPor;                            // Nome do membro criador
 
-    public CelulaModel(int codigo, MembroModel lider, EnderecoModel endereco, MembroModel criado_por) {
-        this.codigo = codigo;
-        Lider = lider;
-        Endereco = endereco;
-        this.criado_por = criado_por;
+    //LIDER
+    int codLider;                                // Código do membro Lider
+    String LiderNome;                            // Nome do membro Lider
+
+    //ENDEREÇO
+    String tipoEndereco;                         // Tipo do endereço
+    String logradouroEndereco;                   // Logradouro do endereço
+    String numeroEndereco;                       // Número do endereço
+    String cepEndereco;                          // CEP do endereço
+    String bairroEndereco;                       // Bairro do endereço
+    String cidadeEndereco;                       // Cidade do endereço
+    String ufEndereco;                           // UF do endereço
+    Double latitudeEndereco;                     // Latitude do endereço
+    Double longitudeEndereco;                    // Longitude do endereço
+    String criadoEmEndereco;                     // Data de criação do endereço
+
+
+    public CelulaModel() {
     }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public MembroModel getLider() {
-        return Lider;
-    }
-
-    public void setLider(MembroModel lider) {
-        Lider = lider;
-    }
-
-    public EnderecoModel getEndereco() {
-        return Endereco;
-    }
-
-    public void setEndereco(EnderecoModel endereco) {
-        Endereco = endereco; this.endereco_cod = endereco.codigo;
-    }
-
-    public int getEndereco_id() {
-        return endereco_cod;
-    }
-
-    public void setEndereco_id(int endereco_cod) {this.endereco_cod = endereco_cod;}
-
-    public MembroModel getCriado_por() {
-        return criado_por;
-    }
-
-    public void setCriado_por(MembroModel criado_por) {
-        this.criado_por = criado_por;
-
-        this.criado_por_cod = criado_por.codMembro;
-    }
-
-    public int getId_criado_por() {
-        return criado_por_cod;
-    }
-
-    public void setId_criado_por(int criado_po_cod) {
-        this.criado_por_cod = criado_po_cod;
-    }
-
 }

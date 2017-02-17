@@ -224,8 +224,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
                     reuniaoList = new ArrayList<>();
 
-                    MembroModel lider = new MembroModel(1, "João José", "jj@jj.com.br", "M");
-                    CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(), lider);
+                   // MembroModel lider = new MembroModel(1, "João José", "jj@jj.com.br", "M");
+                    //CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(), lider);
+/*
 
                     reuniaoList.add(new ReuniaoModel(
                             1,
@@ -256,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             celula,
                             "Novo")
                     );
+*/
 
                     Collections.reverse(reuniaoList);
                     reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());
