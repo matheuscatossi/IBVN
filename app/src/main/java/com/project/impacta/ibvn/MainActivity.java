@@ -1,5 +1,6 @@
 package com.project.impacta.ibvn;
 
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    public FloatingActionButton fabReuniao;
+    public FloatingActionButton fabUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
+        fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
         fabUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,20 +80,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
+        fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
         fabReuniao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Adicionar Reuniao - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        FloatingActionButton fabEvento = (FloatingActionButton) findViewById(R.id.fabEvento);
-        fabEvento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Adicionar Evento - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -156,6 +151,21 @@ public class MainActivity extends AppCompatActivity {
         MembroCustomAdapter membroCustomAdapter;
         ReuniaoCustomAdapter reuniaoCustomAdapter;
 
+        // Chat
+        public WebView mWebView;
+
+        @Override
+        public void onSaveInstanceState(Bundle outState) {
+            super.onSaveInstanceState(outState);
+            //mWebView.saveState(outState);
+        }
+
+        @Override
+        public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+            super.onViewStateRestored(savedInstanceState);
+            //mWebView.restoreState(savedInstanceState);
+        }
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -173,12 +183,11 @@ public class MainActivity extends AppCompatActivity {
                     listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
                     membroList = new ArrayList<>();
 
-                    membroList.add(new MembroModel(1, "João José", "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br", "x", 2));
-                    membroList.add(new MembroModel(1, "Cesar Astolfo", "M", 1, "Rua Fernandez Palero", "15095785870", "castolfo@hotmail.com", "x", 2));
-                    membroList.add(new MembroModel(1, "Carlos Junior", "M", 1, "Rua Fernandez Palero", "15095785870", "carlosj@gmail.com", "x", 2));
-                    membroList.add(new MembroModel(1, "Maria de Fatima", "F", 1, "Rua Fernandez Palero", "15095785870", "mrfcatossi@terra.com.br", "x", 2));
-                    membroList.add(new MembroModel(1, "Matheus Catossi", "M", 1, "Rua Fernandez Palero", "45084552802", "matheuscatossi@gmail.com", "x", 2));
-
+                    membroList.add(new MembroModel(1, "João José", "jj@jj.com.br", "M"));
+                    membroList.add(new MembroModel(1, "Cesar Astolfo", "castolfo@hotmail.com", "M"));
+                    membroList.add(new MembroModel(1, "Carlos Junior", "carlosj@gmail.com", "M"));
+                    membroList.add(new MembroModel(1, "Maria de Fatima", "mrfcatossi@terra.com.br", "F"));
+                    membroList.add(new MembroModel(1, "Matheus Catossi", "matheuscatossi@gmail.com", "M"));
 
                     Collections.reverse(membroList);
                     membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
@@ -189,8 +198,9 @@ public class MainActivity extends AppCompatActivity {
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
                     reuniaoList = new ArrayList<>();
-                    MembroModel lider = new MembroModel(1, "João José", "M", 1, "Rua Fernandez Palero", "15095785870", "jj@jj.com.br", "x", 2);
-                    CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(1,"Tipo?","R morrinhos","2","06246-090","Munhoz Junior","Osasco","SP","Casa"), lider);
+
+                    MembroModel lider = new MembroModel(1, "João José", "jj@jj.com.br", "M");
+                    CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(), lider);
 
                     reuniaoList.add(new ReuniaoModel(
                             1,
@@ -227,8 +237,22 @@ public class MainActivity extends AppCompatActivity {
                     listViewReuniao.setAdapter(reuniaoCustomAdapter);
 
                     break;
+                case 4:
+                    rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+
+                    //fabReuniao.setVisibility(View.VISIBLE);
+
+                    mWebView = (WebView) rootView.findViewById(R.id.webView);
+                    mWebView.getSettings().setJavaScriptEnabled(true);
+                    mWebView.getSettings().setDomStorageEnabled(true);
+                    mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                    mWebView.loadUrl("http://bankbox.net.br/john-deere/watson/");
+
+
+
+                    break;
                 default:
-                    rootView = inflater.inflate(R.layout.fragment_membro, container, false);
+                    rootView = inflater.inflate(R.layout.fragment_evento, container, false);
                     break;
             }
             return rootView;
@@ -255,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -267,6 +291,8 @@ public class MainActivity extends AppCompatActivity {
                     return "MEMBROS";
                 case 2:
                     return "REUNIÕES";
+                case 3:
+                    return "CHAT";
             }
             return null;
         }

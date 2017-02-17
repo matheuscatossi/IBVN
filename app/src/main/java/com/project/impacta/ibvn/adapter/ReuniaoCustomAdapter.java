@@ -124,9 +124,9 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
                 i.putExtra("tema", String.valueOf(reuniaoModel.getTema()));
                 i.putExtra("data", String.valueOf(sdf.format(data)));
                 i.putExtra("endereco", String.valueOf(reuniaoModel.getCelula().getEndereco().toString()));
-                i.putExtra("lider", String.valueOf(reuniaoModel.getCelula().getLider().getNome()));
-                i.putExtra("lider_email", String.valueOf(reuniaoModel.getCelula().getLider().getEmail()));
-                i.putExtra("agendado_por", String.valueOf(reuniaoModel.getCelula().getCriado_por().getNome()));
+                i.putExtra("lider", String.valueOf(reuniaoModel.getCelula().getLider().getNomeMembro()));
+                i.putExtra("lider_email", String.valueOf(reuniaoModel.getCelula().getLider().getEmailMembro()));
+                i.putExtra("agendado_por", String.valueOf(reuniaoModel.getCelula().getCriado_por().getNomeMembro()));
 
                 mContext.startActivity(i);
             }

@@ -58,7 +58,8 @@ public class CelulaModel {
 
     public void setCriado_por(MembroModel criado_por) {
         this.criado_por = criado_por;
-        this.criado_por_cod = criado_por.codigo;
+
+        this.criado_por_cod = criado_por.codMembro;
     }
 
     public int getId_criado_por() {

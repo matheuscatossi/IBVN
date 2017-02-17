@@ -97,31 +97,23 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
         lastPosition = position;
 
 
-        if(membroModel.getSexo().equals("M")) {
+        if(membroModel.getSexoMembro().equals("M")) {
             viewHolder.img_user.setImageResource(R.drawable.user_m);
         } else {
             viewHolder.img_user.setImageResource(R.drawable.user_f);
         }
 
-        viewHolder.tv_nome.setText(membroModel.getNome());
+        viewHolder.tv_nome.setText(membroModel.getNomeMembro());
         viewHolder.tv_nome.setTypeface(null, Typeface.BOLD);
 
-        viewHolder.tv_email.setText(membroModel.getEmail());
+        viewHolder.tv_email.setText(membroModel.getEmailMembro());
 
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, InfoMembroActivity.class);
 
-                i.putExtra("codigo",      String.valueOf(membroModel.getCodigo()));
-                i.putExtra("celula",      String.valueOf(membroModel.getCelula()));
-                i.putExtra("codigoLider", String.valueOf(membroModel.getCodigoLider()));
-                i.putExtra("cpf",         String.valueOf(membroModel.getCpf()));
-                i.putExtra("nome",        String.valueOf(membroModel.getNome()));
-                i.putExtra("sexo",        String.valueOf(membroModel.getSexo()));
-                i.putExtra("endereco",    String.valueOf(membroModel.getEndereco()));
-                i.putExtra("email",       String.valueOf(membroModel.getEmail()));
-                i.putExtra("tipo",        String.valueOf(membroModel.getTipo()));
+                i.putExtra("codigoMembro",      String.valueOf(membroModel.getCodMembro()));
 
                 mContext.startActivity(i);
             }

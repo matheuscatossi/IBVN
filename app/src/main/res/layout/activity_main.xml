@@ -61,19 +61,5 @@
         app:layout_anchor="@id/fabReuniao"
         app:layout_anchorGravity="top" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:src="@drawable/evento"
-        app:layout_anchor="@id/fabUser"
-        app:layout_anchorGravity="top" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,12 +1,17 @@
 package com.project.impacta.ibvn;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class InfoMembroActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,50 +19,49 @@ public class InfoMembroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_membro);
 
         Intent myIntent     = getIntent();
-        String codigo       = myIntent.getStringExtra("codigo");
-        String celula       = myIntent.getStringExtra("celula");
-        String codigoLider  = myIntent.getStringExtra("codigoLider");
-        String cpf          = myIntent.getStringExtra("cpf");
-        String nome         = myIntent.getStringExtra("nome");
-        String endereco     = myIntent.getStringExtra("endereco");
-        String email        = myIntent.getStringExtra("email");
-        String tipo         = myIntent.getStringExtra("tipo");
-        String sexo         = myIntent.getStringExtra("sexo");
 
-        ImageView img_user = (ImageView) findViewById(R.id.img_user);
-        if(sexo.equals("M")) {
-            img_user.setImageResource(R.drawable.user_m);
-        } else {
-            img_user.setImageResource(R.drawable.user_f);
-        }
+        String codigoMembro = myIntent.getStringExtra("codigoMembro");
 
-        TextView tv_nome = (TextView) findViewById(R.id.tv_nome);
-        tv_nome.setText(nome);
+        /*
+            Exemplo de membro
+         */
+        int codMembro                    = 1;
+        String nomeMembro                = "Matheus Catossi";
+        String sexoMembro                = "M";
+        String cpfMembro                 = "45084552802";
+        String emailMembro               = "matheuscatossi@gmail.com";
+        int codCriadoPor                 =  1;
+        String criadoPor                 = "Matheus Líder";
+        String statusMembro              = "Fiel";
+        String telefoneMembro            = "11 2556 5250";
+        String celularMembro             = "11 958 524 104";
+        String criado                    = "16/02/2017";
+        String atualizado                = "16/02/2017";
 
-        TextView tv_email = (TextView) findViewById(R.id.tv_email);
-        tv_email.setText(email);
+        String tipoEndereco              = "Rua";
+        String logradouroEndereco        = "Fernandez Palero";
+        String numeroEndereco            = "225";
+        String cepEndereco               =  "08465120";
+        String bairroEndereco            = "Guaianazes";
+        String cidadeEndereco            = "São Paulo";
+        String ufEndereco                = "SP";
+        Double latitudeEndereco          = 26.12312321;
+        Double longitudeEndereco         = 46.43242344;
+        String criadoEmEndereco          = "16/02/2017";
 
-        TextView tv_endereco = (TextView) findViewById(R.id.tv_endereco);
-        tv_endereco.setText(endereco);
+        int codCelula                    = 1;
+        int codLider                     = 1;
+        String nomeLider                 = "Matheus Líder";
+        String criadoEmCelula            = "16/02/2017";
 
-        TextView tv_codigo = (TextView) findViewById(R.id.codigo);
-        tv_codigo.setText("x"+ codigo);
-
-        TextView tv_celula = (TextView) findViewById(R.id.celula);
-        tv_celula.setText(celula);
-
-        TextView tv_codigo_lider = (TextView) findViewById(R.id.codigoLider);
-        tv_codigo_lider.setText(codigoLider);
-
-        TextView tv_cpf = (TextView) findViewById(R.id.cpf);
-        tv_cpf.setText(cpf);
-
-        TextView tv_tipo = (TextView) findViewById(R.id.tipo);
-        tv_tipo.setText(tipo);
-
-        TextView tv_sexo = (TextView) findViewById(R.id.sexo);
-        tv_sexo.setText("x"+sexo+"x");
-
+        FloatingActionButton fabEditar = (FloatingActionButton) findViewById(R.id.fabEditar);
+        fabEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Editar membro - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
     }
 }
