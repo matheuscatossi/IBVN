@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
+    android:clickable="false"
     tools:context="com.project.impacta.ibvn.SplashScreenActivity">
 
     <ImageView
