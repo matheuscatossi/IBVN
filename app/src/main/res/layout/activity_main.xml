@@ -10,7 +10,7 @@
     tools:context="com.project.impacta.ibvn.MainActivity"
     tools:openDrawer="start">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout
 
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -71,7 +71,8 @@
             app:layout_anchor="@id/fabReuniao"
             app:layout_anchorGravity="top"
             app:elevation="8dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"/>
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

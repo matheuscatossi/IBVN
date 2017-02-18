@@ -2,19 +2,24 @@ package com.project.impacta.ibvn.model;
 
 public class EnderecoModel {
 
-    int codEndereco;              // Código do Endereço
-    String logradouroEndereco;    // Logradouro do Endereço
-    String numeroEndereco;        // Numero do Endereço
-    String cepEndereco;           // Cep do Endereço
-    String complementoEndereco;   // Complemento do Endereço
-    String bairroEndereco;        // Bairro do Endereço
-    String cidadeEndereco;        // Cidade do Endereço
-    String ufEndereco;            // UF do Endereço
+    private int codEndereco;              // Código do Endereço
+    private String logradouroEndereco;    // Logradouro do Endereço
+    private String numeroEndereco;        // Numero do Endereço
+    private String cepEndereco;           // Cep do Endereço
+    private String complementoEndereco;   // Complemento do Endereço
+    private String bairroEndereco;        // Bairro do Endereço
+    private String cidadeEndereco;        // Cidade do Endereço
+    private String ufEndereco;            // UF do Endereço
+    private String latitudeEndereco;      // Latitude do Endereço
+    private String longitudeEndereco;     // Logitude do Endereço
 
     //TIPO DE ENDERECO
-    int codTipoEndereco;          // Codigo Tipo do Endereço
-    String tipoEndereco;          // Nome do Tipo de Endereço
+    private int codTipoEndereco;          // Codigo Tipo do Endereço
+    private String tipoEndereco;          // Nome do Tipo de Endereço
 
+
+    public EnderecoModel() {
+    }
 
     public EnderecoModel(String cepEndereco, String logradouroEndereco, String numeroEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco) {
         this.cepEndereco = cepEndereco;
@@ -25,7 +30,7 @@ public class EnderecoModel {
         this.ufEndereco = ufEndereco;
     }
 
-    public EnderecoModel(int codEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String complementoEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, int codTipoEndereco, String tipoEndereco) {
+    public EnderecoModel(int codEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String complementoEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, int codTipoEndereco, String tipoEndereco, String latitudeEndereco, String longitudeEndereco) {
 
         this.codEndereco = codEndereco;
         this.logradouroEndereco = logradouroEndereco;
@@ -37,6 +42,8 @@ public class EnderecoModel {
         this.ufEndereco = ufEndereco;
         this.codTipoEndereco = codTipoEndereco;
         this.tipoEndereco = tipoEndereco;
+        this.latitudeEndereco = latitudeEndereco;
+        this.longitudeEndereco = longitudeEndereco;
 
     }
 
@@ -120,6 +127,24 @@ public class EnderecoModel {
     public void setTipoEndereco(String tipoEndereco) {
         this.tipoEndereco = tipoEndereco;
     }
+
+
+    public String getLatitudeEndereco() {
+        return latitudeEndereco;
+    }
+
+    public void setLatitudeEndereco(String latitudeEndereco) {
+        this.latitudeEndereco = latitudeEndereco;
+    }
+
+    public String getLongitudeEndereco() {
+        return longitudeEndereco;
+    }
+
+    public void setLongitudeEndereco(String longitudeEndereco) {
+        this.longitudeEndereco = longitudeEndereco;
+    }
+
 
     @Override
     public String toString() {

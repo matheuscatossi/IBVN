@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setupWithViewPager(mViewPager);
 
 
-
         fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
         fabUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +85,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        tabLayout.setOnTabSelectedListener( new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 super.onTabSelected(tab);
 
-                if(tab.getPosition() == 3) {
+                if (tab.getPosition() == 3) {
                     MainActivity.fabReuniao.setVisibility(View.INVISIBLE);
                     MainActivity.fabUser.setVisibility(View.INVISIBLE);
                 } else {
@@ -142,10 +141,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.sobre) {
-            //Intent i = new Intent(this, ContatoActivity.class);
-            //startActivity(i);
-        }
+//        if (id == R.id.sobre) {
+//            //Intent i = new Intent(this, ContatoActivity.class);
+//            //startActivity(i);
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -218,46 +217,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     listViewMembro.setAdapter(membroCustomAdapter);
 
                     break;
+
                 case 3:
 
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
                     reuniaoList = new ArrayList<>();
 
-                   // MembroModel lider = new MembroModel(1, "João José", "jj@jj.com.br", "M");
-                    //CelulaModel celula = new CelulaModel(1, lider, new EnderecoModel(), lider);
-/*
+                    MembroModel membroLider = new MembroModel(1, "João José", "jj@jj.com.br", "M");
+                    EnderecoModel endereco = new EnderecoModel("06246090", "R:Morrinhos", "2", "Munhooz Junior", "Osasco", "SP");
+                    CelulaModel celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco);
 
-                    reuniaoList.add(new ReuniaoModel(
-                            1,
-                            Calendar.getInstance(),
-                            "Jovem em cristo",
-                            celula,
-                            "Novo")
+                    reuniaoList.add(
+                            new ReuniaoModel(1, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
+                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                            )
                     );
 
-                    reuniaoList.add(new ReuniaoModel(
-                            2,
-                            Calendar.getInstance(),
-                            "Assembléia com Deus",
-                            celula,
-                            "Novo")
+                    reuniaoList.add(
+                            new ReuniaoModel(2, "25/03/2017", "Vida em Cristo", "Nova", "Entender como a vida pode ser bem vivida quando estamos com deus."
+                                    , new CelulaModel(1, "Célula Irmão Tiago", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                            )
                     );
-                    reuniaoList.add(new ReuniaoModel(
-                            3,
-                            Calendar.getInstance(),
-                            "Novos Membros",
-                            celula,
-                            "Novo")
+
+                    reuniaoList.add(
+                            new ReuniaoModel(3, "21/04/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
+                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                            )
                     );
-                    reuniaoList.add(new ReuniaoModel(
-                            4,
-                            Calendar.getInstance(),
-                            "Domingo Evangelizador",
-                            celula,
-                            "Novo")
+
+                    reuniaoList.add(
+                            new ReuniaoModel(4, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
+                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                            )
                     );
-*/
+
 
                     Collections.reverse(reuniaoList);
                     reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());

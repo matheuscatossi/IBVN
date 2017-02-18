@@ -12,16 +12,98 @@ public class ReuniaoModel {
     private String statusReuniao;      // Status da Reunião
     private String descricaoReuniao;   // Descrição da Reunião
 
-    private int celula_cod;
+    //CÉLULA
+    private CelulaModel celulaReuniao;
 
-    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String statusReuniao, String descricaoReuniao, int celula_cod, CelulaModel celula) {
+    public ReuniaoModel() {
+    }
+
+    /*Contrutor full - todos os valores são passados via parametros*/
+    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String statusReuniao, String descricaoReuniao, int codCelula, String descricaoCelula, int codMenbroCriador, String nomeMembrocriador, int codMembroLider, String nomeMembroLider, String tipoEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, String latitudeEndereco, String longitudeEndereco) {
+
+        this.celulaReuniao = new CelulaModel();
+        this.celulaReuniao.setMembroCriador(new MembroModel());
+        this.celulaReuniao.setMembroLider(new MembroModel());
+        this.celulaReuniao.setEnderecoCelula(new EnderecoModel());
+
+        ///REUNIAO
         this.codReuniao = codReuniao;
         this.dataReuniao = dataReuniao;
         this.temaReuniao = temaReuniao;
         this.statusReuniao = statusReuniao;
         this.descricaoReuniao = descricaoReuniao;
-        this.celula_cod = celula_cod;
 
+        //CELULA
+        this.celulaReuniao.setCodCelula(codCelula);
+        this.celulaReuniao.setDescricaoCelula(descricaoCelula);
+
+
+        //MEMBRO CRIADOR
+        this.celulaReuniao.getMembroCriador().codMembro = codMenbroCriador;
+        this.celulaReuniao.getMembroCriador().nomeMembro = nomeMembrocriador;
+
+        //MEMBRO LIDER
+        this.celulaReuniao.getMembroLider().codMembro = codMembroLider;
+        this.celulaReuniao.getMembroLider().nomeMembro = nomeMembroLider;
+
+        this.celulaReuniao.getEnderecoCelula().setTipoEndereco(tipoEndereco);
+        this.celulaReuniao.getEnderecoCelula().setLogradouroEndereco(logradouroEndereco);
+        this.celulaReuniao.getEnderecoCelula().setNumeroEndereco(numeroEndereco);
+        this.celulaReuniao.getEnderecoCelula().setCepEndereco(cepEndereco);
+        this.celulaReuniao.getEnderecoCelula().setBairroEndereco(bairroEndereco);
+        this.celulaReuniao.getEnderecoCelula().setCidadeEndereco(cidadeEndereco);
+        this.celulaReuniao.getEnderecoCelula().setUfEndereco(ufEndereco);
+        this.celulaReuniao.getEnderecoCelula().setLatitudeEndereco(latitudeEndereco);
+        this.celulaReuniao.getEnderecoCelula().setLongitudeEndereco(longitudeEndereco);
+
+    }
+
+
+    /*
+    * Construtor utilizado para carregadar dados para a lista
+    * */
+    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String descricaoCelula, String nomeMembrocriador, String nomeMembroLider, String logradouroEndereco, String numeroEndereco, String cepEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco) {
+
+        this.celulaReuniao = new CelulaModel();
+        this.celulaReuniao.setMembroCriador(new MembroModel());
+        this.celulaReuniao.setMembroLider(new MembroModel());
+        this.celulaReuniao.setEnderecoCelula(new EnderecoModel());
+
+        //REUNIAO
+        this.codReuniao = codReuniao;
+        this.dataReuniao = dataReuniao;
+        this.temaReuniao = temaReuniao;
+
+
+        //CELULA
+        this.celulaReuniao.setDescricaoCelula(descricaoCelula);
+
+
+        //MEMBRO CRIADOR
+        this.celulaReuniao.getMembroCriador().nomeMembro = nomeMembrocriador;
+
+        //MEMBRO LIDER
+        this.celulaReuniao.getMembroLider().nomeMembro = nomeMembroLider;
+
+        //ENDECEREO CELULA
+        this.celulaReuniao.getEnderecoCelula().setLogradouroEndereco(logradouroEndereco);
+        this.celulaReuniao.getEnderecoCelula().setNumeroEndereco(numeroEndereco);
+        this.celulaReuniao.getEnderecoCelula().setCepEndereco(cepEndereco);
+        this.celulaReuniao.getEnderecoCelula().setBairroEndereco(bairroEndereco);
+        this.celulaReuniao.getEnderecoCelula().setCidadeEndereco(cidadeEndereco);
+        this.celulaReuniao.getEnderecoCelula().setUfEndereco(ufEndereco);
+    }
+
+    /*
+    * Contrutor padrão utilizando model para relacionamento.
+    * */
+    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String statusReuniao, String descricaoReuniao, CelulaModel celulaReuniao) {
+        this.codReuniao = codReuniao;
+        this.dataReuniao = dataReuniao;
+        this.temaReuniao = temaReuniao;
+        this.statusReuniao = statusReuniao;
+        this.descricaoReuniao = descricaoReuniao;
+        this.celulaReuniao = celulaReuniao;
     }
 
 
@@ -65,15 +147,11 @@ public class ReuniaoModel {
         this.descricaoReuniao = descricaoReuniao;
     }
 
-    public int getCelula_cod() {
-        return celula_cod;
+    public CelulaModel getCelulaReuniao() {
+        return celulaReuniao;
     }
 
-    public void setCelula_cod(int celula_cod) {
-        this.celula_cod = celula_cod;
+    public void setCelulaReuniao(CelulaModel celulaReuniao) {
+        this.celulaReuniao = celulaReuniao;
     }
-
-    public ReuniaoModel() {};
-
-
 }
