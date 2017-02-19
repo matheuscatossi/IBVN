@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageViewK
+        <ImageView
             android:id="@+id/img_reuniao"
             android:layout_width="100dp"
             android:layout_height="100dp" />
@@ -76,14 +76,13 @@
         android:background="#33aa66" />
 
     <LinearLayout
-        android:layout_width="345dp"
-        android:layout_height="117dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        android:layout_weight="0.88">
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="258dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -94,32 +93,18 @@
 
                 <TextView
                     android:id="@+id/info_reuniao_label_celula"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Célula: "
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/info_reuniao_tv_celula"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:text="TESTE"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/info_reuniao_label_lider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Líder: "
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/info_reuniao_tv_lider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="José Edinaldo"
-                    android:textSize="16sp" />
+                    android:text="TESTE"
+                    android:textSize="22sp" />
 
             </LinearLayout>
 
@@ -135,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:text="Rua: "
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -158,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:text="Bairro: "
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -168,7 +155,6 @@
                     android:textSize="16sp" />
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="257dp"
@@ -182,6 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:text="Cidade: "
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -194,7 +181,6 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
@@ -206,6 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:text="Cep: "
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
