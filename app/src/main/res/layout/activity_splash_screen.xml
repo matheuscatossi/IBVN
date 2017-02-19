@@ -4,25 +4,49 @@
     android:id="@+id/activity_splash_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/background"
     android:clickable="false"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
     tools:context="com.project.impacta.ibvn.SplashScreenActivity">
 
-    <ImageView
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgLogo"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ibvn_logo"/>
+        android:background="@drawable/border_linear"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textSize="16dp"
-        android:textColor="#454545"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:text="www.npsoftwares.com.br"/>
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:id="@+id/imgLogo"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ibvn_logo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textSize="12dp"
+            android:textColor="#292929"
+            android:text="Powered by"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="#292929"
+            android:text="npsoftwares.com.br"/>
+        
+    </LinearLayout>
 
 </RelativeLayout>

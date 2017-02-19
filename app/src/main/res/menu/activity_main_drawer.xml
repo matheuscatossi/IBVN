@@ -2,11 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/configuracoes"
+            android:icon="@drawable/configuracoes"
+            android:title="Configurações" />
+
+        <item
+            android:id="@+id/mensagem"
+            android:icon="@drawable/mensagem"
+            android:title="Enviar mensagem" />
+
         <item
             android:id="@+id/sobre"
-            android:icon="@drawable/about"
-            android:title="Sobre" />
+            android:icon="@drawable/contato"
+            android:title="Contato IBVN" />
 
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/sair"
+            android:title="Sair" />
     </group>
 
 

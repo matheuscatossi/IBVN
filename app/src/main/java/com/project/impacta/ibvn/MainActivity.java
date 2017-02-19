@@ -265,8 +265,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mWebView.getSettings().setJavaScriptEnabled(true);
                     mWebView.getSettings().setDomStorageEnabled(true);
                     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-                    mWebView.loadUrl("http://bankbox.net.br/john-deere/watson/");
-
+                    mWebView.loadUrl("http://bankbox.net.br/ibvn/watson/index.htm");
 
                     break;
                 default:
