@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.sugestoes) {
+            Intent i = new Intent(this, SugestoesActivity.class);
+            startActivity(i);
             return true;
         }
 
