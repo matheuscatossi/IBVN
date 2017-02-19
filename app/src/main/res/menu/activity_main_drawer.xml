@@ -15,7 +15,7 @@
             android:title="Enviar mensagem" />
 
         <item
-            android:id="@+id/sobre"
+            android:id="@+id/contato"
             android:icon="@drawable/contato"
             android:title="Contato IBVN" />
 

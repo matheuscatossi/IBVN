@@ -16,9 +16,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InfoMembroActivity"
+            android:label="INFORMAÇÕES"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="INFORMAÇÕES" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".InfoReuniaoActivity">
             android:label="REUNIÃO"
         </activity>
@@ -37,7 +37,14 @@
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ManterMembroActivity"></activity>
+        <activity android:name=".ManterMembroActivity"
+            android:label="MEMBRO"/>
+        <activity android:name=".ConfiguracoesActivity"
+            android:label="CONFIGURAÇÕES"/>
+        <activity android:name=".MensagemActivity"
+            android:label="MENSAGEM"/>
+        <activity android:name=".ContatoActivity"
+            android:label="CONTATO IBVN"></activity>
     </application>
 
 </manifest>

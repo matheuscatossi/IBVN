@@ -1,5 +1,6 @@
 package com.project.impacta.ibvn;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.sugestoes) {
             return true;
         }
 
@@ -140,10 +141,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        //if (id == R.id.sobre) {
-        //  Intent i = new Intent(this, ContatoActivity.class);
-        //  startActivity(i);
-        //}
+        if (id == R.id.configuracoes) {
+          Intent i = new Intent(this, ConfiguracoesActivity.class);
+          startActivity(i);
+        } else if (id == R.id.contato) {
+            Intent i = new Intent(this, ContatoActivity.class);
+            startActivity(i);
+        } else if (id == R.id.mensagem) {
+            Intent i = new Intent(this, MensagemActivity.class);
+            startActivity(i);
+        } else if (id == R.id.logout) {
+            finish();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
