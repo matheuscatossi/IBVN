@@ -37,7 +37,6 @@ public class ReuniaoModel {
         this.celulaReuniao.setCodCelula(codCelula);
         this.celulaReuniao.setDescricaoCelula(descricaoCelula);
 
-
         //MEMBRO CRIADOR
         this.celulaReuniao.getMembroCriador().codMembro = codMenbroCriador;
         this.celulaReuniao.getMembroCriador().nomeMembro = nomeMembrocriador;

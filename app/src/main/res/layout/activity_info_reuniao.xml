@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <ImageViewK
             android:id="@+id/img_reuniao"
             android:layout_width="100dp"
             android:layout_height="100dp" />
@@ -34,73 +34,209 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Data:"
+                android:textSize="12sp" />
+
+            <TextView
                 android:id="@+id/tv_data"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="14dp" />
-
+                android:textSize="14sp" />
 
 
         </LinearLayout>
     </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Local"
+        android:textColor="#33aa66"
+        android:textSize="15sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="1dp"
         android:background="#33aa66" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_width="345dp"
+        android:layout_height="117dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:layout_weight="0.88">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Local:"
-                android:textSize="12dp" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_endereco"
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/info_reuniao_label_celula"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="Célula: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/info_reuniao_tv_celula"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="TESTE"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/info_reuniao_label_lider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Líder: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/info_reuniao_tv_lider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="José Edinaldo"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="259dp"
                 android:layout_height="wrap_content"
-                android:textSize="16dp" />
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/info_reuniao_label_endereco_rua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:text="Rua: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/info_reuniao_tv_endereco_rua"
+                    android:layout_width="198dp"
+                    android:layout_height="wrap_content"
+                    android:text="R Morrinhos"
+                    android:textSize="16sp"
+                    android:layout_weight="0.09" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="258dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/info_reuniao_label_endereco_bairro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:text="Bairro: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/info_reuniao_tv_endereco_bairro"
+                    android:layout_width="187dp"
+                    android:layout_height="wrap_content"
+                    android:text="Munhoz Júnior"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="257dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/info_reuniao_label_endereco_cidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:text="Cidade: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/info_reuniao_tv_endereco_cidade"
+                    android:layout_width="176dp"
+                    android:layout_height="wrap_content"
+                    android:text="Osasco"
+                    android:textSize="16sp"
+                    android:layout_weight="0.15" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/info_reuniao_label_endereco_cep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:text="Cep: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/info_reuniao_tv_endereco_cep"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="06246-090"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="20dp"
-            android:layout_weight="2"
-            android:gravity="right">
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/maps" />
         </LinearLayout>
+
     </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"

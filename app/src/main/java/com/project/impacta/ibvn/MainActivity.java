@@ -214,34 +214,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case 3:
 
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
+
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
                     reuniaoList = new ArrayList<>();
 
-                    MembroModel membroLider = new MembroModel(1, "João José", "jj@jj.com.br", "M");
+                    MembroModel membroLider = new MembroModel(1, "João José", "jj@gmail.com.br", "M");
+                    MembroModel membroCriador = new MembroModel(1, "Edinaldo Santos", "ed@gmail.com.br", "M");
                     EnderecoModel endereco = new EnderecoModel("06246090", "R:Morrinhos", "2", "Munhooz Junior", "Osasco", "SP");
-                    CelulaModel celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco);
+                    CelulaModel celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco);
 
                     reuniaoList.add(
                             new ReuniaoModel(1, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
-                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
                             )
                     );
 
                     reuniaoList.add(
                             new ReuniaoModel(2, "25/03/2017", "Vida em Cristo", "Nova", "Entender como a vida pode ser bem vivida quando estamos com deus."
-                                    , new CelulaModel(1, "Célula Irmão Tiago", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                                    , new CelulaModel(1, "Célula Irmão Tiago", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
                             )
                     );
 
                     reuniaoList.add(
                             new ReuniaoModel(3, "21/04/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
-                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
                             )
                     );
 
                     reuniaoList.add(
                             new ReuniaoModel(4, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
-                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroLider, membroLider, endereco)
+                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
                             )
                     );
 
