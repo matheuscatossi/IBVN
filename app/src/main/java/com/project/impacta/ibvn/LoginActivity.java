@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Created by Matheus on 19/02/2017.
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     Button btn_acessar;
@@ -26,7 +30,5 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 }

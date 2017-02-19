@@ -31,7 +31,6 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
     private ArrayList<ReuniaoModel> dataSet;
     private Context mContext;
 
-    // View lookup cache
     private static class ViewHolder {
         ImageView img_reuniao;
         TextView tv_tema;
@@ -53,9 +52,6 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
         Object object = getItem(position);
         ReuniaoModel reuniaoModel = (ReuniaoModel) object;
 
-//        switch (v.getId()) {
-//
-//        }
     }
 
     private int lastPosition = -1;

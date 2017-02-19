@@ -10,27 +10,27 @@ public class CelulaModel {
 
     //CRIADOR
     private MembroModel membroCriador;
-//    int codCriadoPor;                            // Código do membro criador
-//    String criadoPor;                            // Nome do membro criador
+    //    int codCriadoPor;                            // Código do membro criador
+    //    String criadoPor;                            // Nome do membro criador
 
     //LIDER
     private MembroModel membroLider;
-//    int codLider;                                // Código do membro Lider
-//    String LiderNome;                            // Nome do membro Lider
+    //    int codLider;                                // Código do membro Lider
+    //    String LiderNome;                            // Nome do membro Lider
 
     //ENDEREÇO
     private EnderecoModel enderecoCelula;
 
-//    String tipoEndereco;                         // Tipo do endereço
-//    String logradouroEndereco;                   // Logradouro do endereço
-//    String numeroEndereco;                       // Número do endereço
-//    String cepEndereco;                          // CEP do endereço
-//    String bairroEndereco;                       // Bairro do endereço
-//    String cidadeEndereco;                       // Cidade do endereço
-//    String ufEndereco;                           // UF do endereço
-//    Double latitudeEndereco;                     // Latitude do endereço
-//    Double longitudeEndereco;                    // Longitude do endereço
-//    String criadoEmEndereco;                     // Data de criação do endereço
+    //    String tipoEndereco;                         // Tipo do endereço
+    //    String logradouroEndereco;                   // Logradouro do endereço
+    //    String numeroEndereco;                       // Número do endereço
+    //    String cepEndereco;                          // CEP do endereço
+    //    String bairroEndereco;                       // Bairro do endereço
+    //    String cidadeEndereco;                       // Cidade do endereço
+    //    String ufEndereco;                           // UF do endereço
+    //    Double latitudeEndereco;                     // Latitude do endereço
+    //    Double longitudeEndereco;                    // Longitude do endereço
+    //    String criadoEmEndereco;                     // Data de criação do endereço
 
 
     public CelulaModel() {

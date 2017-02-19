@@ -29,7 +29,6 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
     private ArrayList<MembroModel> dataSet;
     Context mContext;
 
-    // View lookup cache
     private static class ViewHolder {
         ImageView img_user;
         ImageView img_about;
@@ -52,13 +51,6 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
         Object object= getItem(position);
         MembroModel membroModel = (MembroModel) object;
 
-        switch (v.getId())
-        {
-            /*case R.id.item_info:
-                Snackbar.make(v, "Release date " +extratoListModel.getFeature(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;*/
-        }
     }
 
     private int lastPosition = -1;
@@ -118,9 +110,6 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
                 mContext.startActivity(i);
             }
         });
-
-
-        //viewHolder.img_about.setImageResource(R.drawable.about);
 
         return convertView;
     }

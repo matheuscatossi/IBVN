@@ -41,6 +41,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+/**
+ * Created by Matheus on 12/02/2017.
+ */
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static SectionsPagerAdapter mSectionsPagerAdapter;
@@ -124,12 +128,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -139,12 +139,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-//        if (id == R.id.sobre) {
-//            //Intent i = new Intent(this, ContatoActivity.class);
-//            //startActivity(i);
-//        }
+        //if (id == R.id.sobre) {
+        //  Intent i = new Intent(this, ContatoActivity.class);
+        //  startActivity(i);
+        //}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -178,14 +177,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void onSaveInstanceState(Bundle outState) {
             super.onSaveInstanceState(outState);
-            //mWebView.saveState(outState);
         }
 
         @Override
         public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
             super.onViewStateRestored(savedInstanceState);
-
-            //mWebView.restoreState(savedInstanceState);
         }
 
 
@@ -194,12 +190,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                  Bundle savedInstanceState) {
 
             View rootView;
-            TextView textView;
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_evento, container, false);
-
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
@@ -217,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     listViewMembro.setAdapter(membroCustomAdapter);
 
                     break;
-
                 case 3:
 
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
@@ -256,7 +249,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Collections.reverse(reuniaoList);
                     reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());
                     listViewReuniao.setAdapter(reuniaoCustomAdapter);
-
                     break;
                 case 4:
                     rootView = inflater.inflate(R.layout.fragment_chat, container, false);
@@ -266,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mWebView.getSettings().setDomStorageEnabled(true);
                     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                     mWebView.loadUrl("http://bankbox.net.br/ibvn/watson/index.htm");
-
                     break;
                 default:
                     rootView = inflater.inflate(R.layout.fragment_evento, container, false);
