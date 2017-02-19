@@ -45,7 +45,9 @@
             android:label="CONFIGURAÇÕES" />
         <activity
             android:name=".MensagemActivity"
-            android:label="MENSAGEM" />
+            android:label="MENSAGEM"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ContatoActivity"
             android:label="CONTATO IBVN" />

@@ -216,6 +216,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     membroList.add(new MembroModel(1, "Carlos Junior", "carlosj@gmail.com", "M"));
                     membroList.add(new MembroModel(1, "Maria de Fatima", "mrfcatossi@terra.com.br", "F"));
                     membroList.add(new MembroModel(1, "Matheus Catossi", "matheuscatossi@gmail.com", "M"));
+                    membroList.add(new MembroModel(1, "João José", "jj@jj.com.br", "M"));
+                    membroList.add(new MembroModel(1, "Cesar Astolfo", "castolfo@hotmail.com", "M"));
+                    membroList.add(new MembroModel(1, "Carlos Junior", "carlosj@gmail.com", "M"));
+                    membroList.add(new MembroModel(1, "Maria de Fatima", "mrfcatossi@terra.com.br", "F"));
+                    membroList.add(new MembroModel(1, "Matheus Catossi", "matheuscatossi@gmail.com", "M"));
 
                     Collections.reverse(membroList);
                     membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
