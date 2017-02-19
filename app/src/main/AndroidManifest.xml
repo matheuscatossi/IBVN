@@ -16,7 +16,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InfoMembroActivity"
-            android:label="MEMBRO" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="INFORMAÇÕES" />
         <activity android:name=".InfoReuniaoActivity">
             android:label="REUNIÃO"
         </activity>
