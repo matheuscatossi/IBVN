@@ -128,10 +128,10 @@ public class MensagemActivity extends AppCompatActivity {
             View rootView;
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-                case 0:
+                case 1:
                     rootView = inflater.inflate(R.layout.fragment_mensagem_membro, container, false);
                     break;
-                case 1:
+                case 2:
                     rootView = inflater.inflate(R.layout.fragment_mensagem_pastor, container, false);
                     break;
                 default:
