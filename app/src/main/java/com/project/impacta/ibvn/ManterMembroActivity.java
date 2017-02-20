@@ -7,6 +7,8 @@ import android.os.Bundle;
  * Created by Matheus on 19/02/2017.
  */
 
+// Manter Membro
+    
 public class ManterMembroActivity extends AppCompatActivity {
 
     @Override
