@@ -47,12 +47,14 @@
             android:name=".MensagemActivity"
             android:label="MENSAGEM"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ContatoActivity"
             android:label="CONTATO IBVN" />
-        <activity android:name=".SugestoesActivity"
-            android:label="SUGESTÕES"></activity>
+        <activity
+            android:name=".SugestoesActivity"
+            android:label="SUGESTÕES" />
+        <activity android:name=".ManterReuniaoActivity"></activity>
     </application>
 
 </manifest>
