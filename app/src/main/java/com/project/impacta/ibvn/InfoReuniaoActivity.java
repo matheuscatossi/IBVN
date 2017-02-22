@@ -37,13 +37,12 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         TextView tv_endereco = (TextView) findViewById(R.id.info_reuniao_tv_endereco_rua);
         tv_endereco.setText(endereco);
 
-        TextView tv_lider = (TextView) findViewById(R.id.tv_lider);
-        tv_lider.setText(lider);
-
-        TextView tv_lider_email = (TextView) findViewById(R.id.tv_lider_email);
-        tv_lider_email.setText(lider_email);
-
-        TextView tv_agendado_por = (TextView) findViewById(R.id.agendado_por);
-        tv_agendado_por.setText(agendado_por);
+//        TextView tv_lider = (TextView) findViewById(R.id.tv_lider);
+//        tv_lider.setText(lider);
+//
+//        TextView tv_agendado_por = (TextView) findViewById(R.id.agendado_por);
+//        tv_agendado_por.setText(agendado_por);
     }
+
+
 }
