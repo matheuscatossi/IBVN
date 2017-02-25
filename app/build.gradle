@@ -11,6 +11,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            storeFile file('../ninja_showcase.jks') //caminho da sua keystore
+            storePassword KEYSTORE_PASSWORD //propriedade KEYSTORE_PASSWORD do arquivo gradle.properties
+            keyAlias "ninja_showcase_apps" //alias que você criou quando estava gerando a keystore
+            keyPassword KEY_PASSWORD //propriedade KEY_PASSWORD do arquivo gradle.properties
+        }
+
+        debug {
+            storeFile file('../ninja_showcase.jks')
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "ninja_showcase_apps"
+            keyPassword KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,3 +44,4 @@ dependencies {
     compile 'com.android.support:design:25.1.0'
     testCompile 'junit:junit:4.12'
 }
+

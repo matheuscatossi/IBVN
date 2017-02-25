@@ -4,4 +4,5 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="ibvn_maps_key">AIzaSyCyh5SWDPnjxf8aBD86AkoIO0HeX5hxcCQ</string>
 </resources>

@@ -343,6 +343,8 @@
         </LinearLayout>
     </LinearLayout>
 
+    C:\Program Files (x86)\Java\jdk1.7.0_55\bin\keytool.exe
+
 
     <TextView
         android:layout_width="match_parent"
