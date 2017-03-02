@@ -339,12 +339,10 @@
                 android:layout_height="40dp"
                 android:layout_gravity="right"
                 android:layout_marginLeft="10dp"
+                android:id="@+id/info_reuniao_iv_map"
                 android:src="@drawable/maps_green" />
         </LinearLayout>
     </LinearLayout>
-
-    C:\Program Files (x86)\Java\jdk1.7.0_55\bin\keytool.exe
-
 
     <TextView
         android:layout_width="match_parent"
@@ -370,7 +368,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Momento de oração no qual juntos pedimos a Deus força e fé, além de muita disposição e engajamento para concluirmos a nossa OPE e terminar tranaquilo essa benção deste curso"/>
+            android:text="Momento de oração no qual juntos pedimos a Deus força e fé, além de muita disposição e engajamento para concluirmos a nossa OPE e terminar tranquilo essa benção deste curso"/>
     </LinearLayout>
 
 </LinearLayout>

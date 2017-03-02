@@ -13,16 +13,16 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('../ninja_showcase.jks') //caminho da sua keystore
+            storeFile file('../app/ibvnMapsKey.jks') //caminho da sua keystore
             storePassword KEYSTORE_PASSWORD //propriedade KEYSTORE_PASSWORD do arquivo gradle.properties
-            keyAlias "ninja_showcase_apps" //alias que você criou quando estava gerando a keystore
+            keyAlias "ibvn_maps_key" //alias que você criou quando estava gerando a keystore
             keyPassword KEY_PASSWORD //propriedade KEY_PASSWORD do arquivo gradle.properties
         }
 
         debug {
-            storeFile file('../ninja_showcase.jks')
+            storeFile file('../app/ibvnMapsKey.jks')
             storePassword KEYSTORE_PASSWORD
-            keyAlias "ninja_showcase_apps"
+            keyAlias "ibvn_maps_key"
             keyPassword KEY_PASSWORD
         }
     }
@@ -42,6 +42,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
+    compile 'com.google.android.gms:play-services:10.2.0'
+    compile 'com.android.support:support-annotations:24.2.0'
     testCompile 'junit:junit:4.12'
 }
 
