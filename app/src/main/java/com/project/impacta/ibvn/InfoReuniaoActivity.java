@@ -3,6 +3,7 @@ package com.project.impacta.ibvn;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -82,6 +83,17 @@ public class InfoReuniaoActivity extends AppCompatActivity {
             }
         });
 
+
+
+        FloatingActionButton fabMembroReuniao = (FloatingActionButton) findViewById(R.id.fabMembroReuniao);
+        
+        fabMembroReuniao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), MembroReuniaoActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 

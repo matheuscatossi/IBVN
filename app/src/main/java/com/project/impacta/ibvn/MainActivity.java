@@ -1,5 +1,6 @@
 package com.project.impacta.ibvn;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,9 +28,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.services.calendar.CalendarScopes;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.model.CelulaModel;
@@ -41,12 +45,31 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by Matheus on 12/02/2017.
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,EasyPermissions.PermissionCallbacks {
+
+    GoogleAccountCredential mCredential;
+    private TextView mOutputText;
+    private Button mCallApiButton;
+    ProgressDialog mProgress;
+
+    static final int REQUEST_ACCOUNT_PICKER = 1000;
+    static final int REQUEST_AUTHORIZATION = 1001;
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
+
+    private static final String BUTTON_TEXT = "Call Google Calendar API";
+    private static final String PREF_ACCOUNT_NAME = "accountName";
+    private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
+
+
 
     private static SectionsPagerAdapter mSectionsPagerAdapter;
     private static ViewPager mViewPager;
@@ -60,11 +83,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
+
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -122,7 +144,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -144,13 +167,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.configuracoes) {
-          Intent i = new Intent(this, ConfiguracoesActivity.class);
-          startActivity(i);
+            Intent i = new Intent(this, ConfiguracoesActivity.class);
+            startActivity(i);
         } else if (id == R.id.contato) {
             Intent i = new Intent(this, ContatoActivity.class);
             startActivity(i);
         } else if (id == R.id.mensagem) {
             Intent i = new Intent(this, MensagemActivity.class);
+            startActivity(i);
+        } else if (id == R.id.celula) {
+            Intent i = new Intent(this, CelulaActivity.class);
             startActivity(i);
         } else if (id == R.id.logout) {
             finish();
@@ -160,6 +186,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+
+    }
+
 
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";

@@ -19,11 +19,17 @@
             android:icon="@drawable/contato"
             android:title="Contato IBVN" />
 
+        <item
+            android:id="@+id/celula"
+            android:icon="@drawable/celula"
+            android:title="Célula" />
 
         <item
             android:id="@+id/logout"
             android:icon="@drawable/sair"
             android:title="Sair" />
+
+
     </group>
 
 

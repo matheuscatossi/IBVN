@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_celula"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.project.impacta.ibvn.CelulaActivity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="356dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/info_reuniao_label_celula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Célula: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/info_reuniao_tv_celula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23"
+                android:text="Irmão Edinaldo"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/info_reuniao_label_Lider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Líder: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/info_reuniao_tv_lider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="José Edinaldo"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/info_reuniao_label_criado_por"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Criado Por: "
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/info_reuniao_tv_criado_por"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Irmão Edinaldo"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="356dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/info_reuniao_label_criado_em"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Criado em: "
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/info_reuniao_tv_criado_em"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23"
+                android:text="24/04/1989"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
