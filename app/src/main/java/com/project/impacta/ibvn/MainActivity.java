@@ -1,50 +1,53 @@
 package com.project.impacta.ibvn;
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.services.calendar.CalendarScopes;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
+import com.project.impacta.ibvn.helper.ImageLoadTask;
 import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -53,88 +56,123 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Created by Matheus on 12/02/2017.
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,EasyPermissions.PermissionCallbacks {
 
-    GoogleAccountCredential mCredential;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, EasyPermissions.PermissionCallbacks {
+
+    private GoogleApiClient mGoogleApiClient;
+    private GoogleAccountCredential mCredential;
     private TextView mOutputText;
     private Button mCallApiButton;
-    ProgressDialog mProgress;
+    private ViewPager mViewPager;
+    private FloatingActionButton fabReuniao;
+    private FloatingActionButton fabUser;
+    private ImageView ivLogo;
+    private TextView tvNome;
+    DrawerLayout drawer;
+    private String nomeLoginGoogle;
+    private String photoUrlLoginGoogle;
+    static SectionsPagerAdapter mSectionsPagerAdapter;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
-    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
+    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
     private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
 
-
-
-    private static SectionsPagerAdapter mSectionsPagerAdapter;
-    private static ViewPager mViewPager;
-    public static FloatingActionButton fabReuniao;
-    public static FloatingActionButton fabUser;
+    private static final String[] SCOPES = {CalendarScopes.CALENDAR_READONLY};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        try {
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+            //GET controls
+
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+
+            fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
+            fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
+
+            drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(mViewPager);
+
+            //Configuraçoes de login com conta google
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, null)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+            nomeLoginGoogle = getIntent().getStringExtra("GOOGLE_LOGIN_NAME");
+            photoUrlLoginGoogle = getIntent().getStringExtra("GOOGLE_LOGIN_PHOTO");
 
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+            //FIM Configuraçoes de login  com conta google.
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-
-        fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
-        fabUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Adicionar Usuário - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
-        fabReuniao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Adicionar Reuniao - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                super.onTabSelected(tab);
-
-                if (tab.getPosition() == 3) {
-                    MainActivity.fabReuniao.setVisibility(View.INVISIBLE);
-                    MainActivity.fabUser.setVisibility(View.INVISIBLE);
-                } else {
-                    MainActivity.fabReuniao.setVisibility(View.VISIBLE);
-                    MainActivity.fabUser.setVisibility(View.VISIBLE);
+            fabUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Adicionar Usuário - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
+            });
+
+
+            fabReuniao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Adicionar Reuniao - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+
+
+            tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    super.onTabSelected(tab);
+
+                    fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
+                    fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
+
+                    if (tab.getPosition() == 3) {
+                        fabReuniao.setVisibility(View.INVISIBLE);
+                        fabUser.setVisibility(View.INVISIBLE);
+                    } else {
+                        fabReuniao.setVisibility(View.VISIBLE);
+                        fabUser.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
+            if (!nomeLoginGoogle.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Bem vindo \n" + nomeLoginGoogle, Toast.LENGTH_LONG).show();
             }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        } catch (Exception ex) {
+            throw ex;
+        }
+        ;
     }
 
     protected void onResume() {
@@ -144,7 +182,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -179,6 +216,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent i = new Intent(this, CelulaActivity.class);
             startActivity(i);
         } else if (id == R.id.logout) {
+
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
+
             finish();
         }
 
@@ -186,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
@@ -197,7 +244,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onPermissionsDenied(int requestCode, List<String> perms) {
 
     }
-
 
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";

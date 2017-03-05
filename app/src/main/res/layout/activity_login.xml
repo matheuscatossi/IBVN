@@ -15,15 +15,14 @@
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
         android:layout_width="300dp"
-        android:layout_height="300dp"
         android:background="@drawable/border_linear"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_height="350dp">
 
         <ImageView
             android:layout_gravity="center_horizontal"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="68dp"
             android:id="@+id/imgLogo"
             android:layout_centerInParent="true"
             android:src="@drawable/ibvn_logo"/>
@@ -65,19 +64,27 @@
             android:inputType="textPassword"
             android:hint="******"/>
 
-        <Button
-            android:id="@+id/btn_acessar"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#FFFFFF"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
+
+
+            <Button
+                android:id="@+id/btn_acessar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_button"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="Acessar"
+                android:textColor="#FFFFFF" />
+
+
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_button"
-            android:text="Acessar"
-            />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

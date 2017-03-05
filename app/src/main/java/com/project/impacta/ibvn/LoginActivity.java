@@ -1,10 +1,25 @@
 package com.project.impacta.ibvn;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInApi;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 /**
  * Created by Matheus on 19/02/2017.
@@ -12,23 +27,186 @@ import android.widget.Button;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int RC_SIGN_IN = 007;
+
+    private GoogleApiClient mGoogleApiClient;
+    private ProgressDialog mProgressDialog;
+
+    SignInButton btn_login_google;
     Button btn_acessar;
+    private Button btnSignOut, btnRevokeAccess;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, null)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+
         btn_acessar = (Button) findViewById(R.id.btn_acessar);
+        btn_login_google = (SignInButton) findViewById(R.id.sign_in_button);
+
+        // Customizing G+ button
+        btn_login_google.setSize(SignInButton.SIZE_STANDARD);
+        btn_login_google.setScopes(gso.getScopeArray());
+
+        try {
+            btn_acessar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            });
 
 
-        btn_acessar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            btn_login_google.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (v.getId()) {
+                        case R.id.sign_in_button:
+                            signInGoogle();
+                            break;
+                    }
+                }
+            });
+
+        } catch (Throwable ex) {
+            throw ex;
+        }
+    }
+
+    private void signInGoogle() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void revokeAccess() {
+        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        updateUI(false, null);
+                    }
+                });
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        //Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            updateUI(true, result);
+        } else {
+            updateUI(false, result);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        try {
+
+            OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+
+            if (opr.isDone()) {
+
+                GoogleSignInResult result = opr.get();
+                handleSignInResult(result);
+
+            }
+//            else {
+//
+//                showProgressDialog();
+//                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+//                    @Override
+//                    public void onResult(GoogleSignInResult googleSignInResult) {
+//                        hideProgressDialog();
+//                        handleSignInResult(googleSignInResult);
+//                    }
+//                });
+//            }
+        } catch (Throwable ex) {
+            throw ex;
+        }
+    }
+
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    private void showProgressDialog() {
+
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.str_loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+        }
+    }
+
+
+    private void updateUI(boolean isSignedIn, GoogleSignInResult result) {
+        try {
+
+            if (isSignedIn) {
+
+                btn_login_google.setVisibility(View.GONE);
+                //btnSignOut.setVisibility(View.VISIBLE);
+                //btnRevokeAccess.setVisibility(View.VISIBLE);
+                //llProfileLayout.setVisibility(View.VISIBLE);
+
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                GoogleSignInAccount acct = result.getSignInAccount();
+
+                String personName = acct.getDisplayName();
+                String personPhotoUrl = acct.getPhotoUrl().toString();
+                String email = acct.getEmail();
+
+                i.putExtra("GOOGLE_LOGIN_NAME", personName);
+                i.putExtra("GOOGLE_LOGIN_PHOTO", personPhotoUrl);
+                i.putExtra("GOOGLE_LOGIN_EMAIL", email);
+
                 startActivity(i);
                 finish();
+
+            } else {
+                btn_login_google.setVisibility(View.VISIBLE);
+                //btnSignOut.setVisibility(View.GONE);
+                //btnRevokeAccess.setVisibility(View.GONE);
+                //llProfileLayout.setVisibility(View.GONE);
             }
-        });
+
+        } catch (Exception e) {
+            Log.e("Error",e.getMessage());
+            throw e;
+        }
     }
+
+
 }

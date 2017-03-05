@@ -20,12 +20,13 @@
             android:background="@drawable/border_linear">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/nav_header_main_iv_logo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/ibvn_logo" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_marginTop="20dp"
             android:gravity="bottom"
@@ -36,6 +37,7 @@
 
             <TextView
                 android:textColor="#FFFFFF"
+                android:id="@+id/nav_header_main_tv_nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Olá, Matheus Líder." />
