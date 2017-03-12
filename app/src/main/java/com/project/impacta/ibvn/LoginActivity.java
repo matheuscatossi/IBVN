@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.project.impacta.ibvn.helper.GPlus;
 
 /**
  * Created by Matheus on 19/02/2017.
@@ -32,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
-
     SignInButton btn_login_google;
     Button btn_acessar;
     private Button btnSignOut, btnRevokeAccess;
@@ -67,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }
             });
-
 
             btn_login_google.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,17 +132,6 @@ public class LoginActivity extends AppCompatActivity {
                 handleSignInResult(result);
 
             }
-//            else {
-//
-//                showProgressDialog();
-//                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-//                    @Override
-//                    public void onResult(GoogleSignInResult googleSignInResult) {
-//                        hideProgressDialog();
-//                        handleSignInResult(googleSignInResult);
-//                    }
-//                });
-//            }
         } catch (Throwable ex) {
             throw ex;
         }
@@ -177,33 +165,23 @@ public class LoginActivity extends AppCompatActivity {
             if (isSignedIn) {
 
                 btn_login_google.setVisibility(View.GONE);
-                //btnSignOut.setVisibility(View.VISIBLE);
-                //btnRevokeAccess.setVisibility(View.VISIBLE);
-                //llProfileLayout.setVisibility(View.VISIBLE);
+
+                //Get dados from ggole account
+                GoogleSignInAccount acct = result.getSignInAccount();
+                GPlus GPlusData = new GPlus(acct);
 
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                GoogleSignInAccount acct = result.getSignInAccount();
-
-                String personName = acct.getDisplayName();
-                String personPhotoUrl = acct.getPhotoUrl().toString();
-                String email = acct.getEmail();
-
-                i.putExtra("GOOGLE_LOGIN_NAME", personName);
-                i.putExtra("GOOGLE_LOGIN_PHOTO", personPhotoUrl);
-                i.putExtra("GOOGLE_LOGIN_EMAIL", email);
-
+                i.putExtra("GPLUSDATA",GPlusData);
                 startActivity(i);
+
                 finish();
 
             } else {
                 btn_login_google.setVisibility(View.VISIBLE);
-                //btnSignOut.setVisibility(View.GONE);
-                //btnRevokeAccess.setVisibility(View.GONE);
-                //llProfileLayout.setVisibility(View.GONE);
             }
 
         } catch (Exception e) {
-            Log.e("Error",e.getMessage());
+            Log.e("Error", e.getMessage());
             throw e;
         }
     }

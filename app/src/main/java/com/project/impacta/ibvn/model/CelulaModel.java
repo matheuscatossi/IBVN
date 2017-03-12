@@ -3,66 +3,44 @@ package com.project.impacta.ibvn.model;
 public class CelulaModel {
 
     //CÉLULA
-    private int codCelula;                               // Código da Célula
-    private String descricaoCelula;                         // Descrição da Célula
-    private String criado;                               // Criado em da Célula
-    private String atualizado;                           // Atualizado em da Célula
+    private int codCelula;
+    private String descricaoCelula;
+    private String criado;
+    private String atualizado;
 
     //CRIADOR
     private MembroModel membroCriador;
-    //    int codCriadoPor;                            // Código do membro criador
-    //    String criadoPor;                            // Nome do membro criador
 
     //LIDER
     private MembroModel membroLider;
-    //    int codLider;                                // Código do membro Lider
-    //    String LiderNome;                            // Nome do membro Lider
 
     //ENDEREÇO
     private EnderecoModel enderecoCelula;
-
-    //    String tipoEndereco;                         // Tipo do endereço
-    //    String logradouroEndereco;                   // Logradouro do endereço
-    //    String numeroEndereco;                       // Número do endereço
-    //    String cepEndereco;                          // CEP do endereço
-    //    String bairroEndereco;                       // Bairro do endereço
-    //    String cidadeEndereco;                       // Cidade do endereço
-    //    String ufEndereco;                           // UF do endereço
-    //    Double latitudeEndereco;                     // Latitude do endereço
-    //    Double longitudeEndereco;                    // Longitude do endereço
-    //    String criadoEmEndereco;                     // Data de criação do endereço
 
 
     public CelulaModel() {
     }
 
     public CelulaModel(int codCelula, String descricaoCelula, String criadoPor, String liderNome, String logradouroEndereco, String numeroEndereco, String cepEndereco, String bairroEndereco, String cidadeEndereco) {
+
         this.membroCriador = new MembroModel();
         this.membroLider = new MembroModel();
         this.enderecoCelula = new EnderecoModel();
 
         this.codCelula = codCelula;
         this.descricaoCelula = descricaoCelula;
-//        this.criado = criado;
-//        this.atualizado = atualizado;
+
 
         //MEMBRO CRIADOR
-        //this.membroCriador.codMembro = codCriadoPor;
         this.membroCriador.nomeMembro = criadoPor;
 
         //MEMBRO LIDER
-        //this.membroLider.codMembro = codLider;
         this.membroLider.nomeMembro = liderNome;
-
-        //this.enderecoCelula.tipoEndereco = tipoEndereco;
         this.enderecoCelula.setLogradouroEndereco(logradouroEndereco);
         this.enderecoCelula.setNumeroEndereco(numeroEndereco);
         this.enderecoCelula.setCepEndereco(cepEndereco);
         this.enderecoCelula.setBairroEndereco(bairroEndereco);
         this.enderecoCelula.setCidadeEndereco(cidadeEndereco);
-        //this.enderecoCelula.ufEndereco = ufEndereco;
-        //this.enderecoCelula.latitudeEndereco = latitudeEndereco;
-        //this.enderecoCelula.longitudeEndereco = longitudeEndereco;
     }
 
 

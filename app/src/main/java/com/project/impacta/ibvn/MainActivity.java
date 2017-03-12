@@ -40,6 +40,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.services.calendar.CalendarScopes;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
+import com.project.impacta.ibvn.helper.GPlus;
 import com.project.impacta.ibvn.helper.ImageLoadTask;
 import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.EnderecoModel;
@@ -57,31 +58,22 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, EasyPermissions.PermissionCallbacks {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, EasyPermissions.PermissionCallbacks {
 
+    //Properties
+    private GoogleSignInOptions gso;
+    private GPlus GPlusData;
     private GoogleApiClient mGoogleApiClient;
-    private GoogleAccountCredential mCredential;
     private TextView mOutputText;
     private Button mCallApiButton;
     private ViewPager mViewPager;
     private FloatingActionButton fabReuniao;
     private FloatingActionButton fabUser;
-    private ImageView ivLogo;
-    private TextView tvNome;
-    DrawerLayout drawer;
-    private String nomeLoginGoogle;
-    private String photoUrlLoginGoogle;
     static SectionsPagerAdapter mSectionsPagerAdapter;
 
-    static final int REQUEST_ACCOUNT_PICKER = 1000;
-    static final int REQUEST_AUTHORIZATION = 1001;
-    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
 
-    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
-    private static final String BUTTON_TEXT = "Call Google Calendar API";
-    private static final String PREF_ACCOUNT_NAME = "accountName";
-
-    private static final String[] SCOPES = {CalendarScopes.CALENDAR_READONLY};
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         try {
 
-            //GET controls
-
+            //GET control
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
@@ -107,20 +98,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(mViewPager);
 
+
             //Configuraçoes de login com conta google
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
-                    .build();
 
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, null)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
+            GPlusData = (GPlus) getIntent().getSerializableExtra("GPLUSDATA");
 
-            nomeLoginGoogle = getIntent().getStringExtra("GOOGLE_LOGIN_NAME");
-            photoUrlLoginGoogle = getIntent().getStringExtra("GOOGLE_LOGIN_PHOTO");
+            if (GPlusData != null) {
+                gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build();
 
-
+                mGoogleApiClient = new GoogleApiClient.Builder(this)
+                        .enableAutoManage(this, null)
+                        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                        .build();
+            }
             //FIM Configuraçoes de login  com conta google.
 
             fabUser.setOnClickListener(new View.OnClickListener() {
@@ -166,8 +158,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            if (!nomeLoginGoogle.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Bem vindo \n" + nomeLoginGoogle, Toast.LENGTH_LONG).show();
+            if (GPlusData != null) {
+                Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getGivenName(), Toast.LENGTH_LONG).show();
             }
         } catch (Exception ex) {
             throw ex;
@@ -217,17 +209,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(i);
         } else if (id == R.id.logout) {
 
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(Status status) {
-                            Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                            startActivity(i);
-                            finish();
-                        }
-                    });
+            if (GPlusData != null) {
 
-            finish();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(Status status) {
+                                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        });
+            } else {
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+            ;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
