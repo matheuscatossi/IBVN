@@ -1,8 +1,6 @@
 package com.project.impacta.ibvn;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +25,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,12 +34,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.services.calendar.CalendarScopes;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.helper.GPlus;
-import com.project.impacta.ibvn.helper.ImageLoadTask;
 import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
@@ -61,11 +55,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Matheus on 12/02/2017.
- */
-
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, EasyPermissions.PermissionCallbacks {
 
@@ -80,6 +69,12 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fabUser;
     static SectionsPagerAdapter mSectionsPagerAdapter;
 
+    //Dados do membro Logado
+    private static MembroModel membroLider;
+    private static MembroModel membroCriador;
+    private static EnderecoModel endereco;
+    private static EnderecoModel enderecoReuniao;
+    private static CelulaModel celula;
 
     DrawerLayout drawer;
 
@@ -88,41 +83,52 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //GET control
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
+        fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        //Configuraçoes de login com conta google
+
+        GPlusData = (GPlus) getIntent().getSerializableExtra("GPLUSDATA");
+
+        if (GPlusData != null) {
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, null)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+        }
+        //FIM Configuraçoes de login  com conta google.
+
         try {
+            membroLider = new MembroModel(1, "João José", "jj@gmail.com.br", "M");
+            endereco = new EnderecoModel("06246090", "R:Morrinhos", "2", "Munhooz Junior", "Osasco", "SP");
+            enderecoReuniao = new EnderecoModel("06246090", "R:Morrinhos", "2", "Munhooz Junior", "Osasco", "SP");
+            membroCriador = (MembroModel) membroLider.clone();
+            celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco);
 
-            //GET control
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        } catch (CloneNotSupportedException ex) {
+            membroCriador = membroLider;
+            celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco);
+        }
 
-            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-            mViewPager = (ViewPager) findViewById(R.id.container);
-            mViewPager.setAdapter(mSectionsPagerAdapter);
-
-            fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
-            fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
-
-            drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-            tabLayout.setupWithViewPager(mViewPager);
-
-
-            //Configuraçoes de login com conta google
-
-            GPlusData = (GPlus) getIntent().getSerializableExtra("GPLUSDATA");
-
-            if (GPlusData != null) {
-                gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .build();
-
-                mGoogleApiClient = new GoogleApiClient.Builder(this)
-                        .enableAutoManage(this, null)
-                        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                        .build();
-            }
-            //FIM Configuraçoes de login  com conta google.
-
+        try {
             fabUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -135,8 +141,9 @@ public class MainActivity extends AppCompatActivity
             fabReuniao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Adicionar Reuniao - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Intent manterReuniaoIntent = new Intent(MainActivity.this, ManterReuniaoActivity.class);
+                    manterReuniaoIntent.putExtra("CELULA",celula);
+                    startActivity(manterReuniaoIntent );
                 }
             });
 
@@ -175,7 +182,6 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception ex) {
             throw ex;
         }
-        ;
     }
 
     protected void onResume() {
@@ -185,7 +191,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -351,39 +356,32 @@ public class MainActivity extends AppCompatActivity
                 case 3:
 
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
-
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
                     reuniaoList = new ArrayList<>();
-
-                    MembroModel membroLider = new MembroModel(1, "João José", "jj@gmail.com.br", "M");
-                    MembroModel membroCriador = new MembroModel(1, "Edinaldo Santos", "ed@gmail.com.br", "M");
-                    EnderecoModel endereco = new EnderecoModel("06246090", "R:Morrinhos", "2", "Munhooz Junior", "Osasco", "SP");
-                    CelulaModel celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco);
 
                     reuniaoList.add(
                             new ReuniaoModel(1, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
                                     , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            )
+                            ,enderecoReuniao)
                     );
 
                     reuniaoList.add(
                             new ReuniaoModel(2, "25/03/2017", "Vida em Cristo", "Nova", "Entender como a vida pode ser bem vivida quando estamos com deus."
                                     , new CelulaModel(1, "Célula Irmão Tiago", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            )
+                            ,enderecoReuniao)
                     );
 
                     reuniaoList.add(
                             new ReuniaoModel(3, "21/04/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
                                     , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            )
+                            ,enderecoReuniao)
                     );
 
                     reuniaoList.add(
                             new ReuniaoModel(4, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
                                     , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            )
+                            ,enderecoReuniao)
                     );
-
 
                     Collections.reverse(reuniaoList);
                     reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());
@@ -419,7 +417,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+
             return 4;
         }
 

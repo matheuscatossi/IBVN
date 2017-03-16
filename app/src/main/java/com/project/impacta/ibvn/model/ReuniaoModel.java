@@ -1,25 +1,63 @@
 package com.project.impacta.ibvn.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
 
-public class ReuniaoModel {
+public class ReuniaoModel implements Serializable {
 
-    private long codReuniao;           // Código da Reunião
-    private String dataReuniao;        // Data da Reunião
-    private String temaReuniao;        // Tema da Reunião
-    private String statusReuniao;      // Status da Reunião
-    private String descricaoReuniao;   // Descrição da Reunião
+    private long codReuniao;
+    private String dataReuniao;
+    private String temaReuniao;
+    private String statusReuniao;
+    private String descricaoReuniao;
 
-    //CÉLULA
+    //CÉLULA Model
     private CelulaModel celulaReuniao;
+
+    //Endereco Model
+    private EnderecoModel enderecoReuniao;
 
     public ReuniaoModel() {
     }
 
     /*Contrutor full - todos os valores são passados via parametros*/
-    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String statusReuniao, String descricaoReuniao, int codCelula, String descricaoCelula, int codMenbroCriador, String nomeMembrocriador, int codMembroLider, String nomeMembroLider, String tipoEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, String latitudeEndereco, String longitudeEndereco) {
+    public ReuniaoModel(
+            long codReuniao
+            , String dataReuniao
+            , String temaReuniao
+            , String statusReuniao
+            , String descricaoReuniao
+
+            , int codCelula
+            , String descricaoCelula
+            , int codMenbroCriador
+            , String nomeMembrocriador
+            , int codMembroLider
+            , String nomeMembroLider
+
+            , String tipoEndereco
+            , String logradouroEndereco
+            , String numeroEndereco
+            , String cepEndereco
+            , String bairroEndereco
+            , String cidadeEndereco
+            , String ufEndereco
+            , String latitudeEndereco
+            , String longitudeEndereco
+
+            , String tipoEnderecoReuniao
+            , String logradouroEnderecoReuniao
+            , String numeroEnderecoReuniao
+            , String cepEnderecoReuniao
+            , String bairroEnderecoReuniao
+            , String cidadeEnderecoReuniao
+            , String ufEnderecoReuniao
+            , String latitudeEnderecoReuniao
+            , String longitudeEnderecoReuniao
+
+    ) {
 
         this.celulaReuniao = new CelulaModel();
         this.celulaReuniao.setMembroCriador(new MembroModel());
@@ -55,6 +93,18 @@ public class ReuniaoModel {
         this.celulaReuniao.getEnderecoCelula().setLatitudeEndereco(latitudeEndereco);
         this.celulaReuniao.getEnderecoCelula().setLongitudeEndereco(longitudeEndereco);
 
+
+        //ENDERECO REUNIÃO
+        this.enderecoReuniao.setTipoEndereco(tipoEnderecoReuniao);
+        this.enderecoReuniao.setLogradouroEndereco(logradouroEnderecoReuniao);
+        this.enderecoReuniao.setNumeroEndereco(numeroEnderecoReuniao);
+        this.enderecoReuniao.setCepEndereco(cepEnderecoReuniao);
+        this.enderecoReuniao.setBairroEndereco(bairroEnderecoReuniao);
+        this.enderecoReuniao.setCidadeEndereco(cidadeEnderecoReuniao);
+        this.enderecoReuniao.setUfEndereco(ufEnderecoReuniao);
+        this.enderecoReuniao.setLatitudeEndereco(latitudeEnderecoReuniao);
+        this.enderecoReuniao.setLongitudeEndereco(longitudeEnderecoReuniao);
+
     }
 
 
@@ -74,7 +124,7 @@ public class ReuniaoModel {
         this.temaReuniao = temaReuniao;
 
 
-        //CELULA
+        //CÉLULA
         this.celulaReuniao.setDescricaoCelula(descricaoCelula);
 
 
@@ -96,13 +146,14 @@ public class ReuniaoModel {
     /*
     * Contrutor padrão utilizando model para relacionamento.
     * */
-    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String statusReuniao, String descricaoReuniao, CelulaModel celulaReuniao) {
+    public ReuniaoModel(long codReuniao, String dataReuniao, String temaReuniao, String statusReuniao, String descricaoReuniao, CelulaModel celulaReuniao, EnderecoModel enderecoReuniao) {
         this.codReuniao = codReuniao;
         this.dataReuniao = dataReuniao;
         this.temaReuniao = temaReuniao;
         this.statusReuniao = statusReuniao;
         this.descricaoReuniao = descricaoReuniao;
         this.celulaReuniao = celulaReuniao;
+        this.enderecoReuniao = enderecoReuniao;
     }
 
 
@@ -145,6 +196,15 @@ public class ReuniaoModel {
     public void setDescricaoReuniao(String descricaoReuniao) {
         this.descricaoReuniao = descricaoReuniao;
     }
+
+    public EnderecoModel getEnderecoReuniao() {
+        return enderecoReuniao;
+    }
+
+    public void setEnderecoReuniao(EnderecoModel enderecoReuniao) {
+        this.enderecoReuniao = enderecoReuniao;
+    }
+
 
     public CelulaModel getCelulaReuniao() {
         return celulaReuniao;

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "36532115829",
+    "project_id": "ibvn-gestao-de-eventos"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36532115829:android:d2c11e059b7d9c30",
+        "android_client_info": {
+          "package_name": "com.project.impacta.ibvn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36532115829-4h8a7kf83bn5e56acledc2s3t9c8m2lh.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "36532115829-qa11932revbd07ma9mnbgmau5jesr54p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.impacta.ibvn",
+            "certificate_hash": "68463037a1ee2ad2c65b503f9f61f3ca16192576"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYCNd10n-wdikXWVALnH8qIjpO3MDv8tg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,21 +1,23 @@
 package com.project.impacta.ibvn.model;
 
-public class EnderecoModel {
+import java.io.Serializable;
 
-    private int codEndereco;              // Código do Endereço
-    private String logradouroEndereco;    // Logradouro do Endereço
-    private String numeroEndereco;        // Numero do Endereço
-    private String cepEndereco;           // Cep do Endereço
-    private String complementoEndereco;   // Complemento do Endereço
-    private String bairroEndereco;        // Bairro do Endereço
-    private String cidadeEndereco;        // Cidade do Endereço
-    private String ufEndereco;            // UF do Endereço
-    private String latitudeEndereco;      // Latitude do Endereço
-    private String longitudeEndereco;     // Logitude do Endereço
+public class EnderecoModel implements Serializable {
+
+    private int codEndereco;
+    private String logradouroEndereco;
+    private String numeroEndereco;
+    private String cepEndereco;
+    private String complementoEndereco;
+    private String bairroEndereco;
+    private String cidadeEndereco;
+    private String ufEndereco;
+    private String latitudeEndereco;
+    private String longitudeEndereco;
 
     //TIPO DE ENDERECO
-    private int codTipoEndereco;          // Codigo Tipo do Endereço
-    private String tipoEndereco;          // Nome do Tipo de Endereço
+    private int codTipoEndereco;
+    private String tipoEndereco;
 
 
     public EnderecoModel() {
