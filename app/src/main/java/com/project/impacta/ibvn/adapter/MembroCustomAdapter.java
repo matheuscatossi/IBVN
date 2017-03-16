@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by Matheus on 12/02/2017.
  */
 
-public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements View.OnClickListener{
+public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements View.OnClickListener {
 
     private ArrayList<MembroModel> dataSet;
     Context mContext;
@@ -40,15 +40,15 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
     public MembroCustomAdapter(ArrayList<MembroModel> data, Context context) {
         super(context, R.layout.row_item_membro, data);
         this.dataSet = data;
-        this.mContext=context;
+        this.mContext = context;
 
     }
 
     @Override
     public void onClick(View v) {
 
-        int position=(Integer) v.getTag();
-        Object object= getItem(position);
+        int position = (Integer) v.getTag();
+        Object object = getItem(position);
         MembroModel membroModel = (MembroModel) object;
 
     }
@@ -69,7 +69,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item_membro, parent, false);
 
-            viewHolder.img_user  = (ImageView) convertView.findViewById(R.id.img_user);
+            viewHolder.img_user = (ImageView) convertView.findViewById(R.id.img_user);
             viewHolder.img_about = (ImageView) convertView.findViewById(R.id.img_about);
 
             viewHolder.tv_email = (TextView) convertView.findViewById(R.id.tv_email);
@@ -77,11 +77,11 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
 
             viewHolder.ll_linha = (LinearLayout) convertView.findViewById(R.id.ll_linha);
 
-            result=convertView;
+            result = convertView;
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
+            result = convertView;
         }
 
         Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
@@ -89,7 +89,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
         lastPosition = position;
 
 
-        if(membroModel.getSexoMembro().equals("M")) {
+        if (membroModel.getSexoMembro().equals("M")) {
             viewHolder.img_user.setImageResource(R.drawable.user_m);
         } else {
             viewHolder.img_user.setImageResource(R.drawable.user_f);
@@ -105,7 +105,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
             public void onClick(View v) {
                 Intent i = new Intent(mContext, InfoMembroActivity.class);
 
-                i.putExtra("codigoMembro",      String.valueOf(membroModel.getCodMembro()));
+                i.putExtra("codigoMembro", String.valueOf(membroModel.getCodMembro()));
 
                 mContext.startActivity(i);
             }

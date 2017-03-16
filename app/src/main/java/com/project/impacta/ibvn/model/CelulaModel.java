@@ -1,6 +1,8 @@
 package com.project.impacta.ibvn.model;
 
-public class CelulaModel {
+import java.io.Serializable;
+
+public class CelulaModel  implements Serializable {
 
     //CÉLULA
     private int codCelula;

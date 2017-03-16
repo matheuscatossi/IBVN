@@ -1,13 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_manter_reuniao"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.project.impacta.ibvn.ManterReuniaoActivity">
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_manter_reuniao_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/border_header"
+        android:orientation="horizontal"
+        android:textAlignment="center"
+        android:weightSum="1"
+        tools:textAlignment="center">
+
+        <TextView
+            android:id="@+id/tv_manter_reuniao_nova"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:drawableBottom="@color/cast_expanded_controller_ad_label_background_color"
+            android:foregroundGravity="center_horizontal|center"
+            android:text="Adicionando Reunião"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manter_reuniao_tema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tema :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_tema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Nome"
+                android:ems="10"
+                android:hint="Reunião da família"
+                android:inputType="textPersonName"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+            <TextView
+                android:id="@+id/tv_manter_reuniao_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="mm/dd/aaaa"
+                android:inputType="date"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/tv_manter_reuniao_cep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cep :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <LinearLayout
+                android:id="@+id/ll_manter_reuniao_cep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal"
+                android:textAlignment="center"
+                android:weightSum="1">
+
+
+                <EditText
+                    android:id="@+id/et_manter_reuniao_cep"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.99"
+                    android:ems="10"
+                    android:hint="00000-000"
+                    android:inputType="textPostalAddress"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                <Button
+                    android:id="@+id/btn_manter_reuniao_buscar_cep"
+                    android:layout_width="108dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/border_min_button"
+                    android:drawableLeft="@drawable/find_location_x32"
+                    android:elevation="0dp"
+                    android:paddingLeft="8dp"
+                    android:text="Buscar"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:translationY="-5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="247dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_reuniao_logradouro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Logradouro :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_reuniao_logradouro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="R,São Camilo"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_reuniao_numero"
+                        android:layout_width="102dp"
+                        android:layout_height="wrap_content"
+                        android:text="Nº :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_reuniao_numero"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="32"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:textSize="14sp"
+                        android:layout_width="match_parent" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_manter_reuniao_bairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bairro :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_bairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Jd. das Flores"
+                android:inputType="textPostalAddress"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_width="250dp">
+
+                    <TextView
+                        android:id="@+id/tv_manter_reuniao_cidade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cidade :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_reuniao_cidade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="São Paulo"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_reuniao_uf"
+                        android:layout_width="73dp"
+                        android:layout_height="wrap_content"
+                        android:text="UF:"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_reuniao_uf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="SP"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_manter_reuniao_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:background="@drawable/border_edittext"
+                android:ems="2"
+                android:hint="Breve descrição sobre o encontro."
+                android:inputType="textMultiLine" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

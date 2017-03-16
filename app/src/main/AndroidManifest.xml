@@ -38,7 +38,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -68,11 +67,10 @@
             android:label="GERENCIAR REUNIÃO" />
         <activity
             android:name=".MembroReuniaoActivity"
-            android:label="MEMBROS DA REUNIÃO"></activity>
-
-        <activity android:name=".CelulaActivity"
-            android:label="CÉLULA"
-            ></activity>
+            android:label="MEMBROS DA REUNIÃO" />
+        <activity
+            android:name=".CelulaActivity"
+            android:label="CÉLULA" />
     </application>
 
 </manifest>

@@ -1,10 +1,12 @@
 package com.project.impacta.ibvn.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Matheus on 12/02/2017.
  */
 
-public class MembroModel {
+public class MembroModel implements Cloneable,Serializable {
 
     /*  /
        //Informação Pessoal
@@ -84,6 +86,9 @@ public class MembroModel {
         this.sexoMembro          = sexoMembro;
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     public int getCodMembro() {
         return codMembro;
