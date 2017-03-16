@@ -50,7 +50,15 @@ dependencies {
     compile 'com.android.support:support-annotations:24.2.0'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
     compile 'pub.devrel:easypermissions:0.2.1'
+<<<<<<< HEAD
     compile 'org.jsoup:jsoup:1.10.2'
+=======
+
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+>>>>>>> origin/master
     compile('com.google.api-client:google-api-client-android:1.22.0', {
         exclude group: 'org.apache.httpcomponents'
     })
