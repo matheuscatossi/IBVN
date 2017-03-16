@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,12 +47,19 @@ import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.webservice.APIClient;
+import com.project.impacta.ibvn.webservice.APIInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import pub.devrel.easypermissions.EasyPermissions;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Matheus on 12/02/2017.
@@ -267,6 +275,10 @@ public class MainActivity extends AppCompatActivity
         // Chat
         public WebView mWebView;
 
+        // Membro
+        Call<String> call;
+        APIInterface apiService;
+
         @Override
         public void onSaveInstanceState(Bundle outState) {
             super.onSaveInstanceState(outState);
@@ -291,6 +303,30 @@ public class MainActivity extends AppCompatActivity
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
                     listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
+
+                    new Timer().scheduleAtFixedRate(new TimerTask(){
+                        @Override
+                        public void run(){
+                            apiService = APIClient.getService().create(APIInterface.class);
+                            call = apiService.getMembros();
+                            call.enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    if (response.raw().code() == 200) {
+                                        String resp = response.body().toString();
+                                        Log.d("LOGGED: ", response.body().toString());
+                                    }
+                                    Log.d("LOGGED: ", "Error");
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    Log.e("ERROR", t.toString());
+                                }
+                            });
+                        }
+                    },0,2000);
+
                     membroList = new ArrayList<>();
 
                     membroList.add(new MembroModel(1, "João José", "jj@jj.com.br", "M"));
