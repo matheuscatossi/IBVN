@@ -174,8 +174,8 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            ImageView img = (ImageView) navigationView.findViewById(R.id.nav_header_main_iv_logo);
-            img.setImageResource(R.drawable.user_m);
+//            ImageView img = (ImageView) navigationView.findViewById(R.id.nav_header_main_iv_logo);
+//            img.setImageResource(R.drawable.user_m);
 
             if (GPlusData != null) {
                 Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getGivenName(), Toast.LENGTH_LONG).show();
@@ -322,15 +322,16 @@ public class MainActivity extends AppCompatActivity
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
                                     if (response.raw().code() == 200) {
+
                                         String resp = response.body().toString();
-                                        Log.d("LOGGED: ", response.body().toString());
+                                        Log.d("INFOMEMBRO: ", resp);
                                     }
-                                    Log.d("LOGGED: ", "Error");
+                                    Log.d("INFOMEMBRO: ", "Error");
                                 }
 
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
-                                    Log.e("ERROR", t.toString());
+                                    Log.e("INFOMEMBRO", t.toString());
                                 }
                             });
                         }
