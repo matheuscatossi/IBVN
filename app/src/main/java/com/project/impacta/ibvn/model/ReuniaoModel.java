@@ -76,12 +76,12 @@ public class ReuniaoModel implements Serializable {
         this.celulaReuniao.setDescricaoCelula(descricaoCelula);
 
         //MEMBRO CRIADOR
-        this.celulaReuniao.getMembroCriador().codMembro = codMenbroCriador;
-        this.celulaReuniao.getMembroCriador().nomeMembro = nomeMembrocriador;
+        this.celulaReuniao.getMembroCriador().id = codMenbroCriador;
+        this.celulaReuniao.getMembroCriador().nome = nomeMembrocriador;
 
         //MEMBRO LIDER
-        this.celulaReuniao.getMembroLider().codMembro = codMembroLider;
-        this.celulaReuniao.getMembroLider().nomeMembro = nomeMembroLider;
+        this.celulaReuniao.getMembroLider().id = codMembroLider;
+        this.celulaReuniao.getMembroLider().nome = nomeMembroLider;
 
         this.celulaReuniao.getEnderecoCelula().setTipoEndereco(tipoEndereco);
         this.celulaReuniao.getEnderecoCelula().setLogradouroEndereco(logradouroEndereco);
@@ -129,10 +129,10 @@ public class ReuniaoModel implements Serializable {
 
 
         //MEMBRO CRIADOR
-        this.celulaReuniao.getMembroCriador().nomeMembro = nomeMembrocriador;
+        this.celulaReuniao.getMembroCriador().nome = nomeMembrocriador;
 
         //MEMBRO LIDER
-        this.celulaReuniao.getMembroLider().nomeMembro = nomeMembroLider;
+        this.celulaReuniao.getMembroLider().nome = nomeMembroLider;
 
         //ENDECEREO CELULA
         this.celulaReuniao.getEnderecoCelula().setLogradouroEndereco(logradouroEndereco);

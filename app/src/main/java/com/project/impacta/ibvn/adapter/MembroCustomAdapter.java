@@ -89,23 +89,23 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
         lastPosition = position;
 
 
-        if (membroModel.getSexoMembro().equals("M")) {
+        if (membroModel.getSexo().equals("M")) {
             viewHolder.img_user.setImageResource(R.drawable.user_m);
         } else {
             viewHolder.img_user.setImageResource(R.drawable.user_f);
         }
 
-        viewHolder.tv_nome.setText(membroModel.getNomeMembro());
+        viewHolder.tv_nome.setText(membroModel.getNome());
         viewHolder.tv_nome.setTypeface(null, Typeface.BOLD);
 
-        viewHolder.tv_email.setText(membroModel.getEmailMembro());
+        viewHolder.tv_email.setText(membroModel.getEmail());
 
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, InfoMembroActivity.class);
 
-                i.putExtra("codigoMembro", String.valueOf(membroModel.getCodMembro()));
+                i.putExtra("codigoMembro", String.valueOf(membroModel.getId()));
 
                 mContext.startActivity(i);
             }

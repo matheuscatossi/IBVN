@@ -1,5 +1,8 @@
 package com.project.impacta.ibvn.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,294 +11,284 @@ import java.io.Serializable;
 
 public class MembroModel implements Cloneable,Serializable {
 
-    /*  /
-       //Informação Pessoal
-     */
-    int codMembro;                       // Código do membro
-    String nomeMembro;                   // Nome do membro
-    String sexoMembro;                   // Sexo do membro
-    String cpfMembro;                    // Cpf do membro
-    String emailMembro;                  // Email do membro
-    int codCriadoPor;                    // Código do membro criador
-    String criadoPor;                    // Nome do membro criador
-    String statusMembro;                 // Status do membro
-    String telefoneMembro;               // Telefone do membro
-    String celularMembro;                // Celular do membro
-    /*Talvez Date */ String criado;      // Data de criação do membro
-    /*Talvez Date */ String atualizado;  // Data de atualização do membro
+    @SerializedName("id")
+    @Expose
+    int id;
 
-    /*  /
-       //Endereço
-     */
-    String tipoEndereco;                         // Tipo do endereço
-    String logradouroEndereco;                   // Logradouro do endereço
-    String numeroEndereco;                       // Número do endereço
-    String cepEndereco;                             // CEP do endereço
-    String bairroEndereco;                       // Bairro do endereço
-    String cidadeEndereco;                       // Cidade do endereço
-    String ufEndereco;                           // UF do endereço
-    Double latitudeEndereco;                     // Latitude do endereço
-    Double longitudeEndereco;                    // Longitude do endereço
-    /*Talvez date */ String criadoEmEndereco;  // Data de criação do endereço
+    @SerializedName("nome")
+    @Expose
+    String nome;
 
-    /*  /
-       //Célula
-     */
-    int codCelula;                           // Código da célula
-    int codLider;                            // Código do líder criador
-    String nomeLider;                        // Nome do líder criador
-    /*Talvez Date */ String criadoEmCelula;  // Data da criação da célula
+    @SerializedName("sexo")
+    @Expose
+    String sexo;
+
+    @SerializedName("cpf")
+    @Expose
+    String cpf;
+
+    @SerializedName("estado_civil")
+    @Expose
+    String estado_civil;
+
+    @SerializedName("dt_nas")
+    @Expose
+    String dt_nasc;
+
+    @SerializedName("email")
+    @Expose
+    String email;
+
+    @SerializedName("tipo")
+    @Expose
+    String tipo;
+
+    @SerializedName("telefone")
+    @Expose
+    String telefone;
+
+    @SerializedName("celular")
+    @Expose
+    String celular;
+
+    @SerializedName("cep")
+    @Expose
+    String cep;
+
+    @SerializedName("logradouro")
+    @Expose
+    String logradouro;
+
+    @SerializedName("numero")
+    @Expose
+    String numero;
+
+    @SerializedName("complemento")
+    @Expose
+    String complemento;
+
+    @SerializedName("bairro")
+    @Expose
+    String bairro;
+
+    @SerializedName("cidade")
+    @Expose
+    String cidade;
+
+    @SerializedName("estado")
+    @Expose
+    String estado;
+
+    @SerializedName("latitude")
+    @Expose
+    String latitude;
+
+    @SerializedName("longitude")
+    @Expose
+    String logitude;
+
+    @SerializedName("fk_celula")
+    @Expose
+    int fk_celula;
+
+
+
 
     public MembroModel() {
 
     }
 
-    public MembroModel(int codMembro, String nomeMembro, String sexoMembro, String cpfMembro, String emailMembro, int codCriadoPor, String criadoPor, String statusMembro, String telefoneMembro, String celularMembro, String criado, String atualizado, String tipoEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, Double latitudeEndereco, Double longitudeEndereco, String criadoEmEndereco, int codCelula, int codLider, String nomeLider, String criadoEmCelula) {
-        this.codMembro           = codMembro;
-        this.nomeMembro          = nomeMembro;
-        this.sexoMembro          = sexoMembro;
-        this.cpfMembro           = cpfMembro;
-        this.emailMembro         = emailMembro;
-        this.codCriadoPor        = codCriadoPor;
-        this.criadoPor           = criadoPor;
-        this.statusMembro        = statusMembro;
-        this.telefoneMembro      = telefoneMembro;
-        this.celularMembro       = celularMembro;
-        this.criado              = criado;
-        this.atualizado          = atualizado;
-        this.tipoEndereco        = tipoEndereco;
-        this.logradouroEndereco  = logradouroEndereco;
-        this.numeroEndereco      = numeroEndereco;
-        this.cepEndereco         = cepEndereco;
-        this.bairroEndereco      = bairroEndereco;
-        this.cidadeEndereco      = cidadeEndereco;
-        this.ufEndereco          = ufEndereco;
-        this.latitudeEndereco    = latitudeEndereco;
-        this.longitudeEndereco   = longitudeEndereco;
-        this.criadoEmEndereco    = criadoEmEndereco;
-        this.codCelula           = codCelula;
-        this.codLider            = codLider;
-        this.nomeLider           = nomeLider;
-        this.criadoEmCelula      = criadoEmCelula;
+    public MembroModel(int id, String nome, String sexo, String cpf, String estado_civil, String dt_nasc, String email, String tipo, String telefone, String celular, String cep, String logradouro, String numero, String complemento, String bairro, String cidade, String estado, String latitude, String logitude, int fk_celula) {
+        this.id = id;
+        this.nome = nome;
+        this.sexo = sexo;
+        this.cpf = cpf;
+        this.estado_civil = estado_civil;
+        this.dt_nasc = dt_nasc;
+        this.email = email;
+        this.tipo = tipo;
+        this.telefone = telefone;
+        this.celular = celular;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.latitude = latitude;
+        this.logitude = logitude;
+        this.fk_celula = fk_celula;
     }
 
-    public MembroModel(int codMembro, String nomeMembro, String emailMembro, String sexoMembro){
-        this.codMembro           = codMembro;
-        this.nomeMembro          = nomeMembro;
-        this.emailMembro         = emailMembro;
-        this.sexoMembro          = sexoMembro;
+    public MembroModel(int id, String nome, String email, String sexo){
+        this.id = id;
+        this.nome = nome;
+        this.sexo = sexo;
+        this.email = email;
     }
 
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
-    public int getCodMembro() {
-        return codMembro;
+    public int getId() {
+        return id;
     }
 
-    public void setCodMembro(int codMembro) {
-        this.codMembro = codMembro;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNomeMembro() {
-        return nomeMembro;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeMembro(String nomeMembro) {
-        this.nomeMembro = nomeMembro;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getSexoMembro() {
-        return sexoMembro;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setSexoMembro(String sexoMembro) {
-        this.sexoMembro = sexoMembro;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
-    public String getCpfMembro() {
-        return cpfMembro;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCpfMembro(String cpfMembro) {
-        this.cpfMembro = cpfMembro;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getEmailMembro() {
-        return emailMembro;
+    public String getEstado_civil() {
+        return estado_civil;
     }
 
-    public void setEmailMembro(String emailMembro) {
-        this.emailMembro = emailMembro;
+    public void setEstado_civil(String estado_civil) {
+        this.estado_civil = estado_civil;
     }
 
-    public int getCodCriadoPor() {
-        return codCriadoPor;
+    public String getDt_nasc() {
+        return dt_nasc;
     }
 
-    public void setCodCriadoPor(int codCriadoPor) {
-        this.codCriadoPor = codCriadoPor;
+    public void setDt_nasc(String dt_nasc) {
+        this.dt_nasc = dt_nasc;
     }
 
-    public String getCriadoPor() {
-        return criadoPor;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCriadoPor(String criadoPor) {
-        this.criadoPor = criadoPor;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getStatusMembro() {
-        return statusMembro;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setStatusMembro(String statusMembro) {
-        this.statusMembro = statusMembro;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getTelefoneMembro() {
-        return telefoneMembro;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelefoneMembro(String telefoneMembro) {
-        this.telefoneMembro = telefoneMembro;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
-    public String getCelularMembro() {
-        return celularMembro;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setCelularMembro(String celularMembro) {
-        this.celularMembro = celularMembro;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
-    public String getCriado() {
-        return criado;
+    public String getCep() {
+        return cep;
     }
 
-    public void setCriado(String criado) {
-        this.criado = criado;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
-    public String getAtualizado() {
-        return atualizado;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setAtualizado(String atualizado) {
-        this.atualizado = atualizado;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
-    public String getTipoEndereco() {
-        return tipoEndereco;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setTipoEndereco(String tipoEndereco) {
-        this.tipoEndereco = tipoEndereco;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public String getLogradouroEndereco() {
-        return logradouroEndereco;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setLogradouroEndereco(String logradouroEndereco) {
-        this.logradouroEndereco = logradouroEndereco;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
-    public String getNumeroEndereco() {
-        return numeroEndereco;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setNumeroEndereco(String numeroEndereco) {
-        this.numeroEndereco = numeroEndereco;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public String getCepEndereco() {
-        return cepEndereco;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setCepEndereco(String cepEndereco) {
-        this.cepEndereco = cepEndereco;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getBairroEndereco() {
-        return bairroEndereco;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setBairroEndereco(String bairroEndereco) {
-        this.bairroEndereco = bairroEndereco;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public String getCidadeEndereco() {
-        return cidadeEndereco;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setCidadeEndereco(String cidadeEndereco) {
-        this.cidadeEndereco = cidadeEndereco;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getUfEndereco() {
-        return ufEndereco;
+    public String getLogitude() {
+        return logitude;
     }
 
-    public void setUfEndereco(String ufEndereco) {
-        this.ufEndereco = ufEndereco;
+    public void setLogitude(String logitude) {
+        this.logitude = logitude;
     }
 
-    public Double getLatitudeEndereco() {
-        return latitudeEndereco;
+    public int getFk_celula() {
+        return fk_celula;
     }
 
-    public void setLatitudeEndereco(Double latitudeEndereco) {
-        this.latitudeEndereco = latitudeEndereco;
+    public void setFk_celula(int fk_celula) {
+        this.fk_celula = fk_celula;
     }
-
-    public Double getLongitudeEndereco() {
-        return longitudeEndereco;
-    }
-
-    public void setLongitudeEndereco(Double longitudeEndereco) {
-        this.longitudeEndereco = longitudeEndereco;
-    }
-
-    public String getCriado_em_endereco() {
-        return criadoEmEndereco;
-    }
-
-    public void setCriadoEmEndereco(String criadoEmEndereco) {
-        this.criadoEmEndereco = criadoEmEndereco;
-    }
-
-    public int getCodCelula() {
-        return codCelula;
-    }
-
-    public void setCodCelula(int codCelula) {
-        this.codCelula = codCelula;
-    }
-
-    public int getCodLider() {
-        return codLider;
-    }
-
-    public void setCodLider(int codLider) {
-        this.codLider = codLider;
-    }
-
-    public String getNomeLider() {
-        return nomeLider;
-    }
-
-    public void setNomeLider(String nomeLider) {
-        this.nomeLider = nomeLider;
-    }
-
-    public String getCriadoEmCelula() {
-        return criadoEmCelula;
-    }
-
-    public void setCriadoEmCelula(String criadoEmCelula) {
-        this.criadoEmCelula = criadoEmCelula;
-    }
-
 }

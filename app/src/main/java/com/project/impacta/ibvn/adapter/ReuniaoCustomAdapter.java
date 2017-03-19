@@ -109,8 +109,8 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
                 i.putExtra("data", String.valueOf(reuniaoModel.getDataReuniao()));
                 i.putExtra("endereco", String.valueOf(reuniaoModel.getCelulaReuniao().getEnderecoCelula().getLogradouroEndereco()));
                 i.putExtra("lider", String.valueOf(reuniaoModel.getCelulaReuniao().getLiderNome()));
-                i.putExtra("lider_email", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroLider().getEmailMembro()));
-                i.putExtra("agendado_por", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroCriador().getNomeMembro()));
+                i.putExtra("lider_email", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroLider().getEmail()));
+                i.putExtra("agendado_por", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroCriador().getNome()));
 
                 mContext.startActivity(i);
             }
