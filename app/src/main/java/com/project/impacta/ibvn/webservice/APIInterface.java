@@ -17,6 +17,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 /**
  * Created by Matheus on 16/03/2017.
@@ -24,12 +26,9 @@ import retrofit2.http.POST;
 
 public interface APIInterface {
 
-    //    @POST(Constants.SEND_MESSAGE)
-    //    Call<Message> sendMessage(@Body String message);
-    //
-    //    @GET(Constants.INFO)
-    //    Call<IDNA.Info> getInfo();
-
     @GET(Constants.GET_MEMBROS)
     Call<List<MembroModel>> getMembros();
+
+    @GET(Constants.GET_MEMBROS_BY_ID)
+    Call<MembroModel> getMembrosByID(@Path("id") String id);
 }

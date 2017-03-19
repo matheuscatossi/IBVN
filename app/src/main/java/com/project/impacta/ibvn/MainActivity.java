@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //GET control
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -334,7 +333,6 @@ public class MainActivity extends AppCompatActivity
                                         l.addAll(response.body());
 
                                         for (MembroModel membro : l) {
-                                            Log.d("INFOMEMBRO: ", ""+ membro.getNome());
                                             membroList.add(new MembroModel((int) membro.getId(), (String) membro.getNome(), (String) membro.getEmail(), (String) membro.getSexo()));
                                         }
 
@@ -342,10 +340,7 @@ public class MainActivity extends AppCompatActivity
                                         membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
                                         listViewMembro.setAdapter(membroCustomAdapter);
 
-                                        //Log.d("INFOMEMBRO: ", ""+l.get(1).getCodMembro());
-
                                     }
-                                    //Log.d("INFOMEMBRO: ", "Error");
                                 }
 
                                 @Override

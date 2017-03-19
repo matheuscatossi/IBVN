@@ -84,10 +84,10 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
             result = convertView;
         }
 
-        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-        result.startAnimation(animation);
-        lastPosition = position;
+//        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+//        result.startAnimation(animation);
 
+        lastPosition = position;
 
         if (membroModel.getSexo().equals("M")) {
             viewHolder.img_user.setImageResource(R.drawable.user_m);

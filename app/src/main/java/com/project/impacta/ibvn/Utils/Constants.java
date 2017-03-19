@@ -14,5 +14,7 @@ public class Constants {
     //    public static final String SEND_MESSAGE = "";
     //    public static final String INFO = "setInfoJSON.php";
     public static final String GET_MEMBROS = "membros/";
+    public static final String GET_MEMBROS_BY_ID = "membros/{id}";
+
 }
 

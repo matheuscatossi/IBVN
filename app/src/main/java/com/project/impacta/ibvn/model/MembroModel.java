@@ -91,9 +91,6 @@ public class MembroModel implements Cloneable,Serializable {
     @Expose
     int fk_celula;
 
-
-
-
     public MembroModel() {
 
     }
