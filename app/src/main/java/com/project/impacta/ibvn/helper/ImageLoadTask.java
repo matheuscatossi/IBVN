@@ -9,10 +9,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by proje on 05/03/2017.
- */
-
 public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
     private String url;

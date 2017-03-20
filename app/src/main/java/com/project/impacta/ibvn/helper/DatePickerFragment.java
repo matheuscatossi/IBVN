@@ -5,6 +5,7 @@ import android.app.Dialog;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -19,10 +20,12 @@ public  class DatePickerFragment extends DialogFragment
 
 
     private final EditText etToInput;
+    private final View toSetFocus;
 
-    public DatePickerFragment(EditText etToInput) {
+    public DatePickerFragment(EditText etToInput,View toSetFocus) {
 
          this.etToInput = etToInput;
+        this.toSetFocus = toSetFocus;
     }
 
     @Override
@@ -41,5 +44,6 @@ public  class DatePickerFragment extends DialogFragment
 
         String data =String.format("%1$02d/%2$02d/%3$04d",day,month,year);
         etToInput.setText(data);
+        this.toSetFocus.requestFocus();
     }
 }

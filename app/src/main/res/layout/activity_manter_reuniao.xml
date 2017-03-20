@@ -34,7 +34,7 @@
             android:layout_gravity="center_horizontal|center"
             android:drawableBottom="@color/cast_expanded_controller_ad_label_background_color"
             android:foregroundGravity="center_horizontal|center"
-            android:text="Adicionando Reunião"
+            android:text="Adicionando"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="28sp"
@@ -73,7 +73,7 @@
                 android:ems="10"
                 android:hint="Reunião da família"
                 android:inputType="textPersonName"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:id="@+id/tv_manter_reuniao_data"
@@ -88,11 +88,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:focusable="false"
                 android:hint="mm/dd/aaaa"
                 android:inputType="date"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textSize="14sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
             <TextView
@@ -125,19 +123,21 @@
                     android:ems="10"
                     android:hint="00000-000"
                     android:inputType="textPostalAddress"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <Button
                     android:id="@+id/btn_manter_reuniao_buscar_cep"
                     android:layout_width="108dp"
                     android:layout_height="36dp"
+                    android:layout_marginBottom="2dp"
                     android:background="@drawable/border_min_button"
                     android:drawableLeft="@drawable/find_location_x32"
                     android:elevation="0dp"
                     android:paddingLeft="8dp"
                     android:text="Buscar"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:translationY="-5dp" />
+                    android:translationY="-2dp" />
 
             </LinearLayout>
 
@@ -167,8 +167,7 @@
                         android:ems="10"
                         android:hint="R,São Camilo"
                         android:inputType="textPostalAddress"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                        android:textSize="14sp" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </LinearLayout>
 
@@ -187,13 +186,12 @@
 
                     <EditText
                         android:id="@+id/et_manter_reuniao_numero"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="32"
                         android:inputType="textPostalAddress"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                        android:textSize="14sp"
-                        android:layout_width="match_parent" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </LinearLayout>
 
@@ -216,7 +214,7 @@
                 android:ems="10"
                 android:hint="Jd. das Flores"
                 android:inputType="textPostalAddress"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
             <LinearLayout
@@ -245,7 +243,7 @@
                         android:ems="10"
                         android:hint="São Paulo"
                         android:inputType="textPostalAddress"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </LinearLayout>
 
@@ -269,7 +267,7 @@
                         android:ems="10"
                         android:hint="SP"
                         android:inputType="textPostalAddress"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>
 
 
@@ -286,11 +284,12 @@
             <EditText
                 android:id="@+id/et_manter_reuniao_descricao"
                 android:layout_width="match_parent"
-                android:layout_height="102dp"
+                android:layout_height="80dp"
                 android:background="@drawable/border_edittext"
                 android:ems="2"
                 android:hint="Breve descrição sobre o encontro."
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </LinearLayout>
 

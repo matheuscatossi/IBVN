@@ -174,9 +174,6 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-//            ImageView img = (ImageView) navigationView.findViewById(R.id.nav_header_main_iv_logo);
-//            img.setImageResource(R.drawable.user_m);
-
             if (GPlusData != null) {
                 Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getGivenName(), Toast.LENGTH_LONG).show();
             }

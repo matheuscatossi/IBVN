@@ -14,6 +14,7 @@ import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,12 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.impacta.ibvn.helper.BuscaCep;
+import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
 import com.project.impacta.ibvn.helper.DatePickerFragment;
 import com.project.impacta.ibvn.helper.FormularioManterMembroHelper;
 import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
 
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.util.Map;
 
 public class ManterReuniaoActivity extends AppCompatActivity {
@@ -36,9 +39,6 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     private CelulaModel celula;
     private ReuniaoModel reuniao;
     private Button buscar;
-    private Map<String, String> DadosEndereco;
-    private static boolean isNetworkEnabled = false;
-    private static LocationManager locationManager;
 
 
     @Override
@@ -53,15 +53,17 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         reuniao = (ReuniaoModel) intent.getSerializableExtra("REUNIAO");
 
 
-        //Mostra calendário no clique do campo data
+        //Mostra calendário ao ganhar o focus e set o próximo controle que irá receber o focus
         data = (EditText) findViewById(R.id.et_manter_reuniao_data);
-        data.setOnClickListener(new View.OnClickListener() {
+        data.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment(data);
-                newFragment.show(getSupportFragmentManager(), "datePicker");
-            }
+            public void onFocusChange(View v, boolean hasFocus) {
 
+                if (hasFocus) {
+                    DialogFragment newFragment = new DatePickerFragment(data, helperFormManterReuniao.getCampoCep());
+                    newFragment.show(getSupportFragmentManager(), "datePicker");
+                }
+            }
         });
 
 
@@ -72,32 +74,19 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                                       @Override
                                       public void onClick(View v) {
 
-                                          Thread thread = new Thread(new Runnable() {
 
-                                              @Override
-                                              public void run() {
-                                                  try {
+                                          //Busca dados do endereço a partir do CEP e carrega os campos do formulário
+                                          CarregarEnderecoTask task = new CarregarEnderecoTask(
+                                                  et_cep.getText().toString(),
+                                                  helperFormManterReuniao.getCampoCep(),
+                                                  helperFormManterReuniao.getCampoCidade(),
+                                                  helperFormManterReuniao.getCampoBairro(),
+                                                  helperFormManterReuniao.getCampoLogradouro(),
+                                                  helperFormManterReuniao.getCampoUF(),
+                                                  helperFormManterReuniao.getCampoNumero()
+                                          );
+                                          task.execute();
 
-                                                      if (ContextCompat.checkSelfPermission(ManterReuniaoActivity.this,
-                                                              android.Manifest.permission.INTERNET)
-                                                              == PackageManager.PERMISSION_GRANTED) {
-
-                                                          DadosEndereco = BuscaCep.getEnderecoFull(et_cep.getText().toString());
-                                                          helperFormManterReuniao.preencherDadosEndereco(DadosEndereco);
-
-                                                      }
-
-
-                                                  } catch (IOException ex) {
-
-                                                      ex.printStackTrace();
-
-                                                  } catch (Exception e) {
-                                                      e.printStackTrace();
-                                                  }
-                                              }
-                                          });
-                                          thread.start();
                                       }
                                   }
         );
