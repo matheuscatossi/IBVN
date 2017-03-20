@@ -4,13 +4,21 @@ package com.project.impacta.ibvn.webservice;
 import android.icu.text.IDNA;
 
 import com.google.android.gms.nearby.messages.Message;
+import com.google.common.collect.ObjectArrays;
 import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.model.MembroModel;
+
+import org.json.JSONArray;
+
+import java.lang.reflect.Array;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 /**
  * Created by Matheus on 16/03/2017.
@@ -18,12 +26,9 @@ import retrofit2.http.POST;
 
 public interface APIInterface {
 
-    //    @POST(Constants.SEND_MESSAGE)
-    //    Call<Message> sendMessage(@Body String message);
-    //
-    //    @GET(Constants.INFO)
-    //    Call<IDNA.Info> getInfo();
-
     @GET(Constants.GET_MEMBROS)
-    Call<String> getMembros();
+    Call<List<MembroModel>> getMembros();
+
+    @GET(Constants.GET_MEMBROS_BY_ID)
+    Call<MembroModel> getMembrosByID(@Path("id") String id);
 }

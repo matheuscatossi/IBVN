@@ -34,10 +34,10 @@ public class CelulaModel  implements Serializable {
 
 
         //MEMBRO CRIADOR
-        this.membroCriador.nomeMembro = criadoPor;
+        this.membroCriador.nome = criadoPor;
 
         //MEMBRO LIDER
-        this.membroLider.nomeMembro = liderNome;
+        this.membroLider.nome = liderNome;
         this.enderecoCelula.setLogradouroEndereco(logradouroEndereco);
         this.enderecoCelula.setNumeroEndereco(numeroEndereco);
         this.enderecoCelula.setCepEndereco(cepEndereco);
@@ -57,12 +57,12 @@ public class CelulaModel  implements Serializable {
         this.atualizado = atualizado;
 
         //MEMBRO CRIADOR
-        this.membroCriador.codMembro = codCriadoPor;
-        this.membroCriador.nomeMembro = criadoPor;
+        this.membroCriador.id = codCriadoPor;
+        this.membroCriador.nome = criadoPor;
 
         //MEMBRO LIDER
-        this.membroLider.codMembro = codLider;
-        this.membroLider.nomeMembro = liderNome;
+        this.membroLider.id = codLider;
+        this.membroLider.nome = liderNome;
 
         this.enderecoCelula.setTipoEndereco(tipoEndereco);
         this.enderecoCelula.setLogradouroEndereco(logradouroEndereco);
@@ -128,19 +128,19 @@ public class CelulaModel  implements Serializable {
     }
 
     public int getCodCriadoPor() {
-        return membroCriador.codMembro;
+        return membroCriador.id;
     }
 
     public void setCodCriadoPor(int codCriadoPor) {
-        this.membroCriador.codMembro = codCriadoPor;
+        this.membroCriador.id = codCriadoPor;
     }
 
     public String getCriadoPor() {
-        return membroCriador.nomeMembro;
+        return membroCriador.nome;
     }
 
     public void setCriadoPor(String criadoPor) {
-        this.membroCriador.nomeMembro = criadoPor;
+        this.membroCriador.nome = criadoPor;
     }
 
     public MembroModel getMembroLider() {
@@ -152,19 +152,19 @@ public class CelulaModel  implements Serializable {
     }
 
     public int getCodLider() {
-        return membroLider.codMembro;
+        return membroLider.id;
     }
 
     public void setCodLider(int codLider) {
-        this.membroLider.codMembro = codLider;
+        this.membroLider.id = codLider;
     }
 
     public String getLiderNome() {
-        return membroLider.nomeMembro;
+        return membroLider.nome;
     }
 
     public void setLiderNome(String liderNome) {
-        membroLider.nomeMembro = liderNome;
+        membroLider.nome = liderNome;
     }
 
     public EnderecoModel getEnderecoCelula() {

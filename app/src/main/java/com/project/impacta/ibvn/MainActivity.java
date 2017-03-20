@@ -35,6 +35,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.common.collect.ObjectArrays;
+import com.google.gson.Gson;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.helper.GPlus;
@@ -45,6 +47,9 @@ import com.project.impacta.ibvn.model.ReuniaoModel;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
 
+import org.json.JSONArray;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -83,7 +88,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //GET control
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -282,7 +286,7 @@ public class MainActivity extends AppCompatActivity
         public WebView mWebView;
 
         // Membro
-        Call<String> call;
+        Call<List<MembroModel>> call;
         APIInterface apiService;
 
         @Override
@@ -315,41 +319,35 @@ public class MainActivity extends AppCompatActivity
                         public void run(){
                             apiService = APIClient.getService().create(APIInterface.class);
                             call = apiService.getMembros();
-                            call.enqueue(new Callback<String>() {
+                            membroList = new ArrayList<>();
+
+                            call.enqueue(new Callback<List<MembroModel>>() {
                                 @Override
-                                public void onResponse(Call<String> call, Response<String> response) {
+                                public void onResponse(Call<List<MembroModel>> call, Response<List<MembroModel>> response) {
                                     if (response.raw().code() == 200) {
 
-                                        String resp = response.body().toString();
-                                        Log.d("INFOMEMBRO: ", resp);
+                                        List<MembroModel> l = new ArrayList<MembroModel>();
+                                        l.addAll(response.body());
+
+                                        for (MembroModel membro : l) {
+                                            membroList.add(new MembroModel((int) membro.getId(), (String) membro.getNome(), (String) membro.getEmail(), (String) membro.getSexo()));
+                                        }
+
+                                        Collections.reverse(membroList);
+                                        membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
+                                        listViewMembro.setAdapter(membroCustomAdapter);
+
                                     }
-                                    Log.d("INFOMEMBRO: ", "Error");
                                 }
 
                                 @Override
-                                public void onFailure(Call<String> call, Throwable t) {
+                                public void onFailure(Call<List<MembroModel>> call, Throwable t) {
                                     Log.e("INFOMEMBRO", t.toString());
                                 }
                             });
                         }
-                    },0,2000);
+                    },0,3000);
 
-                    membroList = new ArrayList<>();
-
-                    membroList.add(new MembroModel(1, "João José", "jj@jj.com.br", "M"));
-                    membroList.add(new MembroModel(1, "Cesar Astolfo", "castolfo@hotmail.com", "M"));
-                    membroList.add(new MembroModel(1, "Carlos Junior", "carlosj@gmail.com", "M"));
-                    membroList.add(new MembroModel(1, "Maria de Fatima", "mrfcatossi@terra.com.br", "F"));
-                    membroList.add(new MembroModel(1, "Matheus Catossi", "matheuscatossi@gmail.com", "M"));
-                    membroList.add(new MembroModel(1, "João José", "jj@jj.com.br", "M"));
-                    membroList.add(new MembroModel(1, "Cesar Astolfo", "castolfo@hotmail.com", "M"));
-                    membroList.add(new MembroModel(1, "Carlos Junior", "carlosj@gmail.com", "M"));
-                    membroList.add(new MembroModel(1, "Maria de Fatima", "mrfcatossi@terra.com.br", "F"));
-                    membroList.add(new MembroModel(1, "Matheus Catossi", "matheuscatossi@gmail.com", "M"));
-
-                    Collections.reverse(membroList);
-                    membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
-                    listViewMembro.setAdapter(membroCustomAdapter);
 
                     break;
                 case 3:
@@ -424,7 +422,7 @@ public class MainActivity extends AppCompatActivity
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "EVENTOS";
+                    return "NEWSFEED";
                 case 1:
                     return "MEMBROS";
                 case 2:
