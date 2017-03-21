@@ -33,7 +33,6 @@ public class FormularioManterMembroHelper {
 
     public FormularioManterMembroHelper(ManterReuniaoActivity activity) {
 
-        campoHeader = (TextView) activity.findViewById(R.id.tv_manter_reuniao_nova);
         campoTema = (EditText) activity.findViewById(R.id.et_manter_reuniao_tema);
         campoData = (EditText) activity.findViewById(R.id.et_manter_reuniao_data);
         campoLogradouro = (EditText) activity.findViewById(R.id.et_manter_reuniao_logradouro);

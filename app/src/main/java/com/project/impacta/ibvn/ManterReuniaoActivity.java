@@ -5,13 +5,21 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -39,6 +47,7 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     private CelulaModel celula;
     private ReuniaoModel reuniao;
     private Button buscar;
+    Toolbar toolbar;
 
 
     @Override
@@ -46,8 +55,12 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manter_reuniao);
 
-        helperFormManterReuniao = new FormularioManterMembroHelper(this);
+        //Header
+        getSupportActionBar().setTitle("Adicionando Reunião");
+  //      getSupportActionBar().setIcon(R.drawable.back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        helperFormManterReuniao = new FormularioManterMembroHelper(this);
         Intent intent = getIntent();
         celula = (CelulaModel) intent.getSerializableExtra("CELULA");
         reuniao = (ReuniaoModel) intent.getSerializableExtra("REUNIAO");
@@ -99,6 +112,7 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -116,6 +130,10 @@ public class ManterReuniaoActivity extends AppCompatActivity {
 
                 //  dao.close();
                 Toast.makeText(ManterReuniaoActivity.this, "Reunião " + reuniao.getTemaReuniao() + " salva!", Toast.LENGTH_LONG).show();
+                finish();
+                break;
+            case android.R.id.home:
+
                 finish();
                 break;
         }
