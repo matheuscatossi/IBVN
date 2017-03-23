@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_manter_membro"
     android:layout_width="match_parent"
@@ -8,6 +8,312 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.project.impacta.ibvn.ManterMembroActivity">
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_manter_membro_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/border_header"
+        android:orientation="horizontal"
+        android:textAlignment="center"
+        android:weightSum="1"
+        tools:textAlignment="center">
+
+    </LinearLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_manter_membro_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_membro_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Nome"
+                android:ems="10"
+                android:hint="Antônio Fidelis"
+                android:inputType="textPersonName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/tv_manter_membro_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_membro_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="seuemail@mail.com"
+                android:inputType="textEmailAddress"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+            <TextView
+                android:id="@+id/tv_manter_membro_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CPF :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_membro_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="000.043.704-01"
+                android:inputType="text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/tv_manter_membro_fixo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fixo :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_membro_fixo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="(11)46089-6781"
+                android:inputType="text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+
+            <TextView
+                android:id="@+id/tv_manter_membro_celular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Celular :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_membro_celular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="(11)96502-7521"
+                android:inputType="text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+            <TextView
+                android:id="@+id/tv_manter_membro_cep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cep :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <LinearLayout
+                android:id="@+id/ll_manter_membro_cep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal"
+                android:textAlignment="center"
+                android:weightSum="1">
+
+
+                <EditText
+                    android:id="@+id/et_manter_membro_cep"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.99"
+                    android:ems="10"
+                    android:hint="00000-000"
+                    android:inputType="textPostalAddress"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <Button
+                    android:id="@+id/btn_manter_membro_buscar_cep"
+                    android:layout_width="108dp"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/border_min_button"
+                    android:drawableLeft="@drawable/find_location_x32"
+                    android:elevation="0dp"
+                    android:paddingLeft="8dp"
+                    android:text="Buscar"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:translationY="-2dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="247dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_logradouro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Logradouro :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_logradouro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="R,São Camilo"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_numero"
+                        android:layout_width="102dp"
+                        android:layout_height="wrap_content"
+                        android:text="Nº :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_numero"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="32"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_manter_membro_bairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bairro :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_membro_bairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Jd. das Flores"
+                android:inputType="textPostalAddress"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_cidade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cidade :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_cidade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="São Paulo"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_uf"
+                        android:layout_width="73dp"
+                        android:layout_height="wrap_content"
+                        android:text="UF:"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_uf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="SP"
+                        android:inputType="textPostalAddress"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

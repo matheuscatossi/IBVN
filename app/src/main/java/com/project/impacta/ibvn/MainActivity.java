@@ -82,15 +82,15 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fabReuniao;
     private FloatingActionButton fabUser;
     static SectionsPagerAdapter mSectionsPagerAdapter;
+    static int selectedTab;
 
+    DrawerLayout drawer;
     //Dados do membro Logado
     private static MembroModel membroLider;
     private static MembroModel membroCriador;
     private static EnderecoModel endereco;
     private static EnderecoModel enderecoReuniao;
     private static CelulaModel celula;
-
-    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,11 +142,14 @@ public class MainActivity extends AppCompatActivity
         }
 
         try {
+
             fabUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Adicionar Usuário - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    selectedTab = 1;
+                    Intent manterMembroIntent = new Intent(MainActivity.this, ManterMembroActivity.class);
+                    manterMembroIntent.putExtra("CELULA", membroLider);
+                    startActivity(manterMembroIntent);
                 }
             });
 
@@ -154,9 +157,10 @@ public class MainActivity extends AppCompatActivity
             fabReuniao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    selectedTab = 2;
                     Intent manterReuniaoIntent = new Intent(MainActivity.this, ManterReuniaoActivity.class);
-                    manterReuniaoIntent.putExtra("CELULA",celula);
-                    startActivity(manterReuniaoIntent );
+                    manterReuniaoIntent.putExtra("CELULA", celula);
+                    startActivity(manterReuniaoIntent);
                 }
             });
 
@@ -179,16 +183,20 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
+
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.setDrawerListener(toggle);
             toggle.syncState();
 
+
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
+
 
             if (GPlusData != null) {
                 Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getGivenName(), Toast.LENGTH_LONG).show();
             }
+
         } catch (Exception ex) {
             throw ex;
         }
@@ -196,7 +204,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void onResume() {
         super.onResume();
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem((selectedTab != 1) ? selectedTab : 1);
     }
 
     @Override
@@ -295,6 +303,7 @@ public class MainActivity extends AppCompatActivity
 
         // Membro
         Call<List<MembroModel>> call;
+        Call<List<ReuniaoModel>> callReuniao;
         APIInterface apiService;
 
         @Override
@@ -343,9 +352,9 @@ public class MainActivity extends AppCompatActivity
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
                     listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
 
-                    new Timer().scheduleAtFixedRate(new TimerTask(){
+                    new Timer().scheduleAtFixedRate(new TimerTask() {
                         @Override
-                        public void run(){
+                        public void run() {
                             apiService = APIClient.getService().create(APIInterface.class);
                             call = apiService.getMembros();
                             membroList = new ArrayList<>();
@@ -375,44 +384,56 @@ public class MainActivity extends AppCompatActivity
                                 }
                             });
                         }
-                    },0,3000);
-
+                    }, 0, 3000);
 
                     break;
                 case 3:
 
+                    selectedTab = 2;
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
-                    reuniaoList = new ArrayList<>();
 
-                    reuniaoList.add(
-                            new ReuniaoModel(1, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
-                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            ,enderecoReuniao)
-                    );
+                    new Timer().scheduleAtFixedRate(new TimerTask() {
+                        @Override
+                        public void run() {
+                            apiService = APIClient.getService().create(APIInterface.class);
+                            callReuniao = apiService.getReunioes();
+                            reuniaoList = new ArrayList<>();
 
-                    reuniaoList.add(
-                            new ReuniaoModel(2, "25/03/2017", "Vida em Cristo", "Nova", "Entender como a vida pode ser bem vivida quando estamos com deus."
-                                    , new CelulaModel(1, "Célula Irmão Tiago", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            ,enderecoReuniao)
-                    );
+                            callReuniao.enqueue(new Callback<List<ReuniaoModel>>() {
+                                @Override
+                                public void onResponse(Call<List<ReuniaoModel>> call, Response<List<ReuniaoModel>> response) {
+                                    if (response.raw().code() == 200) {
 
-                    reuniaoList.add(
-                            new ReuniaoModel(3, "21/04/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
-                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            ,enderecoReuniao)
-                    );
+                                        List<ReuniaoModel> l = new ArrayList<ReuniaoModel>();
+                                        l.addAll(response.body());
 
-                    reuniaoList.add(
-                            new ReuniaoModel(4, "30/02/2017", "Todos Por Uma OPE", "Nova", "Reunião para orar pelo fim do semestre e todos passarem"
-                                    , new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider, endereco)
-                            ,enderecoReuniao)
-                    );
+                                        for (ReuniaoModel reuniao : l) {
+                                            reuniaoList.add(
+                                                    new ReuniaoModel(
+                                                            (int) reuniao.getId(),
+                                                            (String) reuniao.getData(),
+                                                            (String) reuniao.getTema(),
+                                                            (String) reuniao.getDescricao())
+                                            );
+                                        }
 
-                    Collections.reverse(reuniaoList);
-                    reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());
-                    listViewReuniao.setAdapter(reuniaoCustomAdapter);
+                                        Collections.reverse(reuniaoList);
+                                        reuniaoCustomAdapter= new ReuniaoCustomAdapter(reuniaoList, getContext());
+                                        listViewReuniao.setAdapter(reuniaoCustomAdapter);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<List<ReuniaoModel>> call, Throwable t) {
+                                    Log.e("INFOMEMBRO", t.toString());
+                                }
+                            });
+                        }
+                    }, 0, 60000);
+
                     break;
+
                 case 4:
                     rootView = inflater.inflate(R.layout.fragment_chat, container, false);
 

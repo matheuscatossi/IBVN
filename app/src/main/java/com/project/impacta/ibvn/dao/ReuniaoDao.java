@@ -39,10 +39,10 @@ public class ReuniaoDao extends SQLiteOpenHelper {
     private ContentValues pegaDadosDaReuniao(ReuniaoModel reuniao) {
 
         ContentValues dados = new ContentValues();
-        dados.put("tema", reuniao.getTemaReuniao());
-        dados.put("data", reuniao.getDataReuniao());
-        dados.put("status", reuniao.getStatusReuniao());
-        dados.put("descricao", reuniao.getDescricaoReuniao());
+        dados.put("tema", reuniao.getTema());
+        dados.put("data", reuniao.getData());
+        dados.put("status", reuniao.getStatus());
+        dados.put("descricao", reuniao.getDescricao());
         dados.put("celula_id", reuniao.getCelulaReuniao().getCodCelula());
         return dados;
     }

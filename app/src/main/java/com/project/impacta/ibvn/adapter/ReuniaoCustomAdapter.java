@@ -73,11 +73,8 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
             convertView = inflater.inflate(R.layout.row_item_reuniao, parent, false);
 
             viewHolder.img_reuniao = (ImageView) convertView.findViewById(R.id.img_reuniao);
-
-
             viewHolder.tv_tema = (TextView) convertView.findViewById(R.id.tv_tema);
             viewHolder.tv_data = (TextView) convertView.findViewById(R.id.tv_data);
-
             viewHolder.ll_linha = (LinearLayout) convertView.findViewById(R.id.ll_linha);
 
             result = convertView;
@@ -93,9 +90,8 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
 
         viewHolder.img_reuniao.setImageResource(R.drawable.reuniao_1);
 
-
         assert reuniaoModel != null;
-        viewHolder.tv_tema.setText(reuniaoModel.getTemaReuniao());
+        viewHolder.tv_tema.setText(reuniaoModel.getTema());
         viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
 
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
@@ -104,13 +100,15 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
 
                 Intent i = new Intent(mContext, InfoReuniaoActivity.class);
 
-                i.putExtra("codigo", String.valueOf(reuniaoModel.getCodReuniao()));
-                i.putExtra("tema", String.valueOf(reuniaoModel.getTemaReuniao()));
-                i.putExtra("data", String.valueOf(reuniaoModel.getDataReuniao()));
+                i.putExtra("Id", String.valueOf(reuniaoModel.getId()));
+/*
+                i.putExtra("tema", String.valueOf(reuniaoModel.getTema()));
+                i.putExtra("data", String.valueOf(reuniaoModel.getData()));
                 i.putExtra("endereco", String.valueOf(reuniaoModel.getCelulaReuniao().getEnderecoCelula().getLogradouroEndereco()));
                 i.putExtra("lider", String.valueOf(reuniaoModel.getCelulaReuniao().getLiderNome()));
                 i.putExtra("lider_email", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroLider().getEmail()));
                 i.putExtra("agendado_por", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroCriador().getNome()));
+*/
 
                 mContext.startActivity(i);
             }

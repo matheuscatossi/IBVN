@@ -16,5 +16,11 @@ public class Constants {
     public static final String GET_MEMBROS = "membros/";
     public static final String GET_MEMBROS_BY_ID = "membros/{id}";
 
+
+    public static final String GET_REUNIOES = "reunioes/";
+    public static final String GET_REUNIOES_BY_ID = "reunioes/{id}";
+
+
+
 }
 
