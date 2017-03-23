@@ -142,10 +142,10 @@ public class FormularioManterMembroHelper {
     }
 
     public ReuniaoModel getReuniaoFromData() {
-        this.Reuniao.setDataReuniao(campoData.getText().toString());
-        this.Reuniao.setDescricaoReuniao(campoDescricao.getText().toString());
-        this.Reuniao.setStatusReuniao("Nova");
-        this.Reuniao.setTemaReuniao(campoTema.getText().toString());
+        this.Reuniao.setData(campoData.getText().toString());
+        this.Reuniao.setDescricao(campoDescricao.getText().toString());
+        this.Reuniao.setStatus("Nova");
+        this.Reuniao.setTema(campoTema.getText().toString());
         return this.Reuniao;
     }
 

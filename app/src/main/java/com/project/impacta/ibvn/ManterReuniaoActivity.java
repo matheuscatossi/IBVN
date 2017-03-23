@@ -122,14 +122,14 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                 ReuniaoModel reuniao = helperFormManterReuniao.getReuniaoFromData();
                 //AlunoDAO dao = new AlunoDAO(this);
 
-                if (reuniao.getCodReuniao() != 0) {
+                if (reuniao.getId() != 0) {
                     // dao.altera(aluno);
                 } else {
                     // dao.insere(aluno);
                 }
 
                 //  dao.close();
-                Toast.makeText(ManterReuniaoActivity.this, "Reunião " + reuniao.getTemaReuniao() + " salva!", Toast.LENGTH_LONG).show();
+                Toast.makeText(ManterReuniaoActivity.this, "Reunião " + reuniao.getTema() + " salva!", Toast.LENGTH_LONG).show();
                 finish();
                 break;
             case android.R.id.home:
