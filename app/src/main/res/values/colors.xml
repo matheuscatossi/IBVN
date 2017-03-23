@@ -3,4 +3,8 @@
     <color name="colorPrimary">#81052e</color>
     <color name="colorPrimaryDark">#69041b</color>
     <color name="colorAccent">#760f25</color>
+
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#760f25</color>
 </resources>

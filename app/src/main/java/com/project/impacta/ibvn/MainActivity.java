@@ -1,6 +1,9 @@
 package com.project.impacta.ibvn;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,8 +19,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,27 +36,28 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.GridLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.common.collect.ObjectArrays;
-import com.google.gson.Gson;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.ValueEventListener;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
+import com.project.impacta.ibvn.adapter.NewsFeedCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.helper.GPlus;
 import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
+import com.project.impacta.ibvn.model.NewsFeedModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
 
-import org.json.JSONArray;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -308,7 +316,28 @@ public class MainActivity extends AppCompatActivity
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
-                    rootView = inflater.inflate(R.layout.fragment_evento, container, false);
+                    rootView =  inflater.inflate(R.layout.fragment_newsfeed, container, false);
+
+                    RecyclerView recyclerView;
+                    NewsFeedCustomAdapter adapter;
+                    List<NewsFeedModel> newsFeedList;
+
+                    recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+
+                    RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    newsFeedList = new ArrayList<>();
+
+                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia","1", R.drawable.culto_1));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto irmão feliz","1", R.drawable.culto_2));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto amor e Deus","1", R.drawable.culto_1));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto alibaba","1", R.drawable.culto_2));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto sim sim","1", R.drawable.culto_2));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia de novo","1", R.drawable.culto_1));
+
+                    adapter = new NewsFeedCustomAdapter(getActivity(), newsFeedList);
+                    recyclerView.setAdapter(adapter);
+
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
@@ -394,7 +423,7 @@ public class MainActivity extends AppCompatActivity
                     mWebView.loadUrl("http://bankbox.net.br/ibvn/watson/index.htm");
                     break;
                 default:
-                    rootView = inflater.inflate(R.layout.fragment_evento, container, false);
+                    rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
                     break;
             }
             return rootView;
@@ -433,4 +462,51 @@ public class MainActivity extends AppCompatActivity
             return null;
         }
     }
+
+    public static class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view);
+            int column = position % spanCount;
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount;
+                outRect.right = (column + 1) * spacing / spanCount;
+
+                if (position < spanCount) {
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing;
+            } else {
+                outRect.left = column * spacing / spanCount;
+                outRect.right = spacing - (column + 1) * spacing / spanCount;
+                if (position >= spanCount) {
+                    outRect.top = spacing;
+                }
+            }
+        }
+    }
+
+    static int dpToPx(int dp, Context context) {
+        Resources r = context.getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+
 }
