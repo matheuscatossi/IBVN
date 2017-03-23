@@ -7,7 +7,7 @@ package com.project.impacta.ibvn.model;
 public class NewsFeedModel {
 
     private String id;
-    private String descricao;
+    private String nome;
     private String data;
     private int imgPrincipal;
 
@@ -19,12 +19,12 @@ public class NewsFeedModel {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao(String nome) {
+        this.nome = nome;
     }
 
     public String getData() {
@@ -48,7 +48,7 @@ public class NewsFeedModel {
 
     public NewsFeedModel(String id, String descricao, String data, int imgPrincipal) {
         this.id = id;
-        this.descricao = descricao;
+        this.nome = descricao;
         this.data = data;
         this.imgPrincipal       = imgPrincipal;
     }

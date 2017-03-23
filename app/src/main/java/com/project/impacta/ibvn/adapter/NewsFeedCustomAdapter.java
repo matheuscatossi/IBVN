@@ -66,8 +66,8 @@ public class NewsFeedCustomAdapter extends RecyclerView.Adapter<NewsFeedCustomAd
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         newsfeed =  newsfeedList.get(position);
-        holder.title.setText(newsfeed.getDescricao());
-        holder.count.setText("Info : "  + newsfeed.getDescricao());
+        holder.title.setText(newsfeed.getNome());
+        holder.count.setText("Info : "  + newsfeed.getNome());
         //holder.overflow.setImageResource(R.drawable.three_dots);
         holder.ll_card_newsfeed.setOnClickListener(new View.OnClickListener() {
             @Override
