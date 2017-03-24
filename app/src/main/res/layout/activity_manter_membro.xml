@@ -4,11 +4,11 @@
     android:id="@+id/activity_manter_membro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="com.project.impacta.ibvn.ManterMembroActivity">
 
     <LinearLayout
@@ -42,23 +42,83 @@
             android:layout_alignParentStart="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_manter_membro_nome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nome :"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark" />
 
-            <EditText
-                android:id="@+id/et_manter_membro_nome"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="Nome"
-                android:ems="10"
-                android:hint="Antônio Fidelis"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:layout_marginTop="10dp"
+                android:text="Pessoal"
+                android:textColor="#970928"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#970928" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="232dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_nome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nome :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_nome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Nome"
+                        android:ems="10"
+                        android:hint="Antônio Fidelis"
+                        android:inputType="textPersonName"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="121dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_data_nascimento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Data :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_data_nascimento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="mm/dd/aaaa"
+                        android:inputType="date"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tv_manter_membro_email"
@@ -77,23 +137,79 @@
                 android:inputType="textEmailAddress"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="236dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_cpf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CPF :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_cpf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="000.043.704-01"
+                        android:inputType="text"
+                        android:nextFocusRight="@+id/et_manter_membro_sexo"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_manter_membro_sexo"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:text="Sexo :"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:id="@+id/et_manter_membro_sexo"
+                        android:layout_width="123dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="M"
+                        android:inputType="text"
+                        android:maxLength="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_manter_membro_cpf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CPF :"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark" />
+                android:layout_marginTop="10dp"
+                android:text="Contato"
+                android:textColor="#970928"
+                android:textSize="12dp" />
 
-            <EditText
-                android:id="@+id/et_manter_membro_cpf"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="000.043.704-01"
-                android:inputType="text"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:layout_height="1dip"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#970928" />
+
 
             <TextView
                 android:id="@+id/tv_manter_membro_fixo"
@@ -113,7 +229,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
-
             <TextView
                 android:id="@+id/tv_manter_membro_celular"
                 android:layout_width="match_parent"
@@ -130,6 +245,22 @@
                 android:hint="(11)96502-7521"
                 android:inputType="text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Endereço"
+                android:textColor="#970928"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#970928" />
 
 
             <TextView

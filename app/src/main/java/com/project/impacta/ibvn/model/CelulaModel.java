@@ -1,14 +1,63 @@
 package com.project.impacta.ibvn.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
-public class CelulaModel  implements Serializable {
+public class CelulaModel implements Serializable {
 
     //CÉLULA
-    private int codCelula;
-    private String descricaoCelula;
+    @SerializedName("id")
+    @Expose
+    private int Id;
+
+
+    @SerializedName("descricao")
+    @Expose
+    private String descricao;
+
+    @SerializedName("cep")
+    @Expose
+    private String cep;
+
     private String criado;
     private String atualizado;
+
+
+    @SerializedName("logradouro")
+    @Expose
+    private String logradouro;
+
+
+    @SerializedName("numero")
+    @Expose
+    private String numero;
+
+    @SerializedName("complemento")
+    @Expose
+    private String complemento;
+
+
+    @SerializedName("bairro")
+    @Expose
+    private String bairro;
+
+    @SerializedName("cidade")
+    @Expose
+    private String cidade;
+
+    @SerializedName("estado")
+    @Expose
+    private String estado;
+
+    @SerializedName("latitude")
+    @Expose
+    private String latitude;
+
+    @SerializedName("logitude")
+    @Expose
+    private String longitude;
 
     //CRIADOR
     private MembroModel membroCriador;
@@ -16,43 +65,76 @@ public class CelulaModel  implements Serializable {
     //LIDER
     private MembroModel membroLider;
 
-    //ENDEREÇO
-    private EnderecoModel enderecoCelula;
-
 
     public CelulaModel() {
     }
 
-    public CelulaModel(int codCelula, String descricaoCelula, String criadoPor, String liderNome, String logradouroEndereco, String numeroEndereco, String cepEndereco, String bairroEndereco, String cidadeEndereco) {
+    public CelulaModel(
+            int codCelula,
+            String descricaoCelula,
+            String criadoPor,
+            String liderNome,
+            String logradouroEndereco,
+            String numeroEndereco,
+            String cepEndereco,
+            String bairroEndereco,
+            String cidadeEndereco,
+            String estadoEndereco,
+            String complementoEndereco,
+            String latitudeEndereco,
+            String longitudeEndereco
+
+    ) {
 
         this.membroCriador = new MembroModel();
         this.membroLider = new MembroModel();
-        this.enderecoCelula = new EnderecoModel();
 
-        this.codCelula = codCelula;
-        this.descricaoCelula = descricaoCelula;
+        this.Id = codCelula;
+        this.descricao= descricaoCelula;
 
+        this.cep = cepEndereco;
+        this.logradouro = logradouroEndereco;
+        this.numero = numeroEndereco;
+        this.complemento = complementoEndereco;
+        this.bairro = bairroEndereco;
+        this.cidade = cidadeEndereco;
+        this.estado = estadoEndereco;
+        this.latitude = latitudeEndereco;
+        this.longitude = longitudeEndereco;
 
         //MEMBRO CRIADOR
         this.membroCriador.nome = criadoPor;
 
         //MEMBRO LIDER
         this.membroLider.nome = liderNome;
-        this.enderecoCelula.setLogradouroEndereco(logradouroEndereco);
-        this.enderecoCelula.setNumeroEndereco(numeroEndereco);
-        this.enderecoCelula.setCepEndereco(cepEndereco);
-        this.enderecoCelula.setBairroEndereco(bairroEndereco);
-        this.enderecoCelula.setCidadeEndereco(cidadeEndereco);
+
     }
 
 
-    public CelulaModel(int codCelula, String descricaoCelula, String criado, String atualizado, int codCriadoPor, String criadoPor, int codLider, String liderNome, String tipoEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, String latitudeEndereco, String longitudeEndereco) {
+    public CelulaModel(
+            int codCelula,
+            String descricaoCelula,
+            String criado,
+            String atualizado,
+            int codCriadoPor,
+            String criadoPor,
+            int codLider,
+            String liderNome,
+            String tipoEndereco,
+            String logradouroEndereco,
+            String numeroEndereco,
+            String cepEndereco,
+            String bairroEndereco,
+            String cidadeEndereco,
+            String ufEndereco,
+            String latitudeEndereco,
+            String longitudeEndereco) {
         this.membroCriador = new MembroModel();
         this.membroLider = new MembroModel();
-        this.enderecoCelula = new EnderecoModel();
 
-        this.codCelula = codCelula;
-        this.descricaoCelula = descricaoCelula;
+
+        this.Id = codCelula;
+        this.descricao= descricaoCelula;
         this.criado = criado;
         this.atualizado = atualizado;
 
@@ -64,43 +146,58 @@ public class CelulaModel  implements Serializable {
         this.membroLider.id = codLider;
         this.membroLider.nome = liderNome;
 
-        this.enderecoCelula.setTipoEndereco(tipoEndereco);
-        this.enderecoCelula.setLogradouroEndereco(logradouroEndereco);
-        this.enderecoCelula.setNumeroEndereco(numeroEndereco);
-        this.enderecoCelula.setCepEndereco(cepEndereco);
-        this.enderecoCelula.setBairroEndereco(bairroEndereco);
-        this.enderecoCelula.setCidadeEndereco(cidadeEndereco);
-        this.enderecoCelula.setUfEndereco(ufEndereco);
-        this.enderecoCelula.setLatitudeEndereco(latitudeEndereco);
-        this.enderecoCelula.setLongitudeEndereco(longitudeEndereco);
+        this.setLogradouro(logradouroEndereco);
+        this.setNumero(numeroEndereco);
+        this.setCep(cepEndereco);
+        this.setBairro(bairroEndereco);
+        this.setCidade(cidadeEndereco);
+        this.setEstado(ufEndereco);
+        this.setLatitude(latitudeEndereco);
+        this.setLogitude(longitudeEndereco);
     }
 
     /*
     * CONSTRUTOR padrão utiliza instancia para preencher dados*/
-    public CelulaModel(int codCelula, String descricaoCelula, String criado, String atualizado, MembroModel membroCriador, MembroModel membroLider, EnderecoModel enderecoCelula) {
-        this.codCelula = codCelula;
-        this.descricaoCelula = descricaoCelula;
+    public CelulaModel(
+            int codCelula
+            , String descricaoCelula
+            , String criado
+            , String atualizado
+            , MembroModel membroCriador
+            , MembroModel membroLider
+    ) {
+        this.Id = codCelula;
+        this.descricao= descricaoCelula;
         this.criado = criado;
         this.atualizado = atualizado;
         this.membroCriador = membroCriador;
         this.membroLider = membroLider;
-        this.enderecoCelula = enderecoCelula;
+
     }
 
-    public int getCodCelula() {
-        return codCelula;
+
+    public int getId() {
+        return Id;
     }
 
-    public void setCodCelula(int codCelula) {
-        this.codCelula = codCelula;
+    public void setId(int id) {
+        Id = id;
     }
 
-    public String getDescricaoCelula() {
-        return descricaoCelula;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescricaoCelula(String descricaoCelula) {
-        this.descricaoCelula = descricaoCelula;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getCriado() {
@@ -167,84 +264,76 @@ public class CelulaModel  implements Serializable {
         membroLider.nome = liderNome;
     }
 
-    public EnderecoModel getEnderecoCelula() {
-        return enderecoCelula;
+    public String getCep() {
+        return cep;
     }
 
-    public void setEnderecoCelula(EnderecoModel enderecoCelula) {
-        this.enderecoCelula = enderecoCelula;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
-    public String getTipoEndereco() {
-        return enderecoCelula.getTipoEndereco();
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setTipoEndereco(String tipoEndereco) {
-        this.enderecoCelula.setTipoEndereco(tipoEndereco);
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
-    public String getLogradouroEndereco() {
-        return enderecoCelula.getLogradouroEndereco();
+    public String getNumero() {
+        return numero;
     }
 
-    public void setLogradouroEndereco(String logradouroEndereco) {
-        this.enderecoCelula.setLogradouroEndereco(logradouroEndereco);
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public String getNumeroEndereco() {
-        return enderecoCelula.getNumeroEndereco();
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setNumeroEndereco(String numeroEndereco) {
-        this.enderecoCelula.setNumeroEndereco(numeroEndereco);
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
-    public String getCepEndereco() {
-        return enderecoCelula.getCepEndereco();
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setCepEndereco(String cepEndereco) {
-        this.enderecoCelula.setCepEndereco(cepEndereco);
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public String getBairroEndereco() {
-        return enderecoCelula.getBairroEndereco();
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setBairroEndereco(String bairroEndereco) {
-        this.enderecoCelula.setBairroEndereco(bairroEndereco);
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getCidadeEndereco() {
-        return enderecoCelula.getCidadeEndereco();
+    public String getEstado() {
+        return estado;
     }
 
-    public void setCidadeEndereco(String cidadeEndereco) {
-        this.enderecoCelula.setCidadeEndereco(cidadeEndereco);
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public String getUfEndereco() {
-        return enderecoCelula.getUfEndereco();
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setUfEndereco(String ufEndereco) {
-        this.enderecoCelula.setUfEndereco(ufEndereco);
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getLatitudeEndereco() {
-        return enderecoCelula.getLatitudeEndereco();
+    public String getLogitude() {
+        return longitude;
     }
 
-    public void setLatitudeEndereco(String latitudeEndereco) {
-        this.enderecoCelula.setLatitudeEndereco(latitudeEndereco);
-    }
-
-    public String getLongitudeEndereco() {
-        return enderecoCelula.getLongitudeEndereco();
-    }
-
-    public void setLongitudeEndereco(String longitudeEndereco) {
-        this.enderecoCelula.setLongitudeEndereco(longitudeEndereco);
+    public void setLogitude(String logitude) {
+        this.longitude = logitude;
     }
 
 }
