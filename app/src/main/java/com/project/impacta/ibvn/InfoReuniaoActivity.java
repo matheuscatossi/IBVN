@@ -67,6 +67,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ReuniaoModel> call, Throwable t) {
                 Log.e("INFOMEMBRO", t.toString());
+                progress.dismiss();
             }
         });
 

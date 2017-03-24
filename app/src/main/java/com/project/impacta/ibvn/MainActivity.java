@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void onResume() {
         super.onResume();
-        mViewPager.setCurrentItem((selectedTab != 1) ? selectedTab : 1);
+        //mViewPager.setCurrentItem((selectedTab != 1) ? selectedTab : 1);
     }
 
     @Override
