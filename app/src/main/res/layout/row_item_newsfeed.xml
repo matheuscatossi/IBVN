@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:id="@+id/ll_linha"
+    android:background="#eefffd">
+
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:id="@+id/tv_meta"
+        android:layout_marginLeft="10dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:id="@+id/tv_data"
+        android:layout_marginLeft="10dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:id="@+id/tv_valor"
+        android:layout_marginLeft="10dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"/>
+
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/img_investimentos"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        />
+
+
+
+</LinearLayout>
