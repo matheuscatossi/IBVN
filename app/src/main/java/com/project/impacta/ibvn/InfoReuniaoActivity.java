@@ -2,8 +2,10 @@ package com.project.impacta.ibvn;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.project.impacta.ibvn.R.id.img_reuniao;
+
 public class InfoReuniaoActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
 
@@ -35,9 +39,11 @@ public class InfoReuniaoActivity extends AppCompatActivity {
     Call<ReuniaoModel> call;
     APIInterface apiService;
     ProgressDialog progress;
-    Double latitudeReuniao, longitudeReuniao;
+    double latitudeReuniao = 0f, longitudeReuniao = 0f, latitudeAtual = 0f, longitudeAtual = 0f;
+
 
     TextView tv_info_celula, tv_info_criado_em, tv_info_criado_por, tv_info_data, tv_info_descricao, tv_info_bairro, tv_info_cep, tv_info_cidade, tv_info_lider, tv_info_logradouro, tv_info_tema;
+    private ImageView iv_map_reuniao;
 
 
     @Override
@@ -54,14 +60,14 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         String codigo = myIntent.getStringExtra("Id");
 
+
+        //get api IBVN para carregar dados da reunião
         apiService = APIClient.getService().create(APIInterface.class);
         call = apiService.getReunioesByID(codigo);
-
         call.enqueue(new Callback<ReuniaoModel>() {
             @Override
             public void onResponse(Call<ReuniaoModel> call, Response<ReuniaoModel> response) {
                 if (response.raw().code() == 200) {
-
                     preencherDadosReuniao(response.body());
                     progress.dismiss();
                 }
@@ -78,28 +84,27 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         ImageView img_reuniao = (ImageView) findViewById(R.id.img_info_reuniao);
         img_reuniao.setImageResource(R.drawable.reuniao_1);
 
-        ImageView iv_map_reuniao = (ImageView) findViewById(R.id.info_reuniao_iv_map);
-
+        iv_map_reuniao = (ImageView) findViewById(R.id.info_reuniao_iv_map);
         iv_map_reuniao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                double latitude = 0, longitude = 0;
 
                 try {
 
                     gps = new GPSTracker(InfoReuniaoActivity.this);
 
-                    if (gps.canGetLocation()) {
-                        latitude = gps.getLatitude();
-                        longitude = gps.getLongitude();
-                    } else {
-                        gps.showSettingsAlert();
-                    }
 
-                    String uri = String.format(Locale.ROOT, "http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f", latitude, longitude, latitudeReuniao, longitudeReuniao);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                    startActivity(intent);
+                    if (gps.canGetLocation()) {
+
+                        latitudeAtual = gps.getLatitude();
+                        longitudeAtual = gps.getLongitude();
+
+
+                        String uri = String.format(Locale.ROOT, "http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f", latitudeAtual, longitudeAtual, latitudeReuniao, longitudeReuniao);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                        startActivity(intent);
+
+                    }
 
                 } catch (Throwable e) {
                     e.printStackTrace();
@@ -155,6 +160,41 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+
+            case 1:
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    gps = new GPSTracker(InfoReuniaoActivity.this);
+
+                    if (gps.canGetLocation()) {
+
+
+                        latitudeAtual = gps.getLatitude();
+                        longitudeAtual = gps.getLongitude();
+                        String uri = String.format(Locale.ROOT, "http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f", latitudeAtual, longitudeAtual, latitudeReuniao, longitudeReuniao);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                        startActivity(intent);
+
+
+
+                    } else {
+                        gps.showSettingsAlert();
+                    }
+                }
+
+                break;
+
+        }
+
     }
 
 

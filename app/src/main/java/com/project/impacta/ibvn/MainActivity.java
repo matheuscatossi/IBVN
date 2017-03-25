@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -33,6 +34,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +52,7 @@ import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.NewsFeedCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.helper.GPlus;
+import com.project.impacta.ibvn.helper.ImageLoadTask;
 import com.project.impacta.ibvn.model.CelulaModel;
 import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
@@ -76,21 +79,21 @@ public class MainActivity extends AppCompatActivity
     private GoogleSignInOptions gso;
     private GPlus GPlusData;
     private GoogleApiClient mGoogleApiClient;
-    private TextView mOutputText;
-    private Button mCallApiButton;
     private ViewPager mViewPager;
     private FloatingActionButton fabReuniao;
     private FloatingActionButton fabUser;
     static SectionsPagerAdapter mSectionsPagerAdapter;
     static int selectedTab;
-
     DrawerLayout drawer;
+
+
     //Dados do membro Logado
     private static MembroModel membroLider;
     private static MembroModel membroCriador;
-    private static EnderecoModel endereco;
-    private static EnderecoModel enderecoReuniao;
     private static CelulaModel celula;
+    private ImageView headerUserImage;
+    private TextView headerUserName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +113,17 @@ public class MainActivity extends AppCompatActivity
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        //seta o herder do menu lateral
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        View navHeaderView = navView.inflateHeaderView(R.layout.nav_header_main);
+        headerUserName = (TextView) navHeaderView.findViewById(R.id.nav_header_main_tv_nome);
+        headerUserImage = (ImageView) navHeaderView.findViewById(R.id.nav_header_main_iv_logo);
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        //Configuraçoes de login com conta google
+
+        //Dados de login com conta google
 
         GPlusData = (GPlus) getIntent().getSerializableExtra("GPLUSDATA");
 
@@ -126,13 +136,23 @@ public class MainActivity extends AppCompatActivity
                     .enableAutoManage(this, null)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build();
+
+
+            ImageLoadTask imgTask = new ImageLoadTask(GPlusData.getPhotoUrl(),headerUserImage);
+            imgTask.execute();
+
+            headerUserName.setText(GPlusData.getGivenName());
+            Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getDisplaName(), Toast.LENGTH_LONG).show();
+
+        }else{
+            headerUserName.setText("Líder");
         }
-        //FIM Configuraçoes de login  com conta google.
+        //FIM Dados de login  com conta google.
+
+
 
         try {
             membroLider = new MembroModel(1, "João José", "jj@gmail.com.br", "M");
-            endereco = new EnderecoModel("06246090", "R:Morrinhos", "2", "Munhooz Junior", "Osasco", "SP");
-            enderecoReuniao = new EnderecoModel("06246090", "R:Morrinhos", "2", "Munhooz Junior", "Osasco", "SP");
             membroCriador = (MembroModel) membroLider.clone();
             celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider);
 
@@ -164,7 +184,6 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
-
             tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
@@ -183,19 +202,13 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
-
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.setDrawerListener(toggle);
             toggle.syncState();
 
-
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-
-            if (GPlusData != null) {
-                Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getGivenName(), Toast.LENGTH_LONG).show();
-            }
 
         } catch (Exception ex) {
             throw ex;
@@ -325,7 +338,7 @@ public class MainActivity extends AppCompatActivity
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
-                    rootView =  inflater.inflate(R.layout.fragment_newsfeed, container, false);
+                    rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
 
                     RecyclerView recyclerView;
                     NewsFeedCustomAdapter adapter;
@@ -337,12 +350,12 @@ public class MainActivity extends AppCompatActivity
                     recyclerView.setLayoutManager(mLayoutManager);
                     newsFeedList = new ArrayList<>();
 
-                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia","1", R.drawable.culto_1));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto irmão feliz","1", R.drawable.culto_2));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto amor e Deus","1", R.drawable.culto_1));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto alibaba","1", R.drawable.culto_2));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto sim sim","1", R.drawable.culto_2));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia de novo","1", R.drawable.culto_1));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia", "1", R.drawable.culto_1));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto irmão feliz", "1", R.drawable.culto_2));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto amor e Deus", "1", R.drawable.culto_1));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto alibaba", "1", R.drawable.culto_2));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto sim sim", "1", R.drawable.culto_2));
+                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia de novo", "1", R.drawable.culto_1));
 
                     adapter = new NewsFeedCustomAdapter(getActivity(), newsFeedList);
                     recyclerView.setAdapter(adapter);
@@ -419,7 +432,7 @@ public class MainActivity extends AppCompatActivity
                                         }
 
                                         Collections.reverse(reuniaoList);
-                                        reuniaoCustomAdapter= new ReuniaoCustomAdapter(reuniaoList, getContext());
+                                        reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());
                                         listViewReuniao.setAdapter(reuniaoCustomAdapter);
                                     }
                                 }
