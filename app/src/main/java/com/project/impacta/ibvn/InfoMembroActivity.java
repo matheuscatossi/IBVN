@@ -169,6 +169,7 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
 
             @Override
             public void onFailure(Call<MembroModel> call, Throwable t) {
+                progress.dismiss();
                 Log.e("INFOMEMBRO", t.toString());
             }
         });

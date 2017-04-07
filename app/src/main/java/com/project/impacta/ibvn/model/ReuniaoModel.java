@@ -69,6 +69,8 @@ public class ReuniaoModel implements Serializable {
 
 
     //CÉLULA Model
+    @SerializedName("celula")
+    @Expose
     private CelulaModel celula;
 
     public ReuniaoModel() {
@@ -83,14 +85,14 @@ public class ReuniaoModel implements Serializable {
             , String statusReuniao
             , String descricaoReuniao
 
-            , String logradouroEnderecoReuniao
-            , String numeroEnderecoReuniao
-            , String cepEnderecoReuniao
-            , String bairroEnderecoReuniao
-            , String cidadeEnderecoReuniao
-            , String ufEnderecoReuniao
-            , String latitudeEnderecoReuniao
-            , String longitudeEnderecoReuniao
+            , String logradouroReuniao
+            , String numeroReuniao
+            , String cepReuniao
+            , String bairroReuniao
+            , String cidadeReuniao
+            , String ufReuniao
+            , String latitudeReuniao
+            , String longitudeReuniao
 
             , int codCelula
             , String descricaoCelula
@@ -99,13 +101,11 @@ public class ReuniaoModel implements Serializable {
             , int codMembroLider
             , String nomeMembroLider
 
-
     ) {
 
         this.celula = new CelulaModel();
         this.celula.setMembroCriador(new MembroModel());
         this.celula.setMembroLider(new MembroModel());
-        this.celula.setEnderecoCelula(new EnderecoModel());
 
         ///REUNIAO
         this.Id = codReuniao;
@@ -115,8 +115,8 @@ public class ReuniaoModel implements Serializable {
         this.descricao = descricaoReuniao;
 
         //CELULA
-        this.celula.setCodCelula(codCelula);
-        this.celula.setDescricaoCelula(descricaoCelula);
+        this.celula.setId(codCelula);
+        this.celula.setDescricao(descricaoCelula);
 
         //MEMBRO CRIADOR
         this.celula.getMembroCriador().id = codMembroCriador;
@@ -125,16 +125,6 @@ public class ReuniaoModel implements Serializable {
         //MEMBRO LIDER
         this.celula.getMembroLider().id = codMembroLider;
         this.celula.getMembroLider().nome = nomeMembroLider;
-
-        //ENDERECO REUNIÃO
-        this.setLogradouro(logradouroEnderecoReuniao);
-        this.setNumero(numeroEnderecoReuniao);
-        this.setCep(cepEnderecoReuniao);
-        this.setBairro(bairroEnderecoReuniao);
-        this.setCidade(cidadeEnderecoReuniao);
-        this.setUf(ufEnderecoReuniao);
-        this.setLatitude(latitudeEnderecoReuniao);
-        this.setLongitude(longitudeEnderecoReuniao);
 
     }
 
@@ -147,21 +137,11 @@ public class ReuniaoModel implements Serializable {
             String data,
             String tema,
             String descricao
-//            String statusReuniao,
-//            String logradouroReuniao,
-//            String numeroReuniao,
-//            String cepReuniao,
-//            String bairroReuniao,
-//            String cidadeReuniao,
-//            String longitudeReuniao,
-//            String latitudeReuniao,
-//            String ufReuniao
     ) {
 
         this.celula = new CelulaModel();
         this.celula.setMembroCriador(new MembroModel());
         this.celula.setMembroLider(new MembroModel());
-        this.celula.setEnderecoCelula(new EnderecoModel());
 
         //REUNIAO
         this.Id = cod;
@@ -170,26 +150,6 @@ public class ReuniaoModel implements Serializable {
         this.data = data;
         this.tema = tema;
         this.descricao = descricao;
-//        this.status = statusReuniao;
-//        this.logradouro = logradouroReuniao;
-//        this.numero = numeroReuniao;
-//        this.bairro = bairroReuniao;
-//        this.cep = cepReuniao;
-//        this.cidade = cidadeReuniao;
-//        this.latitude = latitudeReuniao;
-//        this.longitude = longitudeReuniao;
-//        this.uf = ufReuniao;
-
-
-/*        //CÉLULA
-        this.celulaReuniao.setDescricaoCelula(descricaoCelula);
-
-        //MEMBRO CRIADOR
-        this.celulaReuniao.getMembroCriador().nome = nomeMembrocriador;
-
-        //MEMBRO LIDER
-        this.celulaReuniao.getMembroLider().nome = nomeMembroLider;*/
-
     }
 
     /*

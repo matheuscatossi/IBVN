@@ -21,6 +21,7 @@ import com.project.impacta.ibvn.model.EnderecoModel;
 import com.project.impacta.ibvn.model.MembroModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,8 +74,8 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
             convertView = inflater.inflate(R.layout.row_item_reuniao, parent, false);
 
             viewHolder.img_reuniao = (ImageView) convertView.findViewById(R.id.img_reuniao);
-            viewHolder.tv_tema = (TextView) convertView.findViewById(R.id.tv_tema);
-            viewHolder.tv_data = (TextView) convertView.findViewById(R.id.tv_data);
+            viewHolder.tv_tema = (TextView) convertView.findViewById(R.id.tv_tema_reuniao);
+            viewHolder.tv_data = (TextView) convertView.findViewById(R.id.tv_data_reuniao);
             viewHolder.ll_linha = (LinearLayout) convertView.findViewById(R.id.ll_linha);
 
             result = convertView;
@@ -90,30 +91,30 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
 
         viewHolder.img_reuniao.setImageResource(R.drawable.reuniao_1);
 
-        assert reuniaoModel != null;
-        viewHolder.tv_tema.setText(reuniaoModel.getTema());
-        viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
+        try {
 
-        viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            assert reuniaoModel != null;
+            viewHolder.tv_tema.setText(reuniaoModel.getTema());
+            viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
 
-                Intent i = new Intent(mContext, InfoReuniaoActivity.class);
+            viewHolder.tv_data.setText(reuniaoModel.getData().substring(8) + "/"+ reuniaoModel.getData().substring(5,7) + "/" + reuniaoModel.getData().substring(0,4));
+            viewHolder.tv_data.setTypeface(null, Typeface.BOLD);
 
-                i.putExtra("Id", String.valueOf(reuniaoModel.getId()));
-/*
-                i.putExtra("tema", String.valueOf(reuniaoModel.getTema()));
-                i.putExtra("data", String.valueOf(reuniaoModel.getData()));
-                i.putExtra("endereco", String.valueOf(reuniaoModel.getCelulaReuniao().getEnderecoCelula().getLogradouroEndereco()));
-                i.putExtra("lider", String.valueOf(reuniaoModel.getCelulaReuniao().getLiderNome()));
-                i.putExtra("lider_email", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroLider().getEmail()));
-                i.putExtra("agendado_por", String.valueOf(reuniaoModel.getCelulaReuniao().getMembroCriador().getNome()));
-*/
+            viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                mContext.startActivity(i);
-            }
-        });
+                    Intent i = new Intent(mContext, InfoReuniaoActivity.class);
 
+                    i.putExtra("Id", String.valueOf(reuniaoModel.getId()));
+
+                    mContext.startActivity(i);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return convertView;
     }
 }

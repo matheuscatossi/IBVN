@@ -43,7 +43,7 @@ public class ReuniaoDao extends SQLiteOpenHelper {
         dados.put("data", reuniao.getData());
         dados.put("status", reuniao.getStatus());
         dados.put("descricao", reuniao.getDescricao());
-        dados.put("celula_id", reuniao.getCelulaReuniao().getCodCelula());
+        dados.put("celula_id", reuniao.getCelulaReuniao().getId());
         return dados;
     }
 
