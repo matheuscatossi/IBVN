@@ -31,6 +31,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InfoReuniaoActivity"
+            android:screenOrientation="portrait"
             android:label="REUNIÃO" />
         <activity
             android:name=".SplashScreenActivity"
@@ -48,6 +49,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ManterMembroActivity"
+            android:screenOrientation="portrait"
             android:label="MEMBRO" />
         <activity
             android:name=".ConfiguracoesActivity"
@@ -59,21 +61,29 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ContatoActivity"
+
+            android:screenOrientation="portrait"
             android:label="CONTATO IBVN" />
         <activity
             android:name=".SugestoesActivity"
+            android:screenOrientation="portrait"
             android:label="SUGESTÕES" />
         <activity
             android:name=".ManterReuniaoActivity"
+            android:screenOrientation="portrait"
             android:label="GERENCIAR REUNIÃO" />
         <activity
             android:name=".MembroReuniaoActivity"
+            android:screenOrientation="portrait"
             android:label="MEMBROS DA REUNIÃO" />
         <activity
             android:name=".CelulaActivity"
+            android:screenOrientation="portrait"
             android:label="CÉLULA" />
         <activity
             android:name=".InfoNewsfeedActivity"
+
+            android:screenOrientation="portrait"
             android:label="Info Newsfeed"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
