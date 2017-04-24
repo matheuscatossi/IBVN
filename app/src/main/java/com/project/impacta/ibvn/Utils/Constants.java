@@ -10,9 +10,7 @@ public class Constants {
     public static final String MESSAGE = "STATUS_MESSAGE";
     public static final String STATUSCONNECTION = "STATUS_CONNECTION";
 
-    public static final String BASE_URL = "https://igreja-jguedestec.c9users.io/api/";
-    //    public static final String SEND_MESSAGE = "";
-    //    public static final String INFO = "setInfoJSON.php";
+    public static final String BASE_URL = "http://newprogsoftwares.com.br/api/";
     public static final String GET_MEMBROS = "membros/";
     public static final String GET_MEMBROS_BY_ID = "membros/{id}";
 

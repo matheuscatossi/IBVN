@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "794845486897",
+    "firebase_url": "https://fir-notificationibvn-22e39.firebaseio.com",
+    "project_id": "fir-notificationibvn-22e39",
+    "storage_bucket": "fir-notificationibvn-22e39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794845486897:android:d2c11e059b7d9c30",
+        "android_client_info": {
+          "package_name": "com.project.impacta.ibvn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794845486897-bnsvescej2alnl1tmk480ua3miun357b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv6fYAUG77SaJ1z8OGphNT9XbNI5Dly9M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
