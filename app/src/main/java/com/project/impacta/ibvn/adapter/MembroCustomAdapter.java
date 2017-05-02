@@ -89,10 +89,13 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
 
         lastPosition = position;
 
-        if (membroModel.getSexo().equals("M")) {
-            viewHolder.img_user.setImageResource(R.drawable.user_m);
-        } else {
-            viewHolder.img_user.setImageResource(R.drawable.user_f);
+        if (membroModel.getSexo() != null) {
+
+            if (membroModel.getSexo().equals("M")) {
+                viewHolder.img_user.setImageResource(R.drawable.user_m);
+            } else {
+                viewHolder.img_user.setImageResource(R.drawable.user_f);
+            }
         }
 
         viewHolder.tv_nome.setText(membroModel.getNome());

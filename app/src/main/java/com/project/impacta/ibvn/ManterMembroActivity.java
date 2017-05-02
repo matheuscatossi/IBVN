@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
 import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
 import com.project.impacta.ibvn.helper.DatePickerFragment;
 import com.project.impacta.ibvn.helper.FormularioManterMembroHelper;
 import com.project.impacta.ibvn.helper.FormularioManterReuniaoHelper;
 import com.project.impacta.ibvn.model.MembroModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.webservice.APIClient;
+import com.project.impacta.ibvn.webservice.APIInterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Matheus on 19/02/2017.
@@ -28,6 +37,7 @@ public class ManterMembroActivity extends AppCompatActivity {
     private FormularioManterMembroHelper helperFormManterMembro;
     private EditText data;
     ProgressDialog progress;
+    Call<MembroModel> callMembro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +105,30 @@ public class ManterMembroActivity extends AppCompatActivity {
             case R.id.menu_manter_reuniao_salvar_ok:
 
                 MembroModel membro = helperFormManterMembro.getMembroFromData();
+
+                APIInterface apiService = APIClient.getService().create(APIInterface.class);
+                callMembro = apiService.postMembros(membro);
+
+                callMembro.enqueue(new Callback<MembroModel>() {
+
+                    @Override
+                    public void onResponse(Call<MembroModel> call, Response<MembroModel> response) {
+                        if (response.raw().code() == 200) {
+                            MembroModel t = response.body();
+                            Log.e("INFOMEMBRO", "" + response.raw().body().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MembroModel> call, Throwable t) {
+                        Log.e("INFOMEMBRO", t.toString());
+                    }
+
+                });
+
+
+
+
                 Toast.makeText(ManterMembroActivity.this, "Membro " + membro.getNome() + " salvo!", Toast.LENGTH_LONG).show();
                 finish();
                 break;
