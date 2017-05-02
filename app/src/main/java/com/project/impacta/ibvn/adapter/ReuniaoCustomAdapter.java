@@ -14,22 +14,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.project.impacta.ibvn.InfoMembroActivity;
 import com.project.impacta.ibvn.InfoReuniaoActivity;
 import com.project.impacta.ibvn.R;
-import com.project.impacta.ibvn.model.EnderecoModel;
-import com.project.impacta.ibvn.model.MembroModel;
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Reuniao;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements View.OnClickListener {
+public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.OnClickListener {
 
-    private ArrayList<ReuniaoModel> dataSet;
+    private ArrayList<Reuniao> dataSet;
     private Context mContext;
 
     private static class ViewHolder {
@@ -39,7 +32,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
         LinearLayout ll_linha;
     }
 
-    public ReuniaoCustomAdapter(ArrayList<ReuniaoModel> data, Context context) {
+    public ReuniaoCustomAdapter(ArrayList<Reuniao> data, Context context) {
         super(context, R.layout.row_item_reuniao, data);
 
         this.dataSet = data;
@@ -51,7 +44,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
 
         int position = (Integer) v.getTag();
         Object object = getItem(position);
-        ReuniaoModel reuniaoModel = (ReuniaoModel) object;
+        Reuniao reuniao = (Reuniao) object;
 
     }
 
@@ -62,7 +55,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
 
-        final ReuniaoModel reuniaoModel = getItem(position);
+        final Reuniao reuniao = getItem(position);
         ViewHolder viewHolder;
 
         final View result;
@@ -93,11 +86,11 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
 
         try {
 
-            assert reuniaoModel != null;
-            viewHolder.tv_tema.setText(reuniaoModel.getTema());
+            assert reuniao != null;
+            viewHolder.tv_tema.setText(reuniao.getTema());
             viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
 
-            viewHolder.tv_data.setText(reuniaoModel.getData().substring(8) + "/"+ reuniaoModel.getData().substring(5,7) + "/" + reuniaoModel.getData().substring(0,4));
+            viewHolder.tv_data.setText(reuniao.getData().substring(8) + "/"+ reuniao.getData().substring(5,7) + "/" + reuniao.getData().substring(0,4));
             viewHolder.tv_data.setTypeface(null, Typeface.BOLD);
 
             viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +99,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<ReuniaoModel> implements 
 
                     Intent i = new Intent(mContext, InfoReuniaoActivity.class);
 
-                    i.putExtra("Id", String.valueOf(reuniaoModel.getId()));
+                    i.putExtra("Id", String.valueOf(reuniao.getId()));
 
                     mContext.startActivity(i);
                 }

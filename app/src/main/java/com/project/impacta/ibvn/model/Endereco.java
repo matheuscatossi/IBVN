@@ -2,7 +2,7 @@ package com.project.impacta.ibvn.model;
 
 import java.io.Serializable;
 
-public class EnderecoModel implements Serializable {
+public class Endereco implements Serializable {
 
     private int codEndereco;
     private String logradouroEndereco;
@@ -20,10 +20,10 @@ public class EnderecoModel implements Serializable {
     private String tipoEndereco;
 
 
-    public EnderecoModel() {
+    public Endereco() {
     }
 
-    public EnderecoModel(String cepEndereco, String logradouroEndereco, String numeroEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco) {
+    public Endereco(String cepEndereco, String logradouroEndereco, String numeroEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco) {
         this.cepEndereco = cepEndereco;
         this.logradouroEndereco = logradouroEndereco;
         this.numeroEndereco = numeroEndereco;
@@ -32,7 +32,7 @@ public class EnderecoModel implements Serializable {
         this.ufEndereco = ufEndereco;
     }
 
-    public EnderecoModel(int codEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String complementoEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, int codTipoEndereco, String tipoEndereco, String latitudeEndereco, String longitudeEndereco) {
+    public Endereco(int codEndereco, String logradouroEndereco, String numeroEndereco, String cepEndereco, String complementoEndereco, String bairroEndereco, String cidadeEndereco, String ufEndereco, int codTipoEndereco, String tipoEndereco, String latitudeEndereco, String longitudeEndereco) {
 
         this.codEndereco = codEndereco;
         this.logradouroEndereco = logradouroEndereco;

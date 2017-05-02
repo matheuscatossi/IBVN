@@ -3,10 +3,9 @@ package com.project.impacta.ibvn.helper;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.project.impacta.ibvn.ManterMembroActivity;
 import com.project.impacta.ibvn.ManterReuniaoActivity;
 import com.project.impacta.ibvn.R;
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Reuniao;
 
 import java.util.Map;
 
@@ -25,7 +24,7 @@ public class FormularioManterReuniaoHelper {
     private EditText campoUF;
     private EditText campoNumero;
     private EditText campoDescricao;
-    private ReuniaoModel Reuniao;
+    private com.project.impacta.ibvn.model.Reuniao Reuniao;
     private TextView campoHeader;
 
     //Contrutor Getters E Setters
@@ -42,7 +41,7 @@ public class FormularioManterReuniaoHelper {
         campoUF = (EditText) activity.findViewById(R.id.et_manter_reuniao_uf);
         campoNumero = (EditText) activity.findViewById(R.id.et_manter_reuniao_numero);
         campoDescricao = (EditText) activity.findViewById(R.id.et_manter_reuniao_descricao);
-        Reuniao = new ReuniaoModel();
+        Reuniao = new Reuniao();
     }
 
     public EditText getCampoNome() {
@@ -125,11 +124,11 @@ public class FormularioManterReuniaoHelper {
         this.campoUF = campoUF;
     }
 
-    public ReuniaoModel getReuniao() {
+    public com.project.impacta.ibvn.model.Reuniao getReuniao() {
         return Reuniao;
     }
 
-    public void setReuniao(ReuniaoModel reuniao) {
+    public void setReuniao(com.project.impacta.ibvn.model.Reuniao reuniao) {
         Reuniao = reuniao;
     }
 
@@ -141,7 +140,7 @@ public class FormularioManterReuniaoHelper {
         this.campoNumero = campoNumero;
     }
 
-    public ReuniaoModel getReuniaoFromData() {
+    public com.project.impacta.ibvn.model.Reuniao getReuniaoFromData() {
         this.Reuniao.setData(campoData.getText().toString());
         this.Reuniao.setDescricao(campoDescricao.getText().toString());
         this.Reuniao.setStatus("Nova");

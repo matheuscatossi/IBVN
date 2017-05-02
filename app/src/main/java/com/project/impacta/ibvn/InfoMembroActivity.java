@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,15 +21,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.project.impacta.ibvn.Utils.Constants;
-import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
-import com.project.impacta.ibvn.model.MembroModel;
+import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +35,7 @@ import retrofit2.Response;
 
 public class InfoMembroActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Call<MembroModel> call;
+    Call<Membro> call;
     APIInterface apiService;
 
     // Elemtentos View
@@ -81,9 +73,9 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
         apiService = APIClient.getService().create(APIInterface.class);
         call = apiService.getMembrosByID(codigoMembro);
 
-        call.enqueue(new Callback<MembroModel>() {
+        call.enqueue(new Callback<Membro>() {
             @Override
-            public void onResponse(Call<MembroModel> call, Response<MembroModel> response) {
+            public void onResponse(Call<Membro> call, Response<Membro> response) {
                 if (response.raw().code() == 200) {
 
                     int id  = response.body().getId();
@@ -168,7 +160,7 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
             }
 
             @Override
-            public void onFailure(Call<MembroModel> call, Throwable t) {
+            public void onFailure(Call<Membro> call, Throwable t) {
                 progress.dismiss();
                 Log.e("INFOMEMBRO", t.toString());
             }

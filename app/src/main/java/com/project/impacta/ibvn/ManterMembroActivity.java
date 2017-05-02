@@ -14,9 +14,7 @@ import android.widget.Toast;
 import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
 import com.project.impacta.ibvn.helper.DatePickerFragment;
 import com.project.impacta.ibvn.helper.FormularioManterMembroHelper;
-import com.project.impacta.ibvn.helper.FormularioManterReuniaoHelper;
-import com.project.impacta.ibvn.model.MembroModel;
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Membro;
 
 /**
  * Created by Matheus on 19/02/2017.
@@ -94,7 +92,7 @@ public class ManterMembroActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_manter_reuniao_salvar_ok:
 
-                MembroModel membro = helperFormManterMembro.getMembroFromData();
+                Membro membro = helperFormManterMembro.getMembroFromData();
                 Toast.makeText(ManterMembroActivity.this, "Membro " + membro.getNome() + " salvo!", Toast.LENGTH_LONG).show();
                 finish();
                 break;

@@ -10,15 +10,17 @@ public class Constants {
     public static final String MESSAGE = "STATUS_MESSAGE";
     public static final String STATUSCONNECTION = "STATUS_CONNECTION";
 
+    // Membros
     public static final String BASE_URL = "http://newprogsoftwares.com.br/api/";
+    public static final String URL = "http://newprogsoftwares.com.br/";
     public static final String GET_MEMBROS = "membros/";
     public static final String GET_MEMBROS_BY_ID = "membros/{id}";
 
-
+    //Reuniões
     public static final String GET_REUNIOES = "reunioes/";
     public static final String GET_REUNIOES_BY_ID = "reunioes/{id}";
 
-
+    public static final String GET_EVENTOS  = "posts/consultar/";
 
 }
 

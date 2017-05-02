@@ -15,15 +15,15 @@ import android.widget.Toast;
 import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
 import com.project.impacta.ibvn.helper.DatePickerFragment;
 import com.project.impacta.ibvn.helper.FormularioManterReuniaoHelper;
-import com.project.impacta.ibvn.model.CelulaModel;
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Celula;
+import com.project.impacta.ibvn.model.Reuniao;
 
 public class ManterReuniaoActivity extends AppCompatActivity {
 
     EditText data;
     private FormularioManterReuniaoHelper helperFormManterReuniao;
-    private CelulaModel celula;
-    private ReuniaoModel reuniao;
+    private Celula celula;
+    private Reuniao reuniao;
     private Button buscar;
     Toolbar toolbar;
 
@@ -40,8 +40,8 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         helperFormManterReuniao= new FormularioManterReuniaoHelper(this);
         Intent intent = getIntent();
 
-        celula = (CelulaModel) intent.getSerializableExtra("CELULA");
-        reuniao = (ReuniaoModel) intent.getSerializableExtra("REUNIAO");
+        celula = (Celula) intent.getSerializableExtra("CELULA");
+        reuniao = (Reuniao) intent.getSerializableExtra("REUNIAO");
 
 
         //Mostra calendário ao ganhar o focus e set o próximo controle que irá receber o focus
@@ -98,7 +98,7 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_manter_reuniao_salvar_ok:
 
-                ReuniaoModel reuniao = helperFormManterReuniao.getReuniaoFromData();
+                Reuniao reuniao = helperFormManterReuniao.getReuniaoFromData();
                 //AlunoDAO dao = new AlunoDAO(this);
 
                 if (reuniao.getId() != 0) {
