@@ -11,6 +11,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO: Handle FCM messages here.
@@ -21,3 +22,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
     }
 }
+
