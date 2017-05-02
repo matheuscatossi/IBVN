@@ -1,13 +1,10 @@
 package com.project.impacta.ibvn.helper;
 
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.project.impacta.ibvn.ManterMembroActivity;
-import com.project.impacta.ibvn.ManterReuniaoActivity;
 import com.project.impacta.ibvn.R;
-import com.project.impacta.ibvn.model.MembroModel;
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Membro;
 
 import java.util.Map;
 
@@ -28,7 +25,7 @@ public class FormularioManterMembroHelper {
     private EditText campoEstado;
     private EditText campoNumero;
 
-    private MembroModel Membro;
+    private com.project.impacta.ibvn.model.Membro Membro;
 
 
     //Contrutor Getters E Setters
@@ -138,11 +135,11 @@ public class FormularioManterMembroHelper {
         this.campoNumero = campoNumero;
     }
 
-    public MembroModel getMembro() {
+    public com.project.impacta.ibvn.model.Membro getMembro() {
         return Membro;
     }
 
-    public void setMembro(MembroModel membro) {
+    public void setMembro(com.project.impacta.ibvn.model.Membro membro) {
         Membro = membro;
     }
 
@@ -165,11 +162,11 @@ public class FormularioManterMembroHelper {
         campoEstado = (EditText) activity.findViewById(R.id.et_manter_membro_uf);
         campoNumero = (EditText) activity.findViewById(R.id.et_manter_membro_numero);
 
-        Membro = new MembroModel();
+        Membro = new Membro();
     }
 
 
-    public MembroModel getMembroFromData() {
+    public com.project.impacta.ibvn.model.Membro getMembroFromData() {
         this.Membro.setNome(campoNome.getText().toString());
         this.Membro.setCpf(campoCpf.getText().toString());
         this.Membro.setEmail(campoEmail.getText().toString());

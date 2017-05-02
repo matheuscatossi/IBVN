@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Matheus on 12/02/2017.
  */
 
-public class MembroModel implements Cloneable,Serializable {
+public class Membro implements Cloneable,Serializable {
 
     @SerializedName("id")
     @Expose
@@ -91,11 +91,11 @@ public class MembroModel implements Cloneable,Serializable {
     @Expose
     int fk_celula;
 
-    public MembroModel() {
+    public Membro() {
 
     }
 
-    public MembroModel(int id, String nome, String sexo, String cpf, String estado_civil, String dt_nasc, String email, String tipo, String telefone, String celular, String cep, String logradouro, String numero, String complemento, String bairro, String cidade, String estado, String latitude, String logitude, int fk_celula) {
+    public Membro(int id, String nome, String sexo, String cpf, String estado_civil, String dt_nasc, String email, String tipo, String telefone, String celular, String cep, String logradouro, String numero, String complemento, String bairro, String cidade, String estado, String latitude, String logitude, int fk_celula) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -118,7 +118,7 @@ public class MembroModel implements Cloneable,Serializable {
         this.fk_celula = fk_celula;
     }
 
-    public MembroModel(int id, String nome, String email, String sexo){
+    public Membro(int id, String nome, String email, String sexo){
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;

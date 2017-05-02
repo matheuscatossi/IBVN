@@ -1,17 +1,12 @@
 package com.project.impacta.ibvn;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,44 +15,36 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.widget.GridLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ValueEventListener;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.NewsFeedCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.helper.GPlus;
 import com.project.impacta.ibvn.helper.ImageLoadTask;
-import com.project.impacta.ibvn.model.CelulaModel;
-import com.project.impacta.ibvn.model.EnderecoModel;
-import com.project.impacta.ibvn.model.MembroModel;
-import com.project.impacta.ibvn.model.NewsFeedModel;
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Celula;
+import com.project.impacta.ibvn.model.Evento;
+import com.project.impacta.ibvn.model.Membro;
+import com.project.impacta.ibvn.model.NewsFeed;
+import com.project.impacta.ibvn.model.Reuniao;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
 
@@ -88,9 +75,9 @@ public class MainActivity extends AppCompatActivity
 
 
     //Dados do membro Logado
-    private static MembroModel membroLider;
-    private static MembroModel membroCriador;
-    private static CelulaModel celula;
+    private static Membro membroLider;
+    private static Membro membroCriador;
+    private static Celula celula;
     private ImageView headerUserImage;
     private TextView headerUserName;
 
@@ -152,13 +139,13 @@ public class MainActivity extends AppCompatActivity
 
 
         try {
-            membroLider = new MembroModel(1, "João José", "jj@gmail.com.br", "M");
-            membroCriador = (MembroModel) membroLider.clone();
-            celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider);
+            membroLider = new Membro(1, "João José", "jj@gmail.com.br", "M");
+            membroCriador = (Membro) membroLider.clone();
+            celula = new Celula(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider);
 
         } catch (CloneNotSupportedException ex) {
             membroCriador = membroLider;
-            celula = new CelulaModel(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider);
+            celula = new Celula(1, "Célula Irmão Dones", "25/12/2017", "25/12/2017", membroCriador, membroLider);
         }
 
         try {
@@ -304,19 +291,28 @@ public class MainActivity extends AppCompatActivity
             return fragment;
         }
 
-        public ArrayList<MembroModel> membroList;
-        public ArrayList<ReuniaoModel> reuniaoList;
+        public ArrayList<Membro> membroList;
+        public ArrayList<Reuniao> reuniaoList;
+        public ArrayList<NewsFeed> eventoList;
+
         ListView listViewMembro;
         ListView listViewReuniao;
+        ListView listViewEvento;
+        RecyclerView recyclerView;
+
         MembroCustomAdapter membroCustomAdapter;
         ReuniaoCustomAdapter reuniaoCustomAdapter;
+        NewsFeedCustomAdapter eventoCustomAdapter;
+
 
         // Chat
         public WebView mWebView;
 
         // Membro
-        Call<List<MembroModel>> call;
-        Call<List<ReuniaoModel>> callReuniao;
+        Call<List<Membro>> call;
+        Call<List<Reuniao>> callReuniao;
+        Call<List<Evento>> callEventos;
+
         APIInterface apiService;
 
         @Override
@@ -340,25 +336,48 @@ public class MainActivity extends AppCompatActivity
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
 
-                    RecyclerView recyclerView;
-                    NewsFeedCustomAdapter adapter;
-                    List<NewsFeedModel> newsFeedList;
-
                     recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
                     RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
                     recyclerView.setLayoutManager(mLayoutManager);
-                    newsFeedList = new ArrayList<>();
 
-                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia", "1", R.drawable.culto_1));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto irmão feliz", "1", R.drawable.culto_2));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto amor e Deus", "1", R.drawable.culto_1));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto alibaba", "1", R.drawable.culto_2));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto sim sim", "1", R.drawable.culto_2));
-                    newsFeedList.add(new NewsFeedModel("1", "Culto aleluia de novo", "1", R.drawable.culto_1));
+                    apiService = APIClient.getService().create(APIInterface.class);
+                    callEventos = apiService.getEventos();
+                    eventoList = new ArrayList<>();
 
-                    adapter = new NewsFeedCustomAdapter(getActivity(), newsFeedList);
-                    recyclerView.setAdapter(adapter);
+                    callEventos.enqueue(new Callback<List<Evento>>() {
+                        @Override
+                        public void onResponse(Call<List<Evento>> call, Response<List<Evento>> response) {
+                            if (response.raw().code() == 200) {
+
+                                for (Evento evento : response.body()) {
+                                    eventoList.add(new NewsFeed(evento.getId(), evento.getNome(), evento.getDescricao(), evento.getLink_imagem()));
+                                }
+
+                                Collections.reverse(eventoList);
+                                eventoCustomAdapter = new NewsFeedCustomAdapter(getContext(), eventoList);
+
+                                recyclerView.setAdapter(eventoCustomAdapter);
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Evento>> call, Throwable t) {
+                            Log.e("INFOEVENTOS", t.toString());
+                        }
+                    });
+
+
+//                    newsFeedList = new ArrayList<>();
+//
+//                    newsFeedList.add(new NewsFeed(1, "Culto aleluia", "1", R.drawable.culto_1));
+//                    newsFeedList.add(new NewsFeed(1, "Culto irmão feliz", "1", R.drawable.culto_2));
+//                    newsFeedList.add(new NewsFeed(1, "Culto amor e Deus", "1", R.drawable.culto_1));
+//                    newsFeedList.add(new NewsFeed(1, "Culto alibaba", "1", R.drawable.culto_2));
+//                    newsFeedList.add(new NewsFeed(1, "Culto sim sim", "1", R.drawable.culto_2));
+//                    newsFeedList.add(new NewsFeed(1, "Culto aleluia de novo", "1", R.drawable.culto_1));
+
 
                     break;
                 case 2:
@@ -372,16 +391,16 @@ public class MainActivity extends AppCompatActivity
                             call = apiService.getMembros();
                             membroList = new ArrayList<>();
 
-                            call.enqueue(new Callback<List<MembroModel>>() {
+                            call.enqueue(new Callback<List<Membro>>() {
                                 @Override
-                                public void onResponse(Call<List<MembroModel>> call, Response<List<MembroModel>> response) {
+                                public void onResponse(Call<List<Membro>> call, Response<List<Membro>> response) {
                                     if (response.raw().code() == 200) {
 
-                                        List<MembroModel> l = new ArrayList<MembroModel>();
+                                        List<Membro> l = new ArrayList<Membro>();
                                         l.addAll(response.body());
 
-                                        for (MembroModel membro : l) {
-                                            membroList.add(new MembroModel((int) membro.getId(), (String) membro.getNome(), (String) membro.getEmail(), (String) membro.getSexo()));
+                                        for (Membro membro : l) {
+                                            membroList.add(new Membro((int) membro.getId(), (String) membro.getNome(), (String) membro.getEmail(), (String) membro.getSexo()));
                                         }
 
                                         Collections.reverse(membroList);
@@ -392,7 +411,7 @@ public class MainActivity extends AppCompatActivity
                                 }
 
                                 @Override
-                                public void onFailure(Call<List<MembroModel>> call, Throwable t) {
+                                public void onFailure(Call<List<Membro>> call, Throwable t) {
                                     Log.e("INFOMEMBRO", t.toString());
                                 }
                             });
@@ -413,17 +432,17 @@ public class MainActivity extends AppCompatActivity
                             callReuniao = apiService.getReunioes();
                             reuniaoList = new ArrayList<>();
 
-                            callReuniao.enqueue(new Callback<List<ReuniaoModel>>() {
+                            callReuniao.enqueue(new Callback<List<Reuniao>>() {
                                 @Override
-                                public void onResponse(Call<List<ReuniaoModel>> call, Response<List<ReuniaoModel>> response) {
+                                public void onResponse(Call<List<Reuniao>> call, Response<List<Reuniao>> response) {
                                     if (response.raw().code() == 200) {
 
-                                        List<ReuniaoModel> l = new ArrayList<ReuniaoModel>();
+                                        List<Reuniao> l = new ArrayList<Reuniao>();
                                         l.addAll(response.body());
 
-                                        for (ReuniaoModel reuniao : l) {
+                                        for (Reuniao reuniao : l) {
                                             reuniaoList.add(
-                                                    new ReuniaoModel(
+                                                    new Reuniao(
                                                             (int) reuniao.getId(),
                                                             (String) reuniao.getData(),
                                                             (String) reuniao.getTema(),
@@ -438,7 +457,7 @@ public class MainActivity extends AppCompatActivity
                                 }
 
                                 @Override
-                                public void onFailure(Call<List<ReuniaoModel>> call, Throwable t) {
+                                public void onFailure(Call<List<Reuniao>> call, Throwable t) {
                                     Log.e("INFOMEMBRO", t.toString());
                                 }
                             });

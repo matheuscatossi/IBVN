@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
 import com.project.impacta.ibvn.helper.DatePickerFragment;
 import com.project.impacta.ibvn.helper.FormularioManterMembroHelper;
+<<<<<<< HEAD
 import com.project.impacta.ibvn.helper.FormularioManterReuniaoHelper;
 import com.project.impacta.ibvn.model.MembroModel;
 import com.project.impacta.ibvn.model.ReuniaoModel;
@@ -26,6 +27,9 @@ import com.project.impacta.ibvn.webservice.APIInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+=======
+import com.project.impacta.ibvn.model.Membro;
+>>>>>>> 647cd0fabdd33587e8f93669a5eec90da91cb5bc
 
 /**
  * Created by Matheus on 19/02/2017.
@@ -104,6 +108,7 @@ public class ManterMembroActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_manter_reuniao_salvar_ok:
 
+<<<<<<< HEAD
                 MembroModel membro = helperFormManterMembro.getMembroFromData();
 
                 APIInterface apiService = APIClient.getService().create(APIInterface.class);
@@ -129,6 +134,9 @@ public class ManterMembroActivity extends AppCompatActivity {
 
 
 
+=======
+                Membro membro = helperFormManterMembro.getMembroFromData();
+>>>>>>> 647cd0fabdd33587e8f93669a5eec90da91cb5bc
                 Toast.makeText(ManterMembroActivity.this, "Membro " + membro.getNome() + " salvo!", Toast.LENGTH_LONG).show();
                 finish();
                 break;

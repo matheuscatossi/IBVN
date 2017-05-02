@@ -2,13 +2,10 @@ package com.project.impacta.ibvn.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +13,7 @@ import android.widget.TextView;
 
 import com.project.impacta.ibvn.InfoMembroActivity;
 import com.project.impacta.ibvn.R;
-import com.project.impacta.ibvn.model.MembroModel;
+import com.project.impacta.ibvn.model.Membro;
 
 import java.util.ArrayList;
 
@@ -24,9 +21,9 @@ import java.util.ArrayList;
  * Created by Matheus on 12/02/2017.
  */
 
-public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements View.OnClickListener {
+public class MembroCustomAdapter extends ArrayAdapter<Membro> implements View.OnClickListener {
 
-    private ArrayList<MembroModel> dataSet;
+    private ArrayList<Membro> dataSet;
     Context mContext;
 
     private static class ViewHolder {
@@ -37,7 +34,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
         LinearLayout ll_linha;
     }
 
-    public MembroCustomAdapter(ArrayList<MembroModel> data, Context context) {
+    public MembroCustomAdapter(ArrayList<Membro> data, Context context) {
         super(context, R.layout.row_item_membro, data);
         this.dataSet = data;
         this.mContext = context;
@@ -49,7 +46,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
 
         int position = (Integer) v.getTag();
         Object object = getItem(position);
-        MembroModel membroModel = (MembroModel) object;
+        Membro membro = (Membro) object;
 
     }
 
@@ -58,7 +55,7 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        final MembroModel membroModel = getItem(position);
+        final Membro membro = getItem(position);
         ViewHolder viewHolder;
 
         final View result;
@@ -89,26 +86,31 @@ public class MembroCustomAdapter extends ArrayAdapter<MembroModel> implements Vi
 
         lastPosition = position;
 
+<<<<<<< HEAD
         if (membroModel.getSexo() != null) {
 
             if (membroModel.getSexo().equals("M")) {
+=======
+        if (membro.getSexo() != null) {
+            if (membro.getSexo().equals("M")) {
+>>>>>>> 647cd0fabdd33587e8f93669a5eec90da91cb5bc
                 viewHolder.img_user.setImageResource(R.drawable.user_m);
             } else {
                 viewHolder.img_user.setImageResource(R.drawable.user_f);
             }
         }
 
-        viewHolder.tv_nome.setText(membroModel.getNome());
+        viewHolder.tv_nome.setText(membro.getNome());
         viewHolder.tv_nome.setTypeface(null, Typeface.BOLD);
 
-        viewHolder.tv_email.setText(membroModel.getEmail());
+        viewHolder.tv_email.setText(membro.getEmail());
 
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, InfoMembroActivity.class);
 
-                i.putExtra("codigoMembro", String.valueOf(membroModel.getId()));
+                i.putExtra("codigoMembro", String.valueOf(membro.getId()));
 
                 mContext.startActivity(i);
             }

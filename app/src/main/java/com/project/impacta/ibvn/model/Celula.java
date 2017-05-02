@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class CelulaModel implements Serializable {
+public class Celula implements Serializable {
 
     //CÉLULA
     @SerializedName("id")
@@ -60,16 +60,16 @@ public class CelulaModel implements Serializable {
     private String longitude;
 
     //CRIADOR
-    private MembroModel membroCriador;
+    private Membro membroCriador;
 
     //LIDER
-    private MembroModel membroLider;
+    private Membro membroLider;
 
 
-    public CelulaModel() {
+    public Celula() {
     }
 
-    public CelulaModel(
+    public Celula(
             int codCelula,
             String descricaoCelula,
             String criadoPor,
@@ -86,8 +86,8 @@ public class CelulaModel implements Serializable {
 
     ) {
 
-        this.membroCriador = new MembroModel();
-        this.membroLider = new MembroModel();
+        this.membroCriador = new Membro();
+        this.membroLider = new Membro();
 
         this.Id = codCelula;
         this.descricao= descricaoCelula;
@@ -111,7 +111,7 @@ public class CelulaModel implements Serializable {
     }
 
 
-    public CelulaModel(
+    public Celula(
             int codCelula,
             String descricaoCelula,
             String criado,
@@ -129,8 +129,8 @@ public class CelulaModel implements Serializable {
             String ufEndereco,
             String latitudeEndereco,
             String longitudeEndereco) {
-        this.membroCriador = new MembroModel();
-        this.membroLider = new MembroModel();
+        this.membroCriador = new Membro();
+        this.membroLider = new Membro();
 
 
         this.Id = codCelula;
@@ -158,13 +158,13 @@ public class CelulaModel implements Serializable {
 
     /*
     * CONSTRUTOR padrão utiliza instancia para preencher dados*/
-    public CelulaModel(
+    public Celula(
             int codCelula
             , String descricaoCelula
             , String criado
             , String atualizado
-            , MembroModel membroCriador
-            , MembroModel membroLider
+            , Membro membroCriador
+            , Membro membroLider
     ) {
         this.Id = codCelula;
         this.descricao= descricaoCelula;
@@ -216,11 +216,11 @@ public class CelulaModel implements Serializable {
         this.atualizado = atualizado;
     }
 
-    public MembroModel getMembroCriador() {
+    public Membro getMembroCriador() {
         return membroCriador;
     }
 
-    public void setMembroCriador(MembroModel membroCriador) {
+    public void setMembroCriador(Membro membroCriador) {
         this.membroCriador = membroCriador;
     }
 
@@ -240,11 +240,11 @@ public class CelulaModel implements Serializable {
         this.membroCriador.nome = criadoPor;
     }
 
-    public MembroModel getMembroLider() {
+    public Membro getMembroLider() {
         return membroLider;
     }
 
-    public void setMembroLider(MembroModel membroLider) {
+    public void setMembroLider(Membro membroLider) {
         this.membroLider = membroLider;
     }
 

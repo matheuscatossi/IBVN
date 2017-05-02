@@ -4,10 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
 
-public class ReuniaoModel implements Serializable {
+public class Reuniao implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -71,13 +69,13 @@ public class ReuniaoModel implements Serializable {
     //CÉLULA Model
     @SerializedName("celula")
     @Expose
-    private CelulaModel celula;
+    private Celula celula;
 
-    public ReuniaoModel() {
+    public Reuniao() {
     }
 
     /*Contrutor full - todos os valores são passados via parametros*/
-    public ReuniaoModel(
+    public Reuniao(
 
             long codReuniao
             , String dataReuniao
@@ -103,9 +101,9 @@ public class ReuniaoModel implements Serializable {
 
     ) {
 
-        this.celula = new CelulaModel();
-        this.celula.setMembroCriador(new MembroModel());
-        this.celula.setMembroLider(new MembroModel());
+        this.celula = new Celula();
+        this.celula.setMembroCriador(new Membro());
+        this.celula.setMembroLider(new Membro());
 
         ///REUNIAO
         this.Id = codReuniao;
@@ -132,16 +130,16 @@ public class ReuniaoModel implements Serializable {
     /*
     * Construtor utilizado para carregadar dados para a lista
     * */
-    public ReuniaoModel(
+    public Reuniao(
             long cod,
             String data,
             String tema,
             String descricao
     ) {
 
-        this.celula = new CelulaModel();
-        this.celula.setMembroCriador(new MembroModel());
-        this.celula.setMembroLider(new MembroModel());
+        this.celula = new Celula();
+        this.celula.setMembroCriador(new Membro());
+        this.celula.setMembroLider(new Membro());
 
         //REUNIAO
         this.Id = cod;
@@ -155,7 +153,7 @@ public class ReuniaoModel implements Serializable {
     /*
     * Contrutor padrão utilizando model para relacionamento.
     * */
-    public ReuniaoModel(
+    public Reuniao(
             long cod,
             String data,
             String tema,
@@ -169,7 +167,7 @@ public class ReuniaoModel implements Serializable {
             String longitude,
             String latitude,
             String uf,
-            CelulaModel celula) {
+            Celula celula) {
 
         this.Id = cod;
         this.data = data;
@@ -308,11 +306,11 @@ public class ReuniaoModel implements Serializable {
         this.fk_celula = fk_celula;
     }
 
-    public CelulaModel getCelulaReuniao() {
+    public Celula getCelulaReuniao() {
         return celula;
     }
 
-    public void setCelulaReuniao(CelulaModel celulaReuniao) {
+    public void setCelulaReuniao(Celula celulaReuniao) {
         this.celula = celulaReuniao;
     }
 

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Reuniao;
 
 public class ReuniaoDao extends SQLiteOpenHelper {
 
@@ -27,7 +27,7 @@ public class ReuniaoDao extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insere(ReuniaoModel reuniao) {
+    public void insere(Reuniao reuniao) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues dados = pegaDadosDaReuniao(reuniao);
@@ -36,7 +36,7 @@ public class ReuniaoDao extends SQLiteOpenHelper {
     }
 
     @NonNull
-    private ContentValues pegaDadosDaReuniao(ReuniaoModel reuniao) {
+    private ContentValues pegaDadosDaReuniao(Reuniao reuniao) {
 
         ContentValues dados = new ContentValues();
         dados.put("tema", reuniao.getTema());

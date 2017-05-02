@@ -14,13 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.api.client.repackaged.com.google.common.base.Converter;
 import com.project.impacta.ibvn.helper.GPSTracker;
-import com.project.impacta.ibvn.model.MembroModel;
-import com.project.impacta.ibvn.model.ReuniaoModel;
+import com.project.impacta.ibvn.model.Reuniao;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
 
@@ -30,13 +27,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.project.impacta.ibvn.R.id.img_reuniao;
-
 public class InfoReuniaoActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
 
     GPSTracker gps;
-    Call<ReuniaoModel> call;
+    Call<Reuniao> call;
     APIInterface apiService;
     ProgressDialog progress;
     double latitudeReuniao = 0f, longitudeReuniao = 0f, latitudeAtual = 0f, longitudeAtual = 0f;
@@ -64,9 +59,9 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         //get api IBVN para carregar dados da reunião
         apiService = APIClient.getService().create(APIInterface.class);
         call = apiService.getReunioesByID(codigo);
-        call.enqueue(new Callback<ReuniaoModel>() {
+        call.enqueue(new Callback<Reuniao>() {
             @Override
-            public void onResponse(Call<ReuniaoModel> call, Response<ReuniaoModel> response) {
+            public void onResponse(Call<Reuniao> call, Response<Reuniao> response) {
                 if (response.raw().code() == 200) {
                     preencherDadosReuniao(response.body());
                     progress.dismiss();
@@ -74,7 +69,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ReuniaoModel> call, Throwable t) {
+            public void onFailure(Call<Reuniao> call, Throwable t) {
                 Log.e("INFOMEMBRO", t.toString());
                 progress.dismiss();
             }
@@ -198,7 +193,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
     }
 
 
-    private void preencherDadosReuniao(ReuniaoModel body) {
+    private void preencherDadosReuniao(Reuniao body) {
 
         this.tv_info_tema.setText(body.getTema());
         this.tv_info_data.setText(body.getData().substring(8) + "/" + body.getData().substring(5, 7) + "/" + body.getData().substring(0, 4));
