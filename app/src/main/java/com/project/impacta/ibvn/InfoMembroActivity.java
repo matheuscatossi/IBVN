@@ -115,7 +115,7 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
                     tv_email.setText("" + email);
 
                     tv_tipo = (TextView) findViewById(R.id.tv_tipo);
-                    if (tipo.equals("M")) {
+                    if (tipo.toUpperCase().equals("M")) {
                         tv_tipo.setText("FIEL");
                     } else {
                         tv_tipo.setText("LIDER");
@@ -149,7 +149,7 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
                     //  tv_estado.setText("" + estado);
 
                     img_user = (ImageView) findViewById(R.id.img_user);
-                    if (sexo.equals("M")) {
+                    if (sexo.toUpperCase().equals("M")) {
                         img_user.setImageResource(R.drawable.user_m);
                     } else {
                         img_user.setImageResource(R.drawable.user_f);

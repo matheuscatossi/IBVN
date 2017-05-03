@@ -46,7 +46,7 @@ public interface APIInterface {
             , @Path("fk_celula") String fk_celula);*/
 
     @POST(Constants.POST_MEMBROS)
-    Call<MembroModel> postMembros(@Body MembroModel membro);
+    Call<Membro> postMembros(@Body Membro membro);
     //Call<MembroModel> postMembros(@Field string membro);
 
     @GET(Constants.GET_REUNIOES)

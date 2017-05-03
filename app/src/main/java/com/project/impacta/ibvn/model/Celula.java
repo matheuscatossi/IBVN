@@ -21,14 +21,17 @@ public class Celula implements Serializable {
     @Expose
     private String cep;
 
+    @SerializedName("criado_em")
+    @Expose
     private String criado;
-    private String atualizado;
 
+    @SerializedName("atualizado_em")
+    @Expose
+    private String atualizado;
 
     @SerializedName("logradouro")
     @Expose
     private String logradouro;
-
 
     @SerializedName("numero")
     @Expose
@@ -37,7 +40,6 @@ public class Celula implements Serializable {
     @SerializedName("complemento")
     @Expose
     private String complemento;
-
 
     @SerializedName("bairro")
     @Expose

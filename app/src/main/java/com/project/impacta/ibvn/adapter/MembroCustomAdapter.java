@@ -86,14 +86,9 @@ public class MembroCustomAdapter extends ArrayAdapter<Membro> implements View.On
 
         lastPosition = position;
 
-<<<<<<< HEAD
-        if (membroModel.getSexo() != null) {
 
-            if (membroModel.getSexo().equals("M")) {
-=======
         if (membro.getSexo() != null) {
             if (membro.getSexo().equals("M")) {
->>>>>>> 647cd0fabdd33587e8f93669a5eec90da91cb5bc
                 viewHolder.img_user.setImageResource(R.drawable.user_m);
             } else {
                 viewHolder.img_user.setImageResource(R.drawable.user_f);

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Matheus on 12/02/2017.
  */
 
-public class Membro implements Cloneable,Serializable {
+public class Membro implements Cloneable, Serializable {
 
     @SerializedName("id")
     @Expose
@@ -31,7 +31,7 @@ public class Membro implements Cloneable,Serializable {
     @Expose
     String estado_civil;
 
-    @SerializedName("dt_nas")
+    @SerializedName("dt_nasc")
     @Expose
     String dt_nasc;
 
@@ -83,13 +83,21 @@ public class Membro implements Cloneable,Serializable {
     @Expose
     String latitude;
 
-    @SerializedName("longitude")
+    @SerializedName("logitude")
     @Expose
-    String logitude;
+    String longitude;
 
     @SerializedName("fk_celula")
     @Expose
     int fk_celula;
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    @SerializedName("celula")
+    @Expose
+    Celula celula;
 
     public Membro() {
 
@@ -114,11 +122,11 @@ public class Membro implements Cloneable,Serializable {
         this.cidade = cidade;
         this.estado = estado;
         this.latitude = latitude;
-        this.logitude = logitude;
+        this.longitude = logitude;
         this.fk_celula = fk_celula;
     }
 
-    public Membro(int id, String nome, String email, String sexo){
+    public Membro(int id, String nome, String email, String sexo) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -274,11 +282,11 @@ public class Membro implements Cloneable,Serializable {
     }
 
     public String getLogitude() {
-        return logitude;
+        return longitude;
     }
 
-    public void setLogitude(String logitude) {
-        this.logitude = logitude;
+    public void setLongitude(String logitude) {
+        this.longitude = logitude;
     }
 
     public int getFk_celula() {
@@ -288,4 +296,13 @@ public class Membro implements Cloneable,Serializable {
     public void setFk_celula(int fk_celula) {
         this.fk_celula = fk_celula;
     }
+
+    public Celula getCelula() {
+        return celula;
+    }
+
+    public void setCelula(Celula celula) {
+        this.celula = celula;
+    }
+
 }
