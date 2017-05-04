@@ -13,7 +13,7 @@ public class Celula implements Serializable {
     private int Id;
 
 
-    @SerializedName("descricao")
+    @SerializedName("nome")
     @Expose
     private String descricao;
 
@@ -21,11 +21,11 @@ public class Celula implements Serializable {
     @Expose
     private String cep;
 
-    @SerializedName("criado_em")
+    @SerializedName("created_at ")
     @Expose
     private String criado;
 
-    @SerializedName("atualizado_em")
+    @SerializedName("updated_at")
     @Expose
     private String atualizado;
 
@@ -55,14 +55,19 @@ public class Celula implements Serializable {
 
     @SerializedName("latitude")
     @Expose
-    private String latitude;
+    private double latitude;
 
     @SerializedName("logitude")
     @Expose
-    private String longitude;
+    private double longitude;
 
     //CRIADOR
     private Membro membroCriador;
+
+
+    @SerializedName("lider")
+    @Expose
+    private int lider_id;
 
     //LIDER
     private Membro membroLider;
@@ -101,8 +106,8 @@ public class Celula implements Serializable {
         this.bairro = bairroEndereco;
         this.cidade = cidadeEndereco;
         this.estado = estadoEndereco;
-        this.latitude = latitudeEndereco;
-        this.longitude = longitudeEndereco;
+        this.latitude = Double.parseDouble(latitudeEndereco);
+        this.longitude = Double.parseDouble(longitudeEndereco);
 
         //MEMBRO CRIADOR
         this.membroCriador.nome = criadoPor;
@@ -154,8 +159,8 @@ public class Celula implements Serializable {
         this.setBairro(bairroEndereco);
         this.setCidade(cidadeEndereco);
         this.setEstado(ufEndereco);
-        this.setLatitude(latitudeEndereco);
-        this.setLogitude(longitudeEndereco);
+        this.setLatitude(Double.parseDouble(latitudeEndereco));
+        this.setLogitude(Double.parseDouble(longitudeEndereco));
     }
 
     /*
@@ -194,11 +199,11 @@ public class Celula implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -322,20 +327,29 @@ public class Celula implements Serializable {
         this.estado = estado;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLogitude() {
+    public double getLogitude() {
         return longitude;
     }
 
-    public void setLogitude(String logitude) {
+    public void setLogitude(double logitude) {
         this.longitude = logitude;
+    }
+
+
+    public int getLider_id() {
+        return lider_id;
+    }
+
+    public void setLider_id(int lider_id) {
+        this.lider_id = lider_id;
     }
 
 }

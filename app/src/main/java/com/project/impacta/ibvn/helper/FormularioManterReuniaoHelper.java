@@ -141,18 +141,29 @@ public class FormularioManterReuniaoHelper {
     }
 
     public com.project.impacta.ibvn.model.Reuniao getReuniaoFromData() {
+
         this.Reuniao.setData(campoData.getText().toString());
         this.Reuniao.setDescricao(campoDescricao.getText().toString());
         this.Reuniao.setStatus("Nova");
         this.Reuniao.setTema(campoTema.getText().toString());
+        this.Reuniao.setCep(campoCep.getText().toString());
+        this.Reuniao.setLogradouro(campoLogradouro.getText().toString());
+        this.Reuniao.setNumero(campoNumero.getText().toString());
+        this.Reuniao.setBairro(campoBairro.getText().toString());
+        this.Reuniao.setCidade(campoCidade.getText().toString());
+        this.Reuniao.setUf(campoUF.getText().toString());
+        this.Reuniao.setNumero(campoNumero.getText().toString());
         return this.Reuniao;
+
     }
 
     public void preencherDadosEndereco(Map<String, String> dados) {
+
         this.campoCep.setText(dados.get("cep").toString());
         this.campoCidade.setText(dados.get("cidade").toString());
         this.campoBairro.setText(dados.get("bairro").toString());
         this.campoLogradouro.setText(dados.get("logradouro").toString());
         this.campoBairro.setText(dados.get("uf").toString());
+
     }
 }

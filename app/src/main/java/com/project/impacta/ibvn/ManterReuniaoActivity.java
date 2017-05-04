@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +17,14 @@ import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
 import com.project.impacta.ibvn.helper.DatePickerFragment;
 import com.project.impacta.ibvn.helper.FormularioManterReuniaoHelper;
 import com.project.impacta.ibvn.model.Celula;
+import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.model.Reuniao;
+import com.project.impacta.ibvn.webservice.APIClient;
+import com.project.impacta.ibvn.webservice.APIInterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ManterReuniaoActivity extends AppCompatActivity {
 
@@ -26,6 +34,8 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     private Reuniao reuniao;
     private Button buscar;
     Toolbar toolbar;
+
+    private Call<Reuniao> callReuniao;
 
 
     @Override
@@ -37,7 +47,7 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Adicionando Reunião");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        helperFormManterReuniao= new FormularioManterReuniaoHelper(this);
+        helperFormManterReuniao = new FormularioManterReuniaoHelper(this);
         Intent intent = getIntent();
 
         celula = (Celula) intent.getSerializableExtra("CELULA");
@@ -99,15 +109,45 @@ public class ManterReuniaoActivity extends AppCompatActivity {
             case R.id.menu_manter_reuniao_salvar_ok:
 
                 Reuniao reuniao = helperFormManterReuniao.getReuniaoFromData();
-                //AlunoDAO dao = new AlunoDAO(this);
 
-                if (reuniao.getId() != 0) {
-                    // dao.altera(aluno);
-                } else {
-                    // dao.insere(aluno);
-                }
+                Membro lider = new Membro();
+                lider.setId(1);
 
-                //  dao.close();
+                reuniao.setComplemento("Faculdade Impacta");
+                reuniao.setLatitude(0d);
+                reuniao.setLongitude(0d);
+                reuniao.setFk_celula(1);
+                reuniao.setCriadoEm("2017/01/01");
+                reuniao.setAtualizadoEm("2017/01/01");
+
+
+                Celula cel = new Celula();
+                cel.setDescricao("Deus é amor");
+                cel.setMembroLider(lider);
+                cel.setId(1);
+                cel.setLider_id(lider.getId());
+                reuniao.setCelula(cel);
+
+                APIInterface apiService = APIClient.getService().create(APIInterface.class);
+
+                callReuniao = apiService.postReunioes(reuniao);
+
+                callReuniao.enqueue(new Callback<Reuniao>() {
+
+                    @Override
+                    public void onResponse(Call<Reuniao> call, Response<Reuniao> response) {
+                        if (response.raw().code() == 200) {
+                            Reuniao t = response.body();
+                            Log.e("INFOREUNIAO", "" + response.raw().body().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Reuniao> call, Throwable t) {
+                        Log.e("INFOREUNIAO", t.toString());
+                    }
+                });
+
                 Toast.makeText(ManterReuniaoActivity.this, "Reunião " + reuniao.getTema() + " salva!", Toast.LENGTH_LONG).show();
                 finish();
                 break;

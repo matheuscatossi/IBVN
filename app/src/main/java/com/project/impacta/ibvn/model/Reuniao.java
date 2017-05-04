@@ -19,6 +19,8 @@ public class Reuniao implements Serializable {
     @Expose
     private String tema;
 
+    @SerializedName("status")
+    @Expose
     private String status;
 
     @SerializedName("descricao")
@@ -55,16 +57,23 @@ public class Reuniao implements Serializable {
 
     @SerializedName("latitude")
     @Expose
-    private String latitude;
+    private double latitude;
 
     @SerializedName("logitude")
     @Expose
-    private String longitude;
+    private double longitude;
 
     @SerializedName("fk_celula")
     @Expose
-    private String fk_celula;
+    private int fk_celula;
 
+    @SerializedName("created_at")
+    @Expose
+    private String criadoEm;
+
+    @SerializedName("updated_at")
+    @Expose
+    private String atualizadoEm;
 
     //CÉLULA Model
     @SerializedName("celula")
@@ -179,8 +188,8 @@ public class Reuniao implements Serializable {
         this.bairro = bairro;
         this.cep = cep;
         this.cidade = cidade;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.latitude = Double.parseDouble(latitude);
+        this.longitude =Double.parseDouble(longitude);
         this.uf = uf;
         this.celula = celula;
     }
@@ -282,36 +291,52 @@ public class Reuniao implements Serializable {
         this.uf = uf;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getFk_celula() {
+    public int getFk_celula() {
         return fk_celula;
     }
 
-    public void setFk_celula(String fk_celula) {
+    public void setFk_celula(int fk_celula) {
         this.fk_celula = fk_celula;
     }
 
-    public Celula getCelulaReuniao() {
+    public String getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(String criadoEm) {
+        this.criadoEm = criadoEm;
+    }
+
+    public String getAtualizadoEm() {
+        return atualizadoEm;
+    }
+
+    public void setAtualizadoEm(String atualizadoEm) {
+        this.atualizadoEm = atualizadoEm;
+    }
+
+    public Celula getCelula() {
         return celula;
     }
 
-    public void setCelulaReuniao(Celula celulaReuniao) {
-        this.celula = celulaReuniao;
+    public void setCelula(Celula celula) {
+        this.celula = celula;
     }
 
 

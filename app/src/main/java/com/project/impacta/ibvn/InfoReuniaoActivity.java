@@ -197,7 +197,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
 
         this.tv_info_tema.setText(body.getTema());
         this.tv_info_data.setText(body.getData().substring(8) + "/" + body.getData().substring(5, 7) + "/" + body.getData().substring(0, 4));
-        this.tv_info_celula.setText(body.getCelulaReuniao().getDescricao());
+        this.tv_info_celula.setText(body.getCelula().getDescricao());
 
         this.tv_info_logradouro.setText(body.getLogradouro() + ", " + body.getNumero());
         this.tv_info_bairro.setText(body.getBairro());
@@ -205,8 +205,8 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         this.tv_info_cep.setText(body.getCep());
         this.tv_info_descricao.setText(body.getDescricao());
 
-        latitudeReuniao = Double.parseDouble(body.getLatitude());
-        longitudeReuniao = Double.parseDouble(body.getLongitude());
+        latitudeReuniao = body.getLatitude();
+        longitudeReuniao = body.getLongitude();
     }
 
 
