@@ -48,8 +48,6 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.
 
     }
 
-    private int lastPosition = -1;
-
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -77,10 +75,6 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.
             viewHolder = (ViewHolder) convertView.getTag();
             result = convertView;
         }
-
-        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-        result.startAnimation(animation);
-        lastPosition = position;
 
         viewHolder.img_reuniao.setImageResource(R.drawable.reuniao_1);
 

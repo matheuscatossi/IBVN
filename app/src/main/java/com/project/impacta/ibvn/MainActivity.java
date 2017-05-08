@@ -36,14 +36,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
-import com.project.impacta.ibvn.adapter.NewsFeedCustomAdapter;
+import com.project.impacta.ibvn.adapter.EventoCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.helper.GPlus;
 import com.project.impacta.ibvn.helper.ImageLoadTask;
 import com.project.impacta.ibvn.model.Celula;
 import com.project.impacta.ibvn.model.Evento;
 import com.project.impacta.ibvn.model.Membro;
-import com.project.impacta.ibvn.model.NewsFeed;
 import com.project.impacta.ibvn.model.Reuniao;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
@@ -302,7 +301,7 @@ public class MainActivity extends AppCompatActivity
 
         MembroCustomAdapter membroCustomAdapter;
         ReuniaoCustomAdapter reuniaoCustomAdapter;
-        NewsFeedCustomAdapter eventoCustomAdapter;
+        EventoCustomAdapter eventoCustomAdapter;
 
 
         // Chat
@@ -355,7 +354,7 @@ public class MainActivity extends AppCompatActivity
                                 }
 
                                 Collections.reverse(eventoList);
-                                eventoCustomAdapter = new NewsFeedCustomAdapter(getContext(), eventoList);
+                                eventoCustomAdapter = new EventoCustomAdapter(getContext(), eventoList);
 
                                 recyclerView.setAdapter(eventoCustomAdapter);
 

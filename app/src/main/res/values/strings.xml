@@ -6,4 +6,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="ibvn_maps_key">AIzaSyCyh5SWDPnjxf8aBD86AkoIO0HeX5hxcCQ</string>
     <string name="str_loading">Recuperando Dados</string>
+
+
 </resources>

@@ -85,7 +85,7 @@
             android:screenOrientation="portrait"
             android:label="CÉLULA" />
         <activity
-            android:name=".InfoNewsfeedActivity"
+            android:name=".InfoEventoActivity"
 
             android:screenOrientation="portrait"
             android:label="Info Newsfeed"
