@@ -89,7 +89,7 @@ public class InfoEventoActivity extends AppCompatActivity {
         if(tipo.equals("imagem")) {
             new DownloadImageTask(img_evento).execute(Constants.URL + imagem);
 
-            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(160,160);
+            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(300,300);
             img_evento.setLayoutParams(parms);
         } else {
             img_evento.setVisibility(View.INVISIBLE);

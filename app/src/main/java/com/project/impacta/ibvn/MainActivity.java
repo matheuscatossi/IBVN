@@ -52,6 +52,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
@@ -67,7 +71,6 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private ViewPager mViewPager;
     private FloatingActionButton fabReuniao;
-    private FloatingActionButton fabUser;
     static SectionsPagerAdapter mSectionsPagerAdapter;
     static int selectedTab;
     DrawerLayout drawer;
@@ -80,6 +83,9 @@ public class MainActivity extends AppCompatActivity
     private ImageView headerUserImage;
     private TextView headerUserName;
 
+    // Variaveis para controle de consultas
+    static final ScheduledThreadPoolExecutor EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
+    static ScheduledFuture<?> sReuniao, sEvento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +100,6 @@ public class MainActivity extends AppCompatActivity
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
         fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -124,17 +129,17 @@ public class MainActivity extends AppCompatActivity
                     .build();
 
 
-            ImageLoadTask imgTask = new ImageLoadTask(GPlusData.getPhotoUrl(),headerUserImage);
+            ImageLoadTask imgTask = new ImageLoadTask(GPlusData.getPhotoUrl(), headerUserImage);
             imgTask.execute();
 
-            headerUserName.setText(GPlusData.getGivenName());
+            headerUserName.setText(GPlusData.getDisplaName());
             Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getDisplaName(), Toast.LENGTH_LONG).show();
 
-        }else{
-            headerUserName.setText("Líder");
+        } else {
+            headerUserName.setText("Lider");
         }
-        //FIM Dados de login  com conta google.
 
+        //FIM Dados de login  com conta google.
 
 
         try {
@@ -148,17 +153,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         try {
-
-            fabUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    selectedTab = 1;
-                    Intent manterMembroIntent = new Intent(MainActivity.this, ManterMembroActivity.class);
-                    manterMembroIntent.putExtra("CELULA", membroLider);
-                    startActivity(manterMembroIntent);
-                }
-            });
-
 
             fabReuniao.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -175,15 +169,12 @@ public class MainActivity extends AppCompatActivity
                 public void onTabSelected(TabLayout.Tab tab) {
                     super.onTabSelected(tab);
 
-                    fabUser = (FloatingActionButton) findViewById(R.id.fabUser);
                     fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
 
-                    if (tab.getPosition() == 3) {
+                    if (tab.getPosition() == 2) {
                         fabReuniao.setVisibility(View.INVISIBLE);
-                        fabUser.setVisibility(View.INVISIBLE);
                     } else {
                         fabReuniao.setVisibility(View.VISIBLE);
-                        fabUser.setVisibility(View.VISIBLE);
                     }
                 }
             });
@@ -231,9 +222,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.configuracoes) {
             Intent i = new Intent(this, ConfiguracoesActivity.class);
             startActivity(i);
-        } else if (id == R.id.contato) {
-            Intent i = new Intent(this, ContatoActivity.class);
-            startActivity(i);
         } else if (id == R.id.mensagem) {
             Intent i = new Intent(this, MensagemActivity.class);
             startActivity(i);
@@ -242,8 +230,15 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.logout) {
 
-            if (GPlusData != null) {
+            if(sEvento != null) {
+                sEvento.cancel(true);
+            }
 
+            if(sReuniao != null){
+                sReuniao.cancel(true);
+            }
+
+            if (GPlusData != null) {
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                         new ResultCallback<Status>() {
                             @Override
@@ -258,7 +253,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(i);
                 finish();
             }
-            ;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -290,16 +284,12 @@ public class MainActivity extends AppCompatActivity
             return fragment;
         }
 
-        public ArrayList<Membro> membroList;
         public ArrayList<Reuniao> reuniaoList;
         public ArrayList<Evento> eventoList;
 
-        ListView listViewMembro;
         ListView listViewReuniao;
-        ListView listViewEvento;
         RecyclerView recyclerView;
 
-        MembroCustomAdapter membroCustomAdapter;
         ReuniaoCustomAdapter reuniaoCustomAdapter;
         EventoCustomAdapter eventoCustomAdapter;
 
@@ -307,8 +297,7 @@ public class MainActivity extends AppCompatActivity
         // Chat
         public WebView mWebView;
 
-        // Membro
-        Call<List<Membro>> call;
+        // Callbacks
         Call<List<Reuniao>> callReuniao;
         Call<List<Evento>> callEventos;
 
@@ -344,75 +333,42 @@ public class MainActivity extends AppCompatActivity
                     callEventos = apiService.getEventos();
                     eventoList = new ArrayList<>();
 
-                    callEventos.enqueue(new Callback<List<Evento>>() {
-                        @Override
-                        public void onResponse(Call<List<Evento>> call, Response<List<Evento>> response) {
-                            if (response.raw().code() == 200) {
-
-                                for (Evento evento : response.body()) {
-                                    eventoList.add(new Evento(evento.getId(), evento.getData(), evento.getNome().toString(), evento.getDescricao(), evento.getTipo(), evento.getLink_imagem(), evento.getLink(), evento.getCreated_at(), evento.getUpdate_at()));
-                                }
-
-                                Collections.reverse(eventoList);
-                                eventoCustomAdapter = new EventoCustomAdapter(getContext(), eventoList);
-
-                                recyclerView.setAdapter(eventoCustomAdapter);
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Evento>> call, Throwable t) {
-                            Log.e("INFOEVENTOS", t.toString());
-                        }
-                    });
-                    break;
-                case 2:
-                    rootView = inflater.inflate(R.layout.fragment_membro, container, false);
-                    listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
-
-                    new Timer().scheduleAtFixedRate(new TimerTask() {
+                    sEvento = EXECUTOR.scheduleAtFixedRate(new Runnable() {
                         @Override
                         public void run() {
-                            apiService = APIClient.getService().create(APIInterface.class);
-                            call = apiService.getMembros();
-                            membroList = new ArrayList<>();
-
-                            call.enqueue(new Callback<List<Membro>>() {
+                            callEventos.enqueue(new Callback<List<Evento>>() {
                                 @Override
-                                public void onResponse(Call<List<Membro>> call, Response<List<Membro>> response) {
+                                public void onResponse(Call<List<Evento>> call, Response<List<Evento>> response) {
                                     if (response.raw().code() == 200) {
 
-                                        List<Membro> l = new ArrayList<Membro>();
-                                        l.addAll(response.body());
-
-                                        for (Membro membro : l) {
-                                            membroList.add(new Membro((int) membro.getId(), (String) membro.getNome(), (String) membro.getEmail(), (String) membro.getSexo()));
+                                        for (Evento evento : response.body()) {
+                                            eventoList.add(new Evento(evento.getId(), evento.getData(), evento.getNome().toString(), evento.getDescricao(), evento.getTipo(), evento.getLink_imagem(), evento.getLink(), evento.getCreated_at(), evento.getUpdate_at()));
                                         }
 
-                                        Collections.reverse(membroList);
-                                        membroCustomAdapter = new MembroCustomAdapter(membroList, getContext());
-                                        listViewMembro.setAdapter(membroCustomAdapter);
+                                        Collections.reverse(eventoList);
+                                        eventoCustomAdapter = new EventoCustomAdapter(getContext(), eventoList);
+
+                                        recyclerView.setAdapter(eventoCustomAdapter);
 
                                     }
                                 }
 
                                 @Override
-                                public void onFailure(Call<List<Membro>> call, Throwable t) {
-                                    Log.e("INFOMEMBRO", t.toString());
+                                public void onFailure(Call<List<Evento>> call, Throwable t) {
+                                    Log.e("INFOEVENTOS", t.toString());
                                 }
                             });
                         }
-                    }, 0, 3000);
+                    }, 0, 6000, TimeUnit.SECONDS);
 
                     break;
-                case 3:
+                case 2:
 
                     selectedTab = 2;
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
 
-                    new Timer().scheduleAtFixedRate(new TimerTask() {
+                    sReuniao = EXECUTOR.scheduleAtFixedRate(new Runnable() {
                         @Override
                         public void run() {
                             apiService = APIClient.getService().create(APIInterface.class);
@@ -439,7 +395,10 @@ public class MainActivity extends AppCompatActivity
 
                                         Collections.reverse(reuniaoList);
                                         reuniaoCustomAdapter = new ReuniaoCustomAdapter(reuniaoList, getContext());
-                                        listViewReuniao.setAdapter(reuniaoCustomAdapter);
+
+                                        if (reuniaoCustomAdapter != null) {
+                                            listViewReuniao.setAdapter(reuniaoCustomAdapter);
+                                        }
                                     }
                                 }
 
@@ -449,11 +408,11 @@ public class MainActivity extends AppCompatActivity
                                 }
                             });
                         }
-                    }, 0, 60000);
+                    }, 0, 6000, TimeUnit.SECONDS);
 
                     break;
 
-                case 4:
+                case 3:
                     rootView = inflater.inflate(R.layout.fragment_chat, container, false);
 
                     mWebView = (WebView) rootView.findViewById(R.id.webView);
@@ -484,19 +443,17 @@ public class MainActivity extends AppCompatActivity
         @Override
         public int getCount() {
 
-            return 4;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "NEWSFEED";
+                    return "EVENTOS";
                 case 1:
-                    return "MEMBROS";
-                case 2:
                     return "REUNIÕES";
-                case 3:
+                case 2:
                     return "CHAT";
             }
             return null;

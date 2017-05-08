@@ -64,11 +64,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ContatoActivity"
-
-            android:screenOrientation="portrait"
-            android:label="CONTATO IBVN" />
-        <activity
             android:name=".SugestoesActivity"
             android:screenOrientation="portrait"
             android:label="SUGESTÕES" />
