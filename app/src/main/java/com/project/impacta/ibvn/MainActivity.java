@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity
 
         public ArrayList<Membro> membroList;
         public ArrayList<Reuniao> reuniaoList;
-        public ArrayList<NewsFeed> eventoList;
+        public ArrayList<Evento> eventoList;
 
         ListView listViewMembro;
         ListView listViewReuniao;
@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity
                             if (response.raw().code() == 200) {
 
                                 for (Evento evento : response.body()) {
-                                    eventoList.add(new NewsFeed(evento.getId(), evento.getNome(), evento.getDescricao(), evento.getLink_imagem()));
+                                    eventoList.add(new Evento(evento.getId(), evento.getData(), evento.getNome().toString(), evento.getDescricao(), evento.getTipo(), evento.getLink_imagem(), evento.getLink(), evento.getCreated_at(), evento.getUpdate_at()));
                                 }
 
                                 Collections.reverse(eventoList);
@@ -367,18 +367,6 @@ public class MainActivity extends AppCompatActivity
                             Log.e("INFOEVENTOS", t.toString());
                         }
                     });
-
-
-//                    newsFeedList = new ArrayList<>();
-//
-//                    newsFeedList.add(new NewsFeed(1, "Culto aleluia", "1", R.drawable.culto_1));
-//                    newsFeedList.add(new NewsFeed(1, "Culto irmão feliz", "1", R.drawable.culto_2));
-//                    newsFeedList.add(new NewsFeed(1, "Culto amor e Deus", "1", R.drawable.culto_1));
-//                    newsFeedList.add(new NewsFeed(1, "Culto alibaba", "1", R.drawable.culto_2));
-//                    newsFeedList.add(new NewsFeed(1, "Culto sim sim", "1", R.drawable.culto_2));
-//                    newsFeedList.add(new NewsFeed(1, "Culto aleluia de novo", "1", R.drawable.culto_1));
-
-
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
