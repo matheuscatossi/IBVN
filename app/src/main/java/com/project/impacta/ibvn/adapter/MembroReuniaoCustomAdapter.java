@@ -131,7 +131,6 @@ public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> impl
                 MembroReuniao membroReuniaoPost;
                 membroReuniaoPost = new MembroReuniao(membroReuniao.getFk_reuniao(),  membroReuniao.getMembro().getId(), Boolean.compare(isChecked, false));
 
-
                 APIInterface apiService = APIClient.getService().create(APIInterface.class);
                 callMembroReuniao = apiService.postPresencaMembroReuniao(membroReuniaoPost);
 

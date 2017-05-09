@@ -5,6 +5,7 @@ import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.model.Evento;
 import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.model.MembroReuniao;
+import com.project.impacta.ibvn.model.Mensagem;
 import com.project.impacta.ibvn.model.Reuniao;
 
 import java.util.List;
@@ -47,5 +48,8 @@ public interface APIInterface {
 
     @POST(Constants.POST_PRESENCA_MEMBRO_REUNIAO)
     Call<Membro> postPresencaMembroReuniao(@Body MembroReuniao membroReuniao);
+
+    @POST(Constants.POST_MENSAGEM)
+    Call<Mensagem> postMensagem(@Body Mensagem mensagem);
 
 }
