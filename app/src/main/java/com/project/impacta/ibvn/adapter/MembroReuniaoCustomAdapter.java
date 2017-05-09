@@ -35,7 +35,7 @@ public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> impl
     }
 
     public MembroReuniaoCustomAdapter(ArrayList<MembroReuniao> data, Context context) {
-        super(context, R.layout.row_item_membro, data);
+        super(context, R.layout.row_item_membro_reuniao, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -65,7 +65,7 @@ public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> impl
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.row_item_membro, parent, false);
+            convertView = inflater.inflate(R.layout.row_item_membro_reuniao, parent, false);
 
             viewHolder.img_user = (ImageView) convertView.findViewById(R.id.img_user);
             viewHolder.img_about = (ImageView) convertView.findViewById(R.id.img_about);

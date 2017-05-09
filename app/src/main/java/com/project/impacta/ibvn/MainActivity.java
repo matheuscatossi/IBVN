@@ -1,9 +1,6 @@
 package com.project.impacta.ibvn;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -90,16 +87,6 @@ public class MainActivity extends AppCompatActivity
     static final ScheduledThreadPoolExecutor EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
     static ScheduledFuture<?> sReuniao, sEvento;
 
-    //Utilizado para verificar mensagens do Firebase.
-    private BroadcastReceiver activityReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Bundle bundle = intent.getBundleExtra("msg");
-            Toast.makeText(MainActivity.this, bundle.getString("msgBody"), Toast.LENGTH_LONG).show();
-        }
-    };
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,20 +136,10 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getDisplaName(), Toast.LENGTH_LONG).show();
 
         } else {
-<<<<<<< HEAD
-            headerUserName.setText("Líder");
-=======
             headerUserName.setText("Lider");
->>>>>>> ed9c0d027db4af95f29063beed4856f0ef75ef1c
         }
 
         //FIM Dados de login  com conta google.
-
-        //Verifica se existem mensagem do firebase
-        if (activityReceiver != null) {
-            IntentFilter intentFilter = new  IntentFilter("ACTION_STRING_ACTIVITY");
-            registerReceiver(activityReceiver, intentFilter);
-        }
 
 
         try {
@@ -214,6 +191,11 @@ public class MainActivity extends AppCompatActivity
             throw ex;
         }
     }
+
+    //    protected void onResume() {
+    //        super.onResume();
+    //        mViewPager.setCurrentItem((selectedTab != 1) ? selectedTab : 1);
+    //    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -331,6 +313,7 @@ public class MainActivity extends AppCompatActivity
             super.onViewStateRestored(savedInstanceState);
         }
 
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -350,39 +333,7 @@ public class MainActivity extends AppCompatActivity
                     callEventos = apiService.getEventos();
                     eventoList = new ArrayList<>();
 
-<<<<<<< HEAD
-                    callEventos.enqueue(new Callback<List<Evento>>() {
-                        @Override
-                        public void onResponse(Call<List<Evento>> call, Response<List<Evento>> response) {
-                            if (response.raw().code() == 200) {
-
-                                for (Evento evento : response.body()) {
-                                    eventoList.add(new NewsFeed(evento.getId(), evento.getNome(), evento.getDescricao(), evento.getLink_imagem()));
-                                }
-
-                                Collections.reverse(eventoList);
-                                eventoCustomAdapter = new NewsFeedCustomAdapter(getContext(), eventoList);
-
-                                recyclerView.setAdapter(eventoCustomAdapter);
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Evento>> call, Throwable t) {
-                            Log.e("INFOEVENTOS", t.toString());
-                        }
-                    });
-                    break;
-
-                case 2:
-                    rootView = inflater.inflate(R.layout.fragment_membro, container, false);
-                    listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
-
-                    new Timer().scheduleAtFixedRate(new TimerTask() {
-=======
                     sEvento = EXECUTOR.scheduleAtFixedRate(new Runnable() {
->>>>>>> ed9c0d027db4af95f29063beed4856f0ef75ef1c
                         @Override
                         public void run() {
                             callEventos.enqueue(new Callback<List<Evento>>() {
@@ -470,7 +421,6 @@ public class MainActivity extends AppCompatActivity
                     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                     mWebView.loadUrl("http://bankbox.net.br/ibvn/watson/index.htm");
                     break;
-
                 default:
                     rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
                     break;
