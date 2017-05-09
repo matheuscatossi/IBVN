@@ -93,7 +93,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.
 
                     Intent i = new Intent(mContext, InfoReuniaoActivity.class);
 
-                    i.putExtra("Id", String.valueOf(reuniao.getId()));
+                    i.putExtra("id", String.valueOf(reuniao.getId()));
 
                     mContext.startActivity(i);
                 }

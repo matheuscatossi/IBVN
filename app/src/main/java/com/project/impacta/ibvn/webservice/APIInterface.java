@@ -45,4 +45,7 @@ public interface APIInterface {
     @GET(Constants.GET_MEMBROS_REUNIAO)
     Call<List<MembroReuniao>> getMembrosReuniao(@Path("id") String id);
 
+    @POST(Constants.POST_PRESENCA_MEMBRO_REUNIAO)
+    Call<Membro> postPresencaMembroReuniao(@Body MembroReuniao membroReuniao);
+
 }

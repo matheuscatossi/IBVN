@@ -27,6 +27,7 @@ public class Constants {
 
     // Presenca
     public static final String GET_MEMBROS_REUNIAO = "presencas/{id}";
+    public static final String POST_PRESENCA_MEMBRO_REUNIAO = "presencas/up";
 
 }
 

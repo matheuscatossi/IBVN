@@ -17,6 +17,12 @@ public class MembroReuniao {
 
     }
 
+    public MembroReuniao(int fk_reuniao, int fk_membro, int presente) {
+        this.fk_reuniao = fk_reuniao;
+        this.fk_membro = fk_membro;
+        this.presente = presente;
+    }
+
     public MembroReuniao(int fk_reuniao, int fk_membro, int presente, String created_at, String update_at, Membro membro){
         this.fk_reuniao = fk_reuniao;
         this.fk_membro = fk_membro;

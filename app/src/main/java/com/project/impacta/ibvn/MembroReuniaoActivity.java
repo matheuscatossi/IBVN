@@ -1,9 +1,11 @@
 package com.project.impacta.ibvn;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.project.impacta.ibvn.adapter.MembroReuniaoCustomAdapter;
@@ -30,20 +32,26 @@ public class MembroReuniaoActivity extends AppCompatActivity {
     private ArrayList<MembroReuniao> membroList;
     private ListView listViewMembroReuniao;
     private MembroReuniaoCustomAdapter membroReuniaoCustomAdapter;
-    private  ArrayList<MembroReuniao> membroReuniaoList;
-    static final ScheduledThreadPoolExecutor EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
-    static ScheduledFuture<?> sMembroReuniao;
-    APIInterface apiService;
-
-    Call<List<MembroReuniao>> callMembroReuniao;
+    private ArrayList<MembroReuniao> membroReuniaoList;
+    private static final ScheduledThreadPoolExecutor EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
+    private static ScheduledFuture<?> sMembroReuniao;
+    private APIInterface apiService;
+    private Call<List<MembroReuniao>> callMembroReuniao;
+    private String codigo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membro_reuniao);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        Intent myIntent = getIntent();
+        codigo = myIntent.getStringExtra("id");
+
         apiService = APIClient.getService().create(APIInterface.class);
-        callMembroReuniao = apiService.getMembrosReuniao("5");
+        callMembroReuniao = apiService.getMembrosReuniao(codigo);
         membroReuniaoList = new ArrayList<>();
 
         listViewMembroReuniao = (ListView) findViewById(R.id.listMembroReuniao);
@@ -76,6 +84,17 @@ public class MembroReuniaoActivity extends AppCompatActivity {
                 });
             }
         }, 0, 6000, TimeUnit.SECONDS);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

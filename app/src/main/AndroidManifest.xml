@@ -9,9 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
-
-
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -54,27 +51,27 @@
         <activity
             android:name=".ManterMembroActivity"
             android:screenOrientation="portrait"
-            android:label="MEMBRO" />
+            android:label="Membro" />
         <activity
             android:name=".ConfiguracoesActivity"
             android:label="CONFIGURAÇÕES" />
         <activity
             android:name=".MensagemActivity"
-            android:label="MENSAGEM"
+            android:label="Mensagem"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SugestoesActivity"
             android:screenOrientation="portrait"
-            android:label="SUGESTÕES" />
+            android:label="Sugestões" />
         <activity
             android:name=".ManterReuniaoActivity"
             android:screenOrientation="portrait"
-            android:label="GERENCIAR REUNIÃO" />
+            android:label="Gerenciar Reuniões" />
         <activity
             android:name=".MembroReuniaoActivity"
             android:screenOrientation="portrait"
-            android:label="MEMBROS DA REUNIÃO" />
+            android:label="Membros da Reunião" />
         <activity
             android:name=".CelulaActivity"
             android:screenOrientation="portrait"

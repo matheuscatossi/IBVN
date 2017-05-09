@@ -30,16 +30,15 @@ import retrofit2.Response;
 public class InfoReuniaoActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
 
-    GPSTracker gps;
-    Call<Reuniao> call;
-    APIInterface apiService;
-    ProgressDialog progress;
-    double latitudeReuniao = 0f, longitudeReuniao = 0f, latitudeAtual = 0f, longitudeAtual = 0f;
+    private GPSTracker gps;
+    private Call<Reuniao> call;
+    private APIInterface apiService;
+    private ProgressDialog progress;
+    private double latitudeReuniao = 0f, longitudeReuniao = 0f, latitudeAtual = 0f, longitudeAtual = 0f;
 
-
-    TextView tv_info_celula, tv_info_criado_em, tv_info_criado_por, tv_info_data, tv_info_descricao, tv_info_bairro, tv_info_cep, tv_info_cidade, tv_info_lider, tv_info_logradouro, tv_info_tema;
+    private TextView tv_info_celula, tv_info_criado_em, tv_info_criado_por, tv_info_data, tv_info_descricao, tv_info_bairro, tv_info_cep, tv_info_cidade, tv_info_lider, tv_info_logradouro, tv_info_tema;
     private ImageView iv_map_reuniao;
-
+    private String codigo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +52,9 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         setControls();
 
         Intent myIntent = getIntent();
-        String codigo = myIntent.getStringExtra("Id");
+        codigo = myIntent.getStringExtra("id");
 
+        Log.e("codigo", "" + codigo);
 
         //get api IBVN para carregar dados da reunião
         apiService = APIClient.getService().create(APIInterface.class);
@@ -70,7 +70,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Reuniao> call, Throwable t) {
-                Log.e("INFOMEMBRO", t.toString());
+                Log.e("INFOREUNIAO", t.toString());
                 progress.dismiss();
             }
         });
@@ -114,6 +114,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), MembroReuniaoActivity.class);
+                i.putExtra("id", ""+ String.valueOf(codigo));
                 startActivity(i);
             }
         });
