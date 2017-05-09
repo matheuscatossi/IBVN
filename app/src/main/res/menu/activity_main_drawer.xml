@@ -14,14 +14,9 @@
             android:title="Enviar mensagem" />
 
         <item
-            android:id="@+id/contato"
-            android:icon="@drawable/contato"
-            android:title="Contato IBVN" />
-
-        <item
             android:id="@+id/celula"
             android:icon="@drawable/church"
-            android:title="Célula" />
+            android:title="Minha célula" />
 
         <item
             android:id="@+id/logout"

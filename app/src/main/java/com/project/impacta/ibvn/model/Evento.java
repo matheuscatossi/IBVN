@@ -20,6 +20,25 @@ public class Evento {
 
     }
 
+    public Evento(int id, String data, String nome, String descricao, String tipo, String link_imagem, String link, String created_at, String update_at) {
+        this.id = id;
+        this.data = data;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.link = link;
+        this.created_at = created_at;
+        this.update_at = update_at;
+        this.link_imagem       = link_imagem;
+    }
+
+    public Evento(int id, String nome, String descricao, String link_imagem) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.link_imagem       = link_imagem;
+    }
+
     public int getId() {
         return id;
     }
