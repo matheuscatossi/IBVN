@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "36532115829",
-    "project_id": "ibvn-gestao-de-eventos"
+    "firebase_url": "https://ibvn-gestao-de-eventos.firebaseio.com",
+    "project_id": "ibvn-gestao-de-eventos",
+    "storage_bucket": "ibvn-gestao-de-eventos.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "36532115829-bh2da9vn6paqvo4tbr7vpjkokudlp94u.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "36532115829-4h8a7kf83bn5e56acledc2s3t9c8m2lh.apps.googleusercontent.com",
           "client_type": 3
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36532115829-bh2da9vn6paqvo4tbr7vpjkokudlp94u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

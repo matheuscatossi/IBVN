@@ -1,6 +1,9 @@
 package com.project.impacta.ibvn;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -82,6 +85,16 @@ public class MainActivity extends AppCompatActivity
     private TextView headerUserName;
 
 
+    //Utilizado para verificar mensagens do Firebase.
+    private BroadcastReceiver activityReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getBundleExtra("msg");
+            Toast.makeText(MainActivity.this, bundle.getString("msgBody"), Toast.LENGTH_LONG).show();
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,17 +138,23 @@ public class MainActivity extends AppCompatActivity
                     .build();
 
 
-            ImageLoadTask imgTask = new ImageLoadTask(GPlusData.getPhotoUrl(),headerUserImage);
+            ImageLoadTask imgTask = new ImageLoadTask(GPlusData.getPhotoUrl(), headerUserImage);
             imgTask.execute();
 
             headerUserName.setText(GPlusData.getGivenName());
             Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getDisplaName(), Toast.LENGTH_LONG).show();
 
-        }else{
+        } else {
             headerUserName.setText("Líder");
         }
         //FIM Dados de login  com conta google.
 
+
+        //Verifica se existem mensagem do firebase
+        if (activityReceiver != null) {
+            IntentFilter intentFilter = new  IntentFilter("ACTION_STRING_ACTIVITY");
+            registerReceiver(activityReceiver, intentFilter);
+        }
 
 
         try {
@@ -201,11 +220,6 @@ public class MainActivity extends AppCompatActivity
             throw ex;
         }
     }
-
-    //    protected void onResume() {
-    //        super.onResume();
-    //        mViewPager.setCurrentItem((selectedTab != 1) ? selectedTab : 1);
-    //    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -325,7 +339,6 @@ public class MainActivity extends AppCompatActivity
             super.onViewStateRestored(savedInstanceState);
         }
 
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -367,19 +380,8 @@ public class MainActivity extends AppCompatActivity
                             Log.e("INFOEVENTOS", t.toString());
                         }
                     });
-
-
-//                    newsFeedList = new ArrayList<>();
-//
-//                    newsFeedList.add(new NewsFeed(1, "Culto aleluia", "1", R.drawable.culto_1));
-//                    newsFeedList.add(new NewsFeed(1, "Culto irmão feliz", "1", R.drawable.culto_2));
-//                    newsFeedList.add(new NewsFeed(1, "Culto amor e Deus", "1", R.drawable.culto_1));
-//                    newsFeedList.add(new NewsFeed(1, "Culto alibaba", "1", R.drawable.culto_2));
-//                    newsFeedList.add(new NewsFeed(1, "Culto sim sim", "1", R.drawable.culto_2));
-//                    newsFeedList.add(new NewsFeed(1, "Culto aleluia de novo", "1", R.drawable.culto_1));
-
-
                     break;
+
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_membro, container, false);
                     listViewMembro = (ListView) rootView.findViewById(R.id.listMembro);
@@ -475,6 +477,7 @@ public class MainActivity extends AppCompatActivity
                     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
                     mWebView.loadUrl("http://bankbox.net.br/ibvn/watson/index.htm");
                     break;
+
                 default:
                     rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
                     break;

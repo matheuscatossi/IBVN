@@ -98,7 +98,12 @@ dependencies {
     //compile 'com.google.firebase:firebase-appindexing:10.2.1'
     //compile 'com.google.android.gms:play-services-analytics:10.2.0'
     compile 'com.google.firebase:firebase-core:10.2.1'
-    compile 'com.google.firebase:firebase-messaging:10.2.1'                   // this line must be included to use FCM
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile "com.google.firebase:firebase-invites:10.0.1"
+    compile "com.google.firebase:firebase-ads:10.0.1"
+
+    // this line must be included to use FCM
+
     compile "com.google.android.gms:play-services-gcm:10.2.1"
 
     compile 'com.google.android.gms:play-services-location:10.2.1'
