@@ -363,7 +363,6 @@ public class MainActivity extends AppCompatActivity
 
                     break;
                 case 2:
-
                     selectedTab = 2;
                     rootView = inflater.inflate(R.layout.fragment_reuniao, container, false);
                     listViewReuniao = (ListView) rootView.findViewById(R.id.listReuniao);
