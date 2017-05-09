@@ -22,7 +22,11 @@ public class Constants {
     public static final String GET_REUNIOES_BY_ID = "reunioes/{id}";
     public static final String POST_REUNIOES = "reunioes";
 
+    // Eventos
     public static final String GET_EVENTOS  = "posts/";
+
+    // Presenca
+    public static final String GET_MEMBROS_REUNIAO = "presencas/{id}";
 
 }
 

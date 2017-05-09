@@ -4,13 +4,13 @@ package com.project.impacta.ibvn.webservice;
 import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.model.Evento;
 import com.project.impacta.ibvn.model.Membro;
+import com.project.impacta.ibvn.model.MembroReuniao;
 import com.project.impacta.ibvn.model.Reuniao;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -41,5 +41,8 @@ public interface APIInterface {
 
     @GET(Constants.GET_EVENTOS)
     Call<List<Evento>> getEventos();
+
+    @GET(Constants.GET_MEMBROS_REUNIAO)
+    Call<List<MembroReuniao>> getMembrosReuniao(@Path("id") String id);
 
 }

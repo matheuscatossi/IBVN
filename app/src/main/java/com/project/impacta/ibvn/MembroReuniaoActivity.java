@@ -2,37 +2,80 @@ package com.project.impacta.ibvn;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ListView;
 
+import com.project.impacta.ibvn.adapter.MembroReuniaoCustomAdapter;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
+import com.project.impacta.ibvn.model.MembroReuniao;
 import com.project.impacta.ibvn.model.Membro;
+import com.project.impacta.ibvn.webservice.APIClient;
+import com.project.impacta.ibvn.webservice.APIInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MembroReuniaoActivity extends AppCompatActivity {
 
-    public ArrayList<Membro> membroList;
-    ListView listViewMembro;
-    MembroCustomAdapter membroCustomAdapter;
+    private ArrayList<MembroReuniao> membroList;
+    private ListView listViewMembroReuniao;
+    private MembroReuniaoCustomAdapter membroReuniaoCustomAdapter;
+    private  ArrayList<MembroReuniao> membroReuniaoList;
+    static final ScheduledThreadPoolExecutor EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
+    static ScheduledFuture<?> sMembroReuniao;
+    APIInterface apiService;
+
+    Call<List<MembroReuniao>> callMembroReuniao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membro_reuniao);
 
-        listViewMembro = (ListView) findViewById(R.id.listMembro);
-        membroList = new ArrayList<>();
+        apiService = APIClient.getService().create(APIInterface.class);
+        callMembroReuniao = apiService.getMembrosReuniao("5");
+        membroReuniaoList = new ArrayList<>();
 
-        membroList.add(new Membro(1, "João José", "jj@jj.com.br", "M"));
-        membroList.add(new Membro(1, "Cesar Astolfo", "castolfo@hotmail.com", "M"));
-        membroList.add(new Membro(1, "Carlos Junior", "carlosj@gmail.com", "M"));
-        membroList.add(new Membro(1, "Maria de Fatima", "mrfcatossi@terra.com.br", "F"));
-        membroList.add(new Membro(1, "Matheus Catossi", "matheuscatossi@gmail.com", "M"));
+        listViewMembroReuniao = (ListView) findViewById(R.id.listMembroReuniao);
 
-        Collections.reverse(membroList);
-        membroCustomAdapter = new MembroCustomAdapter(membroList, this);
-        listViewMembro.setAdapter(membroCustomAdapter);
+        sMembroReuniao = EXECUTOR.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                callMembroReuniao.enqueue(new Callback<List<MembroReuniao>>() {
+                    @Override
+                    public void onResponse(Call<List<MembroReuniao>> call, Response<List<MembroReuniao>> response) {
+                        if (response.raw().code() == 200) {
+
+                            for (MembroReuniao membroReuniao : response.body()) {
+                                membroReuniaoList.add(new MembroReuniao(membroReuniao.getFk_reuniao(), membroReuniao.getFk_membro(), membroReuniao.getPresente(), membroReuniao.getCreated_at(), membroReuniao.getUpdate_at(), membroReuniao.getMembro()));
+                            }
+
+                            Collections.reverse(membroReuniaoList);
+                            membroReuniaoCustomAdapter = new MembroReuniaoCustomAdapter(membroReuniaoList, MembroReuniaoActivity.this.getBaseContext());
+
+                            if (membroReuniaoCustomAdapter != null) {
+                                listViewMembroReuniao.setAdapter(membroReuniaoCustomAdapter);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<MembroReuniao>> call, Throwable t) {
+                        Log.e("INFOMEMBROREUNIAO", t.toString());
+                    }
+                });
+            }
+        }, 0, 6000, TimeUnit.SECONDS);
 
     }
 }

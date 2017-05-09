@@ -62,11 +62,11 @@ public class LoginActivity extends AppCompatActivity {
             btn_acessar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    signInGoogle();
-//
-//                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//                    startActivity(i);
-//                    finish();
+                    //signInGoogle();
+
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
                 }
             });
 
