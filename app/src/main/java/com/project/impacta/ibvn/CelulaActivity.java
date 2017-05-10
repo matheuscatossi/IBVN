@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.model.Celula;
 import com.project.impacta.ibvn.model.Membro;
@@ -54,7 +55,7 @@ public class CelulaActivity extends AppCompatActivity {
             @Override
             public void run() {
                 apiService = APIClient.getService().create(APIInterface.class);
-                call = apiService.getMembros();
+                call = apiService.getMembrosByCelula(Constants.CELULA);
                 membroList = new ArrayList<>();
 
                 call.enqueue(new Callback<List<Membro>>() {

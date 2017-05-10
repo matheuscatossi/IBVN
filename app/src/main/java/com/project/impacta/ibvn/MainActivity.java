@@ -231,11 +231,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.logout) {
 
-            if(sEvento != null) {
+            if (sEvento != null) {
                 sEvento.cancel(true);
             }
 
-            if(sReuniao != null){
+            if (sReuniao != null) {
                 sReuniao.cancel(true);
             }
 

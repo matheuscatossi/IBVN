@@ -15,6 +15,7 @@ public class Constants {
     public static final String URL = "http://newprogsoftwares.com.br/";
     public static final String GET_MEMBROS = "membros/";
     public static final String GET_MEMBROS_BY_ID = "membros/{id}";
+    public static final String GET_MEMBROS_BY_CELULA = "membros/byCelula/{id}";
     public static final String POST_MEMBROS = "membros";
 
     //Reuniões

@@ -61,4 +61,9 @@ public interface APIInterface {
     @GET(Constants.GET_REUNIOES_BY_CELULA)
     Call<List<Reuniao>> getReunioesByCelula(@Path("id") String id);
 
+    @GET(Constants.GET_MEMBROS_BY_CELULA)
+    Call<List<Membro>> getMembrosByCelula(@Path("id") String id);
+
+
+
 }
