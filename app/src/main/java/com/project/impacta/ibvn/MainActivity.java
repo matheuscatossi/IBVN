@@ -220,10 +220,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.configuracoes) {
-            Intent i = new Intent(this, ConfiguracoesActivity.class);
-            startActivity(i);
-        } else if (id == R.id.mensagem) {
+         if (id == R.id.mensagem) {
             Intent i = new Intent(this, MensagemActivity.class);
             startActivity(i);
         } else if (id == R.id.celula) {

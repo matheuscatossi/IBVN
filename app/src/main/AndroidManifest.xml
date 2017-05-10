@@ -75,12 +75,12 @@
         <activity
             android:name=".CelulaActivity"
             android:screenOrientation="portrait"
-            android:label="CÉLULA" />
+            android:label="Célula" />
         <activity
             android:name=".InfoEventoActivity"
 
             android:screenOrientation="portrait"
-            android:label="Info Newsfeed"
+            android:label="Info Evento"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name="com.project.impacta.ibvn.service.MyFirebaseMessagingService">

@@ -3,10 +3,6 @@
 
     <group android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/configuracoes"
-            android:icon="@drawable/configuracoes"
-            android:title="Configurações" />
 
         <item
             android:id="@+id/mensagem"
