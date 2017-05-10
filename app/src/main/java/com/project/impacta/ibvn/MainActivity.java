@@ -39,10 +39,12 @@ import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.EventoCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
+import com.project.impacta.ibvn.handler.DatabaseHandlerLogin;
 import com.project.impacta.ibvn.helper.GPlus;
 import com.project.impacta.ibvn.helper.ImageLoadTask;
 import com.project.impacta.ibvn.model.Celula;
 import com.project.impacta.ibvn.model.Evento;
+import com.project.impacta.ibvn.model.Login;
 import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.model.Reuniao;
 import com.project.impacta.ibvn.webservice.APIClient;
@@ -87,6 +89,9 @@ public class MainActivity extends AppCompatActivity
     // Variaveis para controle de consultas
     static final ScheduledThreadPoolExecutor EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
     static ScheduledFuture<?> sReuniao, sEvento;
+
+    // Logagem
+    private DatabaseHandlerLogin dbLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +240,14 @@ public class MainActivity extends AppCompatActivity
             if (sReuniao != null) {
                 sReuniao.cancel(true);
             }
+
+            dbLogin = new DatabaseHandlerLogin(MainActivity.this);
+
+            Login login = new Login(Constants.ID,"", "", Constants.CELULA);
+            dbLogin.deleteLogin(login);
+
+            Log.d("ID", ""+ Constants.ID);
+             Log.d("CELULA", ""+ Constants.CELULA);
 
             if (GPlusData != null) {
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(

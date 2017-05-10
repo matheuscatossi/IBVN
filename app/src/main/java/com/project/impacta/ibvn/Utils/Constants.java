@@ -40,6 +40,7 @@ public class Constants {
     // Celula
 
     public static String CELULA = "";
+    public static int ID = 0;
 
 }
 

@@ -23,12 +23,15 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.project.impacta.ibvn.Utils.Constants;
+import com.project.impacta.ibvn.handler.DatabaseHandlerLogin;
 import com.project.impacta.ibvn.helper.GPlus;
 import com.project.impacta.ibvn.model.Login;
 import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.model.Mensagem;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private Call<Membro> callLogin;
 
+    private DatabaseHandlerLogin dbLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,89 +83,114 @@ public class LoginActivity extends AppCompatActivity {
         et_cpf = (EditText) findViewById(R.id.et_cpf);
         et_login = (EditText) findViewById(R.id.et_login);
 
+        dbLogin = new DatabaseHandlerLogin(LoginActivity.this);
 
-        try {
-            btn_acessar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //signInGoogle();
-
-                    String email = et_login.getText().toString();
-                    String cpf = et_cpf.getText().toString();
-
-                    Login loginPost = new Login(email, cpf);
-
-                    if (email.length() == 0) {
-                        Toast.makeText(getApplicationContext(),
-                                "Digite o login!", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    if (cpf.length() == 0) {
-                        Toast.makeText(getApplicationContext(),
-                                "Digite sua senha", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    APIInterface apiService = APIClient.getService().create(APIInterface.class);
-                    callLogin = apiService.postLogin(loginPost);
+        List<Login> logins = dbLogin.getAllLogins();
 
 
-                    progress = ProgressDialog.show(LoginActivity.this, "Carregando", "Enviando informações", true);
+        if (logins.size() != 0) {
+            for (Login lg : logins) {
 
-                    Log.e("request", ""+ callLogin.request());
-                    Log.e("request", ""+ callLogin.toString());
+                Log.d("LOGINCELULA", "" + lg.getCelula());
+                Log.d("LOGINID", "" + lg.getId());
 
-                    callLogin.enqueue(new Callback<Membro>() {
-                        @Override
-                        public void onResponse(Call<Membro> call, Response<Membro> response) {
-                            if (response.raw().code() == 200) {
-                                if (response.body().getFk_celula() != 0) {
-                                    Membro t = response.body();
-                                    Constants.CELULA = "" + t.getFk_celula();
+                Constants.CELULA = lg.getCelula();
+                Constants.ID = lg.getId();
 
-                                    progress.dismiss();
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        } else {
+            try {
+                btn_acessar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //signInGoogle();
 
-                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(i);
-                                    finish();
+                        String email = et_login.getText().toString();
+                        String cpf = et_cpf.getText().toString();
+
+                        Login loginPost = new Login(email, cpf);
+
+                        if (email.length() == 0) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Digite o login!", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (cpf.length() == 0) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Digite sua senha", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        APIInterface apiService = APIClient.getService().create(APIInterface.class);
+                        callLogin = apiService.postLogin(loginPost);
+
+                        progress = ProgressDialog.show(LoginActivity.this, "Carregando", "Enviando informações", true);
+
+                        callLogin.enqueue(new Callback<Membro>() {
+                            @Override
+                            public void onResponse(Call<Membro> call, Response<Membro> response) {
+                                if (response.raw().code() == 200) {
+                                    if (response.body().getFk_celula() != 0) {
+                                        Membro t = response.body();
+                                        Constants.CELULA = "" + t.getFk_celula();
+
+                                        dbLogin.addLogin(new Login(t.getEmail(), t.getCpf(), "" + t.getFk_celula()));
+
+                                        progress.dismiss();
+
+                                        List<Login> logins = dbLogin.getAllLogins();
+
+                                        if (logins != null) {
+                                            for (Login lg : logins) {
+                                                Constants.ID = lg.getId();
+                                            }
+                                        }
+
+                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    } else {
+                                        progress.dismiss();
+                                        Toast.makeText(LoginActivity.this.getBaseContext(), "Login incorreto!", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     progress.dismiss();
                                     Toast.makeText(LoginActivity.this.getBaseContext(), "Login incorreto!", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                progress.dismiss();
-                                Toast.makeText(LoginActivity.this.getBaseContext(), "Login incorreto!", Toast.LENGTH_SHORT).show();
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Membro> call, Throwable t) {
-                            progress.dismiss();
+                            @Override
+                            public void onFailure(Call<Membro> call, Throwable t) {
+                                progress.dismiss();
 
-                            Toast.makeText(LoginActivity.this.getBaseContext(), "Erro no servidor, tentar novamente!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this.getBaseContext(), "Erro no servidor, tentar novamente!", Toast.LENGTH_SHORT).show();
 
-                        }
+                            }
 
-                    });
+                        });
 
 
-                }
-            });
-
-            btn_login_google.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (v.getId()) {
-                        case R.id.sign_in_button:
-                            signInGoogle();
-                            break;
                     }
-                }
-            });
+                });
 
-        } catch (Throwable ex) {
-            throw ex;
+                btn_login_google.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switch (v.getId()) {
+                            case R.id.sign_in_button:
+                                signInGoogle();
+                                break;
+                        }
+                    }
+                });
+
+            } catch (Throwable ex) {
+                throw ex;
+            }
         }
     }
 
