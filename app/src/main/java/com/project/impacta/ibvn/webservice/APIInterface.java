@@ -1,8 +1,11 @@
 package com.project.impacta.ibvn.webservice;
 
 
+import android.provider.SyncStateContract;
+
 import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.model.Evento;
+import com.project.impacta.ibvn.model.Login;
 import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.model.MembroReuniao;
 import com.project.impacta.ibvn.model.Mensagem;
@@ -51,5 +54,11 @@ public interface APIInterface {
 
     @POST(Constants.POST_MENSAGEM)
     Call<Mensagem> postMensagem(@Body Mensagem mensagem);
+
+    @POST(Constants.POST_LOGIN)
+    Call<Membro> postLogin(@Body Login login);
+
+    @GET(Constants.GET_REUNIOES_BY_CELULA)
+    Call<List<Reuniao>> getReunioesByCelula(@Path("id") String id);
 
 }

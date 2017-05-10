@@ -1,5 +1,6 @@
 package com.project.impacta.ibvn;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -44,6 +45,8 @@ public class MensagemActivity extends AppCompatActivity {
     private EditText et_mensagem;
     private Button btn_enviar;
     private Call<Mensagem> callMensagem;
+    private ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,11 +81,36 @@ public class MensagemActivity extends AppCompatActivity {
                 String email = et_email.getText().toString();
                 String mensagem = et_mensagem.getText().toString();
 
+                if (nome.length() == 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "Insira um nome para identificacao", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (telefone.length() == 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "Informe um telefone para contato caso necessário", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (email.length() == 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "Informe um email para contato caso necessário", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (mensagem.length() == 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "Insira uma mensagem/pedido de oracao!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Mensagem mensagemPost = new Mensagem(nome, mensagem, telefone, email);
+
+                progress = ProgressDialog.show(MensagemActivity.this, "Carregando", "Enviando informações", true);
 
                 APIInterface apiService = APIClient.getService().create(APIInterface.class);
                 callMensagem = apiService.postMensagem(mensagemPost);
-
 
                 callMensagem.enqueue(new Callback<Mensagem>() {
 
@@ -93,6 +121,7 @@ public class MensagemActivity extends AppCompatActivity {
                             Log.e("MENSAGEM", "" + t.getId());
 
                             Toast.makeText(MensagemActivity.this.getBaseContext(), "Mensagem enviada com sucesso", Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
                             finish();
                         }
                     }
@@ -100,6 +129,7 @@ public class MensagemActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Mensagem> call, Throwable t) {
                         Log.e("MENSAGEM", t.toString());
+                        progress.dismiss();
                     }
 
                 });

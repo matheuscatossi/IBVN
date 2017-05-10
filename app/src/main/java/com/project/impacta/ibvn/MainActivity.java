@@ -35,6 +35,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.EventoCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
@@ -371,7 +372,7 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void run() {
                             apiService = APIClient.getService().create(APIInterface.class);
-                            callReuniao = apiService.getReunioes();
+                            callReuniao = apiService.getReunioesByCelula(Constants.CELULA);
                             reuniaoList = new ArrayList<>();
 
                             callReuniao.enqueue(new Callback<List<Reuniao>>() {
