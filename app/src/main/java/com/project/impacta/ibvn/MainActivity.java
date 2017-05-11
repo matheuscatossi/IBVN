@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-         if (id == R.id.mensagem) {
+        if (id == R.id.mensagem) {
             Intent i = new Intent(this, MensagemActivity.class);
             startActivity(i);
         } else if (id == R.id.celula) {
@@ -243,11 +243,11 @@ public class MainActivity extends AppCompatActivity
 
             dbLogin = new DatabaseHandlerLogin(MainActivity.this);
 
-            Login login = new Login(Constants.ID,"", "", Constants.CELULA);
+            Login login = new Login(Constants.ID, "", "", Constants.CELULA);
             dbLogin.deleteLogin(login);
 
-            Log.d("ID", ""+ Constants.ID);
-             Log.d("CELULA", ""+ Constants.CELULA);
+            Log.d("ID", "" + Constants.ID);
+            Log.d("CELULA", "" + Constants.CELULA);
 
             if (GPlusData != null) {
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -296,12 +296,16 @@ public class MainActivity extends AppCompatActivity
         }
 
         public ArrayList<Reuniao> reuniaoList;
+
+
         public ArrayList<Evento> eventoList;
 
         ListView listViewReuniao;
+
         RecyclerView recyclerView;
 
         ReuniaoCustomAdapter reuniaoCustomAdapter;
+
         EventoCustomAdapter eventoCustomAdapter;
 
 

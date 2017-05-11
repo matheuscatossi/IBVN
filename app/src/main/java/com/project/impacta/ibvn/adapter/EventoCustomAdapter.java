@@ -98,7 +98,6 @@ public class EventoCustomAdapter extends RecyclerView.Adapter<EventoCustomAdapte
         return eventoList.size();
     }
 
-
 }
 
 
