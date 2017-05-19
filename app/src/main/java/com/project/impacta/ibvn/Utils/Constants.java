@@ -17,12 +17,14 @@ public class Constants {
     public static final String GET_MEMBROS_BY_ID = "membros/{id}";
     public static final String GET_MEMBROS_BY_CELULA = "membros/byCelula/{id}";
     public static final String POST_MEMBROS = "membros";
+    public static final String POST_MEMBROS_UPDATE = "membros/up/{id}";
 
     //Reuniões
     public static final String GET_REUNIOES = "reunioes/";
     public static final String GET_REUNIOES_BY_ID = "reunioes/{id}";
     public static final String GET_REUNIOES_BY_CELULA = "reunioes/byCelula/{id}";
     public static final String POST_REUNIOES = "reunioes";
+    public static final String POST_REUNIOES_UPDATE = "reunioes/up/{id}";
 
     // Eventos
     public static final String GET_EVENTOS  = "posts/";

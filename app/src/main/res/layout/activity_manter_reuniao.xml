@@ -186,6 +186,23 @@
 
 
             <TextView
+                android:id="@+id/tv_manter_reuniao_complemento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Complemento :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_complemento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Casa B"
+                android:inputType="textPostalAddress"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
                 android:id="@+id/tv_manter_reuniao_bairro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -276,6 +293,27 @@
                 android:hint="Breve descrição sobre o encontro."
                 android:inputType="textMultiLine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_latitude"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_longitude"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                />
+
+            <EditText
+                android:id="@+id/et_manter_reuniao_id"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                />
 
         </LinearLayout>
 

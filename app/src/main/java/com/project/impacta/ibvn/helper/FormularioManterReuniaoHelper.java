@@ -15,16 +15,21 @@ import java.util.Map;
 
 public class FormularioManterReuniaoHelper {
 
+
+    private EditText campoId;
+    private EditText campoLongitude;
+    private EditText campoLatitude;
     private EditText campoTema;
     private EditText campoData;
     private EditText campoLogradouro;
+    private EditText campoComplemento;
     private EditText campoCidade;
     private EditText campoBairro;
     private EditText campoCep;
     private EditText campoUF;
     private EditText campoNumero;
     private EditText campoDescricao;
-    private com.project.impacta.ibvn.model.Reuniao Reuniao;
+    private Reuniao Reuniao;
     private TextView campoHeader;
 
     //Contrutor Getters E Setters
@@ -35,12 +40,16 @@ public class FormularioManterReuniaoHelper {
         campoTema = (EditText) activity.findViewById(R.id.et_manter_reuniao_tema);
         campoData = (EditText) activity.findViewById(R.id.et_manter_reuniao_data);
         campoLogradouro = (EditText) activity.findViewById(R.id.et_manter_reuniao_logradouro);
+        campoComplemento = (EditText) activity.findViewById(R.id.et_manter_reuniao_complemento);
         campoCidade = (EditText) activity.findViewById(R.id.et_manter_reuniao_cidade);
         campoBairro = (EditText) activity.findViewById(R.id.et_manter_reuniao_bairro);
         campoCep = (EditText) activity.findViewById(R.id.et_manter_reuniao_cep);
         campoUF = (EditText) activity.findViewById(R.id.et_manter_reuniao_uf);
         campoNumero = (EditText) activity.findViewById(R.id.et_manter_reuniao_numero);
         campoDescricao = (EditText) activity.findViewById(R.id.et_manter_reuniao_descricao);
+        campoLatitude = (EditText) activity.findViewById(R.id.et_manter_reuniao_latitude);
+        campoLongitude = (EditText) activity.findViewById(R.id.et_manter_reuniao_longitude);
+        campoId = (EditText) activity.findViewById(R.id.et_manter_reuniao_id);
         Reuniao = new Reuniao();
     }
 
@@ -140,22 +149,81 @@ public class FormularioManterReuniaoHelper {
         this.campoNumero = campoNumero;
     }
 
-    public com.project.impacta.ibvn.model.Reuniao getReuniaoFromData() {
+    public EditText getCampoComplemento() {
+        return campoComplemento;
+    }
 
-        this.Reuniao.setData(campoData.getText().toString());
+    public void setCampoComplemento(EditText campoComplemento) {
+        this.campoComplemento = campoComplemento;
+    }
+
+    public EditText getCampoLongitude() {
+        return campoLongitude;
+    }
+
+    public void setCampoLongitude(EditText campoLongitude) {
+        this.campoLongitude = campoLongitude;
+    }
+
+    public EditText getCampoLatitude() {
+        return campoLatitude;
+    }
+
+    public void setCampoLatitude(EditText campoLatitude) {
+        this.campoLatitude = campoLatitude;
+    }
+
+    public EditText getCampoId() {
+        return campoId;
+    }
+
+    public void setCampoId(EditText campoId) {
+        this.campoId = campoId;
+    }
+
+
+    public Reuniao getReuniaoFromData() {
+
+        String[] strData = campoData.getText().toString().split("/");
+        this.Reuniao.setData(strData[2] + "-" + strData[1] + "-" + strData[0]);
+
         this.Reuniao.setDescricao(campoDescricao.getText().toString());
         this.Reuniao.setStatus("Nova");
         this.Reuniao.setTema(campoTema.getText().toString());
         this.Reuniao.setCep(campoCep.getText().toString());
         this.Reuniao.setLogradouro(campoLogradouro.getText().toString());
+        this.Reuniao.setComplemento(campoComplemento.getText().toString());
         this.Reuniao.setNumero(campoNumero.getText().toString());
         this.Reuniao.setBairro(campoBairro.getText().toString());
         this.Reuniao.setCidade(campoCidade.getText().toString());
         this.Reuniao.setUf(campoUF.getText().toString());
         this.Reuniao.setNumero(campoNumero.getText().toString());
+        this.Reuniao.setLatitude(Double.parseDouble(campoLatitude.getText().toString()));
+        this.Reuniao.setLongitude(Double.parseDouble(campoLongitude.getText().toString()));
+        this.Reuniao.setId(Integer.parseInt((campoId.getText().toString())));
         return this.Reuniao;
-
     }
+
+    public void setReuniaoFromModel(Reuniao reuniao) {
+
+        String[] data = reuniao.getData().split("-");
+
+        campoData.setText(data[2] + "/" + data[1] + "/" + data[0]);
+        campoDescricao.setText(reuniao.getDescricao());
+        campoTema.setText(reuniao.getTema().toString());
+        campoCep.setText(reuniao.getCep().toString());
+        campoLogradouro.setText(reuniao.getLogradouro().toString());
+        campoComplemento.setText(reuniao.getComplemento().toString());
+        campoNumero.setText(reuniao.getNumero().toString());
+        campoBairro.setText(reuniao.getBairro().toString());
+        campoCidade.setText(reuniao.getCidade().toString());
+        campoUF.setText(reuniao.getUf().toString());
+        campoNumero.setText(reuniao.getNumero().toString());
+        campoLatitude.setText(Double.toString(reuniao.getLatitude()));
+        campoLongitude.setText(Double.toString(reuniao.getLongitude()));
+        campoId.setText(Long.toString((reuniao.getId())));
+    }
+
 
     public void preencherDadosEndereco(Map<String, String> dados) {
 
@@ -164,6 +232,8 @@ public class FormularioManterReuniaoHelper {
         this.campoBairro.setText(dados.get("bairro").toString());
         this.campoLogradouro.setText(dados.get("logradouro").toString());
         this.campoBairro.setText(dados.get("uf").toString());
+        this.campoLatitude.setText(dados.get("latitude").toString());
+        this.campoLongitude.setText(dados.get("longitude").toString());
 
     }
 }

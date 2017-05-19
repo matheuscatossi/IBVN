@@ -8,7 +8,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
             applicationId "com.project.impacta.ibvn"
-        minSdkVersion 19
+        minSdkVersion 18
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -109,6 +109,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:10.2.1'
     compile 'com.google.android.gms:play-services-places:10.2.1'
     compile 'com.google.gms:google-services:3.0.0'
+    compile 'com.android.volley:volley:1.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

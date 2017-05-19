@@ -29,9 +29,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Matheus on 12/02/2017.
- */
 
 public class InfoMembroActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,8 +38,6 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
     // Elemtentos View
     TextView tv_nome;
     TextView tv_cpf;
-    TextView tv_estado_civil;
-    TextView tv_dt_nasc;
     TextView tv_email;
     TextView tv_tipo;
     TextView tv_telefone;
@@ -53,12 +48,10 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
     TextView tv_complemento;
     TextView tv_bairro;
     TextView tv_cidade;
-    TextView tv_estado;
-    TextView tv_latitude;
-    TextView tv_logitude;
     ImageView img_user;
 
     ProgressDialog progress;
+    private String codigoMembro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +59,9 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_info_membro);
 
         progress = ProgressDialog.show(this, "Carregando", "Buscando informações", true);
-        Intent myIntent     = getIntent();
+        Intent myIntent = getIntent();
 
-        String codigoMembro = myIntent.getStringExtra("codigoMembro");
+        codigoMembro = myIntent.getStringExtra("codigoMembro");
 
         apiService = APIClient.getService().create(APIInterface.class);
         call = apiService.getMembrosByID(codigoMembro);
@@ -77,27 +70,20 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
             @Override
             public void onResponse(Call<Membro> call, Response<Membro> response) {
                 if (response.raw().code() == 200) {
-
-                    int id  = response.body().getId();
-                    int fk_celula  = response.body().getFk_celula();
-                    String nome  = response.body().getNome();
-                    String sexo  = response.body().getSexo();
-                    String cpf  = response.body().getCpf();
-                    String estado_civil  = response.body().getEstado_civil();
-                    String dt_nasc  = response.body().getDt_nasc();
-                    String email  = response.body().getEmail();
-                    String tipo  = response.body().getTipo();
-                    String telefone  = response.body().getTelefone();
-                    String celular  = response.body().getCelular();
-                    String cep  = response.body().getCep();
-                    String logradouro  = response.body().getLogradouro();
-                    String numero  = response.body().getNumero();
-                    String complemento  = response.body().getComplemento();
-                    String bairro  = response.body().getBairro();
-                    String cidade  = response.body().getCidade();
-                    String estado  = response.body().getEstado();
-                    String latitude  = response.body().getLatitude();
-                    String logitude  = response.body().getLogitude();
+                    
+                    String nome = response.body().getNome();
+                    String sexo = response.body().getSexo();
+                    String cpf = response.body().getCpf();
+                    String email = response.body().getEmail();
+                    String tipo = response.body().getTipo();
+                    String telefone = response.body().getTelefone();
+                    String celular = response.body().getCelular();
+                    String cep = response.body().getCep();
+                    String logradouro = response.body().getLogradouro();
+                    String numero = response.body().getNumero();
+                    String complemento = response.body().getComplemento();
+                    String bairro = response.body().getBairro();
+                    String cidade = response.body().getCidade();
 
                     tv_nome = (TextView) findViewById(R.id.tv_nome);
                     tv_nome.setText("" + nome);
@@ -105,17 +91,11 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
                     tv_cpf = (TextView) findViewById(R.id.tv_cpf);
                     tv_cpf.setText("" + cpf);
 
-                    // tv_estado_civil = (TextView) findViewById(R.id.tv_estado_civil);
-                    // tv_estado_civil.setText("" + estado_civil);
-
-                    // tv_dt_nasc = (TextView) findViewById(R.id.tv_data);
-                    // tv_dt_nasc.setText("" + dt_nasc);
-
                     tv_email = (TextView) findViewById(R.id.tv_email);
                     tv_email.setText("" + email);
 
                     tv_tipo = (TextView) findViewById(R.id.tv_tipo);
-                    if (tipo.toUpperCase().equals("M")) {
+                    if (tipo.toUpperCase().equals("MEMBRO")) {
                         tv_tipo.setText("FIEL");
                     } else {
                         tv_tipo.setText("LIDER");
@@ -134,19 +114,17 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
                     tv_logradouro.setText("" + logradouro);
 
                     tv_numero = (TextView) findViewById(R.id.tv_numero);
-                    tv_numero.setText("" + numero);
+                    tv_numero.setText(" " + numero);
 
                     tv_complemento = (TextView) findViewById(R.id.tv_complemento);
-                    tv_complemento.setText("" + complemento);
+                    tv_complemento.setText(" " + complemento);
 
                     tv_bairro = (TextView) findViewById(R.id.tv_bairro);
-                    tv_bairro.setText("" + bairro);
+                    tv_bairro.setText(" " + bairro);
 
                     tv_cidade = (TextView) findViewById(R.id.tv_cidade);
-                    tv_cidade.setText("" + cidade);
+                    tv_cidade.setText(" " + cidade);
 
-                    //  tv_estado = (TextView) findViewById(R.id.tv_estado);
-                    //  tv_estado.setText("" + estado);
 
                     img_user = (ImageView) findViewById(R.id.img_user);
                     if (sexo.toUpperCase().equals("M")) {
@@ -154,7 +132,6 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
                     } else {
                         img_user.setImageResource(R.drawable.user_f);
                     }
-
                     progress.dismiss();
                 }
             }
@@ -170,8 +147,11 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
         fabEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Editar membro - Feature em desenvolvimento", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                //abre tela de manter membro enviado o id do membro selecionado para edição
+                Intent manterMembroIntent = new Intent(InfoMembroActivity.this, ManterMembroActivity.class);
+                manterMembroIntent.putExtra("MEMBRO", codigoMembro);
+                startActivity(manterMembroIntent);
             }
         });
 
@@ -195,11 +175,6 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        //if (id == R.id.sobre) {
-        //  Intent i = new Intent(this, ContatoActivity.class);
-        //  startActivity(i);
-        //}
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

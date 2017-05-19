@@ -153,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(i);
                                         finish();
+
                                     } else {
                                         progress.dismiss();
                                         Toast.makeText(LoginActivity.this.getBaseContext(), "Login incorreto!", Toast.LENGTH_SHORT).show();

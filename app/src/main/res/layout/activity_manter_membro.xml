@@ -368,6 +368,23 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tv_manter_membro_complemento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Complemento :"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/et_manter_membro_complemento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="casa b"
+                android:inputType="textPostalAddress"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
 
             <TextView
                 android:id="@+id/tv_manter_membro_bairro"
@@ -439,6 +456,31 @@
                         android:inputType="textPostalAddress"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_manter_membro_latitude"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                     />
+
+                <EditText
+                    android:id="@+id/et_manter_membro_longitude"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    />
+
+
+                <EditText
+                    android:id="@+id/et_manter_membro_id"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    />
+
+
+
 
             </LinearLayout>
 

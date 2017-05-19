@@ -100,11 +100,16 @@ public class MembroCustomAdapter extends ArrayAdapter<Membro> implements View.On
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, InfoMembroActivity.class);
 
-                i.putExtra("codigoMembro", String.valueOf(membro.getId()));
+                try {
+                    Intent i = new Intent(mContext, InfoMembroActivity.class);
+                    i.putExtra("codigoMembro", String.valueOf(membro.getId()));
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(i);
+                } catch (Exception ex) {
 
-                mContext.startActivity(i);
+                    ex.printStackTrace();
+                }
             }
         });
 
