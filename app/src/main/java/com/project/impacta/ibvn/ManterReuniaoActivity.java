@@ -1,7 +1,9 @@
 package com.project.impacta.ibvn;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,18 +15,55 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.cast.CastRemoteDisplayLocalService;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+import com.project.impacta.ibvn.Utils.Constants;
+import com.project.impacta.ibvn.handler.DatabaseHandlerLogin;
 import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
 import com.project.impacta.ibvn.helper.DatePickerFragment;
 import com.project.impacta.ibvn.helper.FormularioManterReuniaoHelper;
 import com.project.impacta.ibvn.model.Celula;
+import com.project.impacta.ibvn.model.Login;
 import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.model.Reuniao;
+import com.project.impacta.ibvn.service.MyFirebaseMessagingService;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
+import com.project.impacta.ibvn.webservice.FirebaseAPI;
+import com.project.impacta.ibvn.webservice.NotifyData;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
+import android.util.Base64;
+import android.view.View;
+import android.widget.EditText;
+
 
 public class ManterReuniaoActivity extends AppCompatActivity {
 
@@ -36,6 +75,92 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     private Call<Reuniao> callReuniao;
+    private DatabaseHandlerLogin dbLogin;
+    private ProgressDialog progress;
+    private String reuniao_id;
+    private APIInterface apiService;
+
+    private String HubEndpoint = null;
+    private String HubSasKeyName = null;
+    private String HubSasKeyValue = null;
+
+    /**
+     * Example code from http://msdn.microsoft.com/library/azure/dn495627.aspx
+     * to parse the connection string so a SaS authentication token can be
+     * constructed.
+     *
+     * @param connectionString This must be the DefaultFullSharedAccess connection
+     *                         string for this example.
+     */
+    private void ParseConnectionString(String connectionString) {
+        String[] parts = connectionString.split(";");
+        if (parts.length != 3)
+            throw new RuntimeException("Error parsing connection string: "
+                    + connectionString);
+
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].startsWith("Endpoint")) {
+                this.HubEndpoint = "https" + parts[i].substring(11);
+            } else if (parts[i].startsWith("SharedAccessKeyName")) {
+                this.HubSasKeyName = parts[i].substring(20);
+            } else if (parts[i].startsWith("SharedAccessKey")) {
+                this.HubSasKeyValue = parts[i].substring(16);
+            }
+        }
+    }
+
+
+    /**
+     * Example code from http://msdn.microsoft.com/library/azure/dn495627.aspx to
+     * construct a SaS token from the access key to authenticate a request.
+     *
+     * @param uri The unencoded resource URI string for this operation. The resource
+     *            URI is the full URI of the Service Bus resource to which access is
+     *            claimed. For example,
+     *            "http://<namespace>.servicebus.windows.net/<hubName>"
+     */
+    private String generateSasToken(String uri) {
+
+        String targetUri;
+        String token = null;
+        try {
+            targetUri = URLEncoder
+                    .encode(uri.toString().toLowerCase(), "UTF-8")
+                    .toLowerCase();
+
+            long expiresOnDate = System.currentTimeMillis();
+            int expiresInMins = 60; // 1 hour
+            expiresOnDate += expiresInMins * 60 * 1000;
+            long expires = expiresOnDate / 1000;
+            String toSign = targetUri + "\n" + expires;
+
+            // Get an hmac_sha1 key from the raw key bytes
+            byte[] keyBytes = HubSasKeyValue.getBytes("UTF-8");
+            SecretKeySpec signingKey = new SecretKeySpec(keyBytes, "HmacSHA256");
+
+            // Get an hmac_sha1 Mac instance and initialize with the signing key
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(signingKey);
+
+            // Compute the hmac on input data bytes
+            byte[] rawHmac = mac.doFinal(toSign.getBytes("UTF-8"));
+
+            // Using android.util.Base64 for Android Studio instead of
+            // Apache commons codec
+            String signature = URLEncoder.encode(
+                    Base64.encodeToString(rawHmac, Base64.NO_WRAP).toString(), "UTF-8");
+
+            // Construct authorization string
+            token = "SharedAccessSignature sr=" + targetUri + "&sig="
+                    + signature + "&se=" + expires + "&skn=" + HubSasKeyName;
+        } catch (Exception e) {
+            /*if (isVisible) {
+                ToastNotify("Exception Generating SaS : " + e.getMessage().toString());
+            }*/
+        }
+
+        return token;
+    }
 
 
     @Override
@@ -44,14 +169,46 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manter_reuniao);
 
         //Header
-        getSupportActionBar().setTitle("Adicionando Reunião");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         helperFormManterReuniao = new FormularioManterReuniaoHelper(this);
         Intent intent = getIntent();
 
-        celula = (Celula) intent.getSerializableExtra("CELULA");
-        reuniao = (Reuniao) intent.getSerializableExtra("REUNIAO");
+        reuniao_id = intent.getStringExtra("REUNIAO_ID");
+
+
+        //Editando
+        if (reuniao_id != null) {
+
+            getSupportActionBar().setTitle("Editando Reunião");
+
+            progress = new ProgressDialog(this);
+            progress.setMessage("Recuperando informações!");
+            progress.show();
+
+            apiService = APIClient.getService().create(APIInterface.class);
+            callReuniao = apiService.getReunioesByID(reuniao_id);
+
+            callReuniao.enqueue(new Callback<Reuniao>() {
+                @Override
+                public void onResponse(Call<Reuniao> call, Response<Reuniao> response) {
+                    if (response.raw().code() == 200) {
+
+                        helperFormManterReuniao.setReuniaoFromModel(response.body());
+                        progress.dismiss();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Reuniao> call, Throwable t) {
+                    progress.dismiss();
+                    Log.e("INFOREUNIAO", t.toString());
+                }
+            });
+
+        } else { //criando
+            getSupportActionBar().setTitle("Adicionando Reunião");
+        }
 
 
         //Mostra calendário ao ganhar o focus e set o próximo controle que irá receber o focus
@@ -85,6 +242,8 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                                                   helperFormManterReuniao.getCampoLogradouro(),
                                                   helperFormManterReuniao.getCampoUF(),
                                                   helperFormManterReuniao.getCampoNumero(),
+                                                  helperFormManterReuniao.getCampoLatitude(),
+                                                  helperFormManterReuniao.getCampoLongitude(),
                                                   ManterReuniaoActivity.this
                                           );
                                           task.execute();
@@ -105,32 +264,36 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        dbLogin = new DatabaseHandlerLogin(ManterReuniaoActivity.this);
         switch (item.getItemId()) {
             case R.id.menu_manter_reuniao_salvar_ok:
 
+                progress = new ProgressDialog(ManterReuniaoActivity.this);
+                progress.setMessage("Registrando Reunião");
+                progress.show();
+
+
                 Reuniao reuniao = helperFormManterReuniao.getReuniaoFromData();
-
                 Membro lider = new Membro();
-                lider.setId(1);
 
-                reuniao.setComplemento("Faculdade Impacta");
-                reuniao.setLatitude(0d);
-                reuniao.setLongitude(0d);
-                reuniao.setFk_celula(1);
-                reuniao.setCriadoEm("2017/01/01");
-                reuniao.setAtualizadoEm("2017/01/01");
+                //recupera dados do usuário logado.
+                List<Login> logins = dbLogin.getAllLogins();
+                if (logins != null) {
+                    for (Login lg : logins) {
+                        lider.setId(lg.getId());
+                        lider.setFk_celula(Integer.parseInt(lg.getCelula()));
+                        reuniao.setFk_celula(Integer.parseInt(lg.getCelula()));
+                    }
+                }
 
+                apiService = APIClient.getService().create(APIInterface.class);
 
-                Celula cel = new Celula();
-                cel.setDescricao("Deus é amor");
-                cel.setMembroLider(lider);
-                cel.setId(1);
-                cel.setLider_id(lider.getId());
-                reuniao.setCelula(cel);
+                if (reuniao.getId() > 0) {
+                    callReuniao = apiService.postReunioesUpdate(Long.toString(reuniao.getId()), reuniao);
+                } else {
+                    callReuniao = apiService.postReunioes(reuniao);
+                }
 
-                APIInterface apiService = APIClient.getService().create(APIInterface.class);
-
-                callReuniao = apiService.postReunioes(reuniao);
 
                 callReuniao.enqueue(new Callback<Reuniao>() {
 
@@ -139,24 +302,33 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                         if (response.raw().code() == 200) {
                             Reuniao t = response.body();
                             Log.e("INFOREUNIAO", "" + response.raw().body().toString());
+                            Toast.makeText(ManterReuniaoActivity.this, "Reunião " + t.getTema() + " salva!", Toast.LENGTH_LONG).show();
+
+
+                            FirebaseMessaging fm = FirebaseMessaging.getInstance();
+                            fm.send(new RemoteMessage.Builder("testes" + "@gcm.googleapis.com")
+                                    .setMessageId(Integer.toString(2))
+                                    .addData("my_message", "Hello World")
+                                    .addData("my_action", "SAY_HELLO")
+                                    .build());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Reuniao> call, Throwable t) {
                         Log.e("INFOREUNIAO", t.toString());
+                        Toast.makeText(ManterReuniaoActivity.this, "Ocorreram problemas ao tentar registrar a Reunião", Toast.LENGTH_LONG).show();
                     }
                 });
 
-                Toast.makeText(ManterReuniaoActivity.this, "Reunião " + reuniao.getTema() + " salva!", Toast.LENGTH_LONG).show();
                 finish();
                 break;
             case android.R.id.home:
-
                 finish();
                 break;
         }
 
+        progress.dismiss();
         return super.onOptionsItemSelected(item);
     }
 }

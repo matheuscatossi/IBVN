@@ -19,8 +19,6 @@ public class Reuniao implements Serializable {
     @Expose
     private String tema;
 
-    @SerializedName("status")
-    @Expose
     private String status;
 
     @SerializedName("descricao")
@@ -55,12 +53,8 @@ public class Reuniao implements Serializable {
     @Expose
     private String uf;
 
-    @SerializedName("latitude")
-    @Expose
     private double latitude;
 
-    @SerializedName("logitude")
-    @Expose
     private double longitude;
 
     @SerializedName("fk_celula")

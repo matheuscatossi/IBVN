@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +49,10 @@ public class CelulaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_celula);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onResume() {
 
         listViewMembro = (ListView) findViewById(R.id.listMembro);
 
@@ -67,7 +72,7 @@ public class CelulaActivity extends AppCompatActivity {
                             l.addAll(response.body());
 
                             for (Membro membro : l) {
-                                membroList.add(new Membro((int) membro.getId(), (String) membro.getNome(), (String) membro.getEmail(), (String) membro.getSexo()));
+                                membroList.add(new Membro(membro.getId(), membro.getNome(), membro.getEmail(), membro.getSexo()));
                             }
 
                             Collections.reverse(membroList);
@@ -88,7 +93,7 @@ public class CelulaActivity extends AppCompatActivity {
             }
         }, 0, 6000, TimeUnit.SECONDS);
 
-
+        super.onResume();
     }
 
     @Override
@@ -103,15 +108,22 @@ public class CelulaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.incluir_membro:
                 Intent manterMembroIntent = new Intent(CelulaActivity.this, ManterMembroActivity.class);
-                membroLider = new Membro(1, "João José", "jj@gmail.com.br", "M");
-                manterMembroIntent.putExtra("CELULA", membroLider);
                 startActivity(manterMembroIntent);
                 break;
             case android.R.id.home:
+                Intent mainActivity = new Intent(CelulaActivity.this, MainActivity.class);
+                startActivity(mainActivity);
                 finish();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(CelulaActivity.this, MainActivity.class);
+        startActivity(mainActivity);
+        finish();
     }
 }

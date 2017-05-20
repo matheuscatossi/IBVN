@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class FormularioManterMembroHelper {
 
+    private EditText campoId;
     private EditText campoSexo;
     private EditText campoDataNascimento;
     private EditText campoEmail;
@@ -19,18 +20,19 @@ public class FormularioManterMembroHelper {
     private EditText campoCelular;
     private EditText campoNome;
     private EditText campoLogradouro;
+    private EditText campoComplemento;
     private EditText campoCidade;
     private EditText campoBairro;
     private EditText campoCep;
     private EditText campoEstado;
     private EditText campoNumero;
+    private EditText campoLatitude;
+    private EditText campoLongitude;
 
     private com.project.impacta.ibvn.model.Membro Membro;
 
 
     //Contrutor Getters E Setters
-
-
     public EditText getCampoSexo() {
         return campoSexo;
     }
@@ -143,6 +145,31 @@ public class FormularioManterMembroHelper {
         Membro = membro;
     }
 
+    public EditText getCampoComplemento() {
+        return campoComplemento;
+    }
+
+    public void setCampoComplemento(EditText campoComplemento) {
+        this.campoComplemento = campoComplemento;
+    }
+
+    public EditText getCampoLatitude() {
+        return campoLatitude;
+    }
+
+    public void setCampoLatitude(EditText campoLatitude) {
+        this.campoLatitude = campoLatitude;
+    }
+
+    public EditText getCampoLongitude() {
+        return campoLongitude;
+    }
+
+    public void setCampoLongitude(EditText campoLongitude) {
+        this.campoLongitude = campoLongitude;
+    }
+
+
     public FormularioManterMembroHelper(ManterMembroActivity activity) {
 
         campoNome = (EditText) activity.findViewById(R.id.et_manter_membro_nome);
@@ -156,17 +183,23 @@ public class FormularioManterMembroHelper {
         campoCelular = (EditText) activity.findViewById(R.id.et_manter_membro_celular);
 
         campoLogradouro = (EditText) activity.findViewById(R.id.et_manter_membro_logradouro);
+        campoComplemento = (EditText) activity.findViewById(R.id.et_manter_membro_complemento);
+
         campoCidade = (EditText) activity.findViewById(R.id.et_manter_membro_cidade);
         campoBairro = (EditText) activity.findViewById(R.id.et_manter_membro_bairro);
         campoCep = (EditText) activity.findViewById(R.id.et_manter_membro_cep);
         campoEstado = (EditText) activity.findViewById(R.id.et_manter_membro_uf);
         campoNumero = (EditText) activity.findViewById(R.id.et_manter_membro_numero);
+        campoLatitude = (EditText) activity.findViewById(R.id.et_manter_membro_latitude);
+        campoLongitude = (EditText) activity.findViewById(R.id.et_manter_membro_longitude);
+        campoId = (EditText) activity.findViewById(R.id.et_manter_membro_id);
 
         Membro = new Membro();
     }
 
 
-    public com.project.impacta.ibvn.model.Membro getMembroFromData() {
+    public Membro getMembroFromData() {
+
         this.Membro.setNome(campoNome.getText().toString());
         this.Membro.setCpf(campoCpf.getText().toString());
         this.Membro.setEmail(campoEmail.getText().toString());
@@ -176,12 +209,39 @@ public class FormularioManterMembroHelper {
         this.Membro.setCelular(campoCelular.getText().toString());
         this.Membro.setCep(campoCep.getText().toString());
         this.Membro.setLogradouro(campoLogradouro.getText().toString());
+        this.Membro.setComplemento(campoComplemento.getText().toString());
         this.Membro.setNumero(campoNumero.getText().toString());
         this.Membro.setBairro(campoBairro.getText().toString());
         this.Membro.setCidade(campoCidade.getText().toString());
         this.Membro.setEstado(campoEstado.getText().toString());
         this.Membro.setNumero(campoNumero.getText().toString());
+        this.Membro.setLatitude(campoLatitude.getText().toString());
+        this.Membro.setLongitude(campoLongitude.getText().toString());
+        this.Membro.setId(Integer.parseInt(campoId.getText().toString()));
+
         return this.Membro;
+    }
+
+    public void setMembroFromModel(Membro membro) {
+
+        campoNome.setText(membro.getNome());
+        campoCpf.setText(membro.getCpf());
+        campoEmail.setText(membro.getEmail());
+        campoDataNascimento.setText(membro.getDt_nasc());
+        campoSexo.setText(membro.getSexo());
+        campoTelefone.setText(membro.getTelefone());
+        campoCelular.setText(membro.getCelular());
+        campoCep.setText(membro.getCep());
+        campoLogradouro.setText(membro.getLogradouro());
+        campoComplemento.setText(membro.getComplemento());
+        campoNumero.setText(membro.getNumero());
+        campoBairro.setText(membro.getBairro());
+        campoCidade.setText(membro.getCidade());
+        campoEstado.setText(membro.getEstado());
+        campoNumero.setText(membro.getNumero());
+        campoLatitude.setText(membro.getLatitude());
+        campoLongitude.setText(membro.getLongitude());
+        campoId.setText(Integer.toString(membro.getId()));
     }
 
     public void preencherDadosEndereco(Map<String, String> dados) {
@@ -190,5 +250,7 @@ public class FormularioManterMembroHelper {
         this.campoBairro.setText(dados.get("bairro").toString());
         this.campoLogradouro.setText(dados.get("logradouro").toString());
         this.campoBairro.setText(dados.get("uf").toString());
+        this.campoLatitude.setText(dados.get("latitude").toString());
+        this.campoLongitude.setText(dados.get("longitude").toString());
     }
 }

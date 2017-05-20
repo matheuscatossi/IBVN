@@ -5,6 +5,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.project.impacta.ibvn.ManterReuniaoActivity;
 
 import java.io.IOException;
 import java.util.Map;
@@ -19,6 +22,8 @@ public class CarregarEnderecoTask extends AsyncTask<Void, Void, Map<String, Stri
     private EditText campoBairro;
     private EditText campoLogradouro;
     private EditText campoUf;
+    private EditText campoLatitude;
+    private EditText campoLongitude;
     private String CEP;
 
     public CarregarEnderecoTask(String cep,
@@ -37,9 +42,38 @@ public class CarregarEnderecoTask extends AsyncTask<Void, Void, Map<String, Stri
         this.campoLogradouro = campoLogradouro;
         this.campoUf = campoUf;
         this.campoNumero = campoNumero;
+
+        this.campoLatitude = new EditText(context);
+        this.campoLongitude = new EditText(context);
+
         this.context = context;
         this.progress = new ProgressDialog(this.context);
     }
+
+    public CarregarEnderecoTask(String cep,
+                                EditText campoCep,
+                                EditText campoCidade,
+                                EditText campoBairro,
+                                EditText campoLogradouro,
+                                EditText campoUf,
+                                EditText campoNumero,
+                                EditText campoLatitude,
+                                EditText campoLongitude,
+                                Context context) {
+
+        this.CEP = cep;
+        this.campoCep = campoCep;
+        this.campoCidade = campoCidade;
+        this.campoBairro = campoBairro;
+        this.campoLogradouro = campoLogradouro;
+        this.campoUf = campoUf;
+        this.campoNumero = campoNumero;
+        this.campoLatitude = campoLatitude;
+        this.campoLongitude = campoLongitude;
+        this.context = context;
+        this.progress = new ProgressDialog(this.context);
+    }
+
 
     @Override
     protected Map<String, String> doInBackground(Void... params) {
@@ -76,12 +110,20 @@ public class CarregarEnderecoTask extends AsyncTask<Void, Void, Map<String, Stri
 
         clearFields();
 
+        if (stringStringMap.size() == 0) {
+            Toast.makeText(context, "CEP inválido", Toast.LENGTH_LONG).show();
+            progress.dismiss();
+            return;
+        }
+
         if (stringStringMap != null) {
             this.campoCep.setText(String.format("%s-%s", stringStringMap.get("cep").substring(0, 5), stringStringMap.get("cep").substring(5)));
             this.campoCidade.setText(stringStringMap.get("cidade").toString());
             this.campoBairro.setText(stringStringMap.get("bairro").toString());
             this.campoLogradouro.setText(stringStringMap.get("logradouro").toString());
             this.campoUf.setText(stringStringMap.get("uf").toString());
+            this.campoLatitude.setText(stringStringMap.get("latitude").toString());
+            this.campoLongitude.setText(stringStringMap.get("longitude").toString());
             this.campoNumero.requestFocus();
         }
         progress.dismiss();
@@ -94,5 +136,7 @@ public class CarregarEnderecoTask extends AsyncTask<Void, Void, Map<String, Stri
         this.campoLogradouro.setText("");
         this.campoUf.setText("");
         this.campoNumero.setText("");
+        this.campoLatitude.setText("");
+        this.campoLongitude.setText("");
     }
 }

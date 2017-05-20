@@ -97,8 +97,9 @@ public class BuscaCep {
             e.printStackTrace();
         } catch (HttpStatusException w) {
             w.printStackTrace();
+        }finally {
+            return dados;
         }
-        return dados;
 
     }
 }

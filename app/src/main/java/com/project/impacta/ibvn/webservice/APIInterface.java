@@ -34,6 +34,9 @@ public interface APIInterface {
     @POST(Constants.POST_MEMBROS)
     Call<Membro> postMembros(@Body Membro membro);
 
+    @POST(Constants.POST_MEMBROS_UPDATE)
+    Call<Membro> postMembrosUpdate(@Path("id") String id, @Body Membro membro);
+
     @GET(Constants.GET_REUNIOES)
     Call<List<Reuniao>> getReunioes();
 
@@ -42,6 +45,10 @@ public interface APIInterface {
 
     @POST(Constants.POST_REUNIOES)
     Call<Reuniao> postReunioes(@Body Reuniao reuniao);
+
+    @POST(Constants.POST_REUNIOES_UPDATE)
+    Call<Reuniao> postReunioesUpdate(@Path("id") String id,@Body Reuniao reuniao);
+
 
     @GET(Constants.GET_EVENTOS)
     Call<List<Evento>> getEventos();
@@ -63,7 +70,6 @@ public interface APIInterface {
 
     @GET(Constants.GET_MEMBROS_BY_CELULA)
     Call<List<Membro>> getMembrosByCelula(@Path("id") String id);
-
 
 
 }

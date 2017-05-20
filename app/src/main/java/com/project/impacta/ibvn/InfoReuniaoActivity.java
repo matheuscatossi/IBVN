@@ -119,6 +119,16 @@ public class InfoReuniaoActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton fabEditar = (FloatingActionButton) findViewById(R.id.fabEditar);
+        fabEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent manterMembroIntent = new Intent(InfoReuniaoActivity.this, ManterReuniaoActivity.class);
+                manterMembroIntent.putExtra("REUNIAO_ID", codigo);
+                startActivity(manterMembroIntent);
+            }
+        });
+
     }
 
 
@@ -151,6 +161,8 @@ public class InfoReuniaoActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent mainActivity = new Intent(InfoReuniaoActivity.this, MainActivity.class);
+                startActivity(mainActivity);
                 finish();
                 break;
         }
@@ -210,5 +222,11 @@ public class InfoReuniaoActivity extends AppCompatActivity {
         longitudeReuniao = body.getLongitude();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(InfoReuniaoActivity.this, MainActivity.class);
+        startActivity(mainActivity);
+        finish();
 
+    }
 }

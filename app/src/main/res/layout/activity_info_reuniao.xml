@@ -387,6 +387,16 @@
             android:layout_alignParentBottom="true"
             android:paddingTop="20dp"
             android:src="@drawable/reuniao" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabEditar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center|bottom"
+            android:src="@drawable/editor" />
     </RelativeLayout>
+
 
 </LinearLayout>

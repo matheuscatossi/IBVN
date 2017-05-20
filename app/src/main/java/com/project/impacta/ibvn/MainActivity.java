@@ -28,7 +28,6 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,12 +35,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.project.impacta.ibvn.Utils.Constants;
-import com.project.impacta.ibvn.adapter.MembroCustomAdapter;
 import com.project.impacta.ibvn.adapter.EventoCustomAdapter;
 import com.project.impacta.ibvn.adapter.ReuniaoCustomAdapter;
 import com.project.impacta.ibvn.handler.DatabaseHandlerLogin;
 import com.project.impacta.ibvn.helper.GPlus;
-import com.project.impacta.ibvn.helper.ImageLoadTask;
 import com.project.impacta.ibvn.model.Celula;
 import com.project.impacta.ibvn.model.Evento;
 import com.project.impacta.ibvn.model.Login;
@@ -53,8 +50,6 @@ import com.project.impacta.ibvn.webservice.APIInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -65,13 +60,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.project.impacta.ibvn.R.id.container;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, EasyPermissions.PermissionCallbacks {
 
     //Properties
-    private GoogleSignInOptions gso;
-    private GPlus GPlusData;
-    private GoogleApiClient mGoogleApiClient;
     private ViewPager mViewPager;
     private FloatingActionButton fabReuniao;
     static SectionsPagerAdapter mSectionsPagerAdapter;
@@ -83,15 +77,21 @@ public class MainActivity extends AppCompatActivity
     private static Membro membroLider;
     private static Membro membroCriador;
     private static Celula celula;
-    private ImageView headerUserImage;
-    private TextView headerUserName;
+
 
     // Variaveis para controle de consultas
     static final ScheduledThreadPoolExecutor EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
     static ScheduledFuture<?> sReuniao, sEvento;
+    APIInterface apiService;
+
+    // Callbacks
+    Call<List<Reuniao>> callReuniao;
 
     // Logagem
     private DatabaseHandlerLogin dbLogin;
+    private ReuniaoCustomAdapter reuniaoCustomAdapter;
+    private ArrayList<Reuniao> reuniaoList;
+    private ListView listViewReuniao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         fabReuniao = (FloatingActionButton) findViewById(R.id.fabReuniao);
@@ -113,40 +113,9 @@ public class MainActivity extends AppCompatActivity
         //seta o herder do menu lateral
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
         View navHeaderView = navView.inflateHeaderView(R.layout.nav_header_main);
-        headerUserName = (TextView) navHeaderView.findViewById(R.id.nav_header_main_tv_nome);
-        headerUserImage = (ImageView) navHeaderView.findViewById(R.id.nav_header_main_iv_logo);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
-        //Dados de login com conta google
-
-        GPlusData = (GPlus) getIntent().getSerializableExtra("GPLUSDATA");
-
-        if (GPlusData != null) {
-            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
-                    .build();
-
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, null)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
-
-
-            ImageLoadTask imgTask = new ImageLoadTask(GPlusData.getPhotoUrl(), headerUserImage);
-            imgTask.execute();
-
-            headerUserName.setText(GPlusData.getDisplaName());
-            Toast.makeText(MainActivity.this, "Bem vindo \n" + GPlusData.getDisplaName(), Toast.LENGTH_LONG).show();
-
-        } else {
-            headerUserName.setText("Lider");
-        }
-
-        //FIM Dados de login  com conta google.
-
 
         try {
             membroLider = new Membro(1, "João José", "jj@gmail.com.br", "M");
@@ -192,16 +161,11 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-
         } catch (Exception ex) {
             throw ex;
         }
     }
 
-    //    protected void onResume() {
-    //        super.onResume();
-    //        mViewPager.setCurrentItem((selectedTab != 1) ? selectedTab : 1);
-    //    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -249,21 +213,6 @@ public class MainActivity extends AppCompatActivity
             Log.d("ID", "" + Constants.ID);
             Log.d("CELULA", "" + Constants.CELULA);
 
-            if (GPlusData != null) {
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                        new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(Status status) {
-                                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                        });
-            } else {
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
-            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -282,7 +231,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     public static class PlaceholderFragment extends Fragment {
+
         private static final String ARG_SECTION_NUMBER = "section_number";
+        public ArrayList<Reuniao> reuniaoList;
+        public ArrayList<Evento> eventoList;
+        ListView listViewReuniao;
+        RecyclerView recyclerView;
+        ReuniaoCustomAdapter reuniaoCustomAdapter;
+        EventoCustomAdapter eventoCustomAdapter;
+
+        // Chat
+        public WebView mWebView;
+
+        // Callbacks
+        Call<List<Reuniao>> callReuniao;
+        Call<List<Evento>> callEventos;
+        APIInterface apiService;
 
         public PlaceholderFragment() {
         }
@@ -294,29 +258,6 @@ public class MainActivity extends AppCompatActivity
             fragment.setArguments(args);
             return fragment;
         }
-
-        public ArrayList<Reuniao> reuniaoList;
-
-
-        public ArrayList<Evento> eventoList;
-
-        ListView listViewReuniao;
-
-        RecyclerView recyclerView;
-
-        ReuniaoCustomAdapter reuniaoCustomAdapter;
-
-        EventoCustomAdapter eventoCustomAdapter;
-
-
-        // Chat
-        public WebView mWebView;
-
-        // Callbacks
-        Call<List<Reuniao>> callReuniao;
-        Call<List<Evento>> callEventos;
-
-        APIInterface apiService;
 
         @Override
         public void onSaveInstanceState(Bundle outState) {
@@ -401,9 +342,9 @@ public class MainActivity extends AppCompatActivity
                                             reuniaoList.add(
                                                     new Reuniao(
                                                             (int) reuniao.getId(),
-                                                            (String) reuniao.getData(),
-                                                            (String) reuniao.getTema(),
-                                                            (String) reuniao.getDescricao())
+                                                            reuniao.getData(),
+                                                            reuniao.getTema(),
+                                                            reuniao.getDescricao())
                                             );
                                         }
 
