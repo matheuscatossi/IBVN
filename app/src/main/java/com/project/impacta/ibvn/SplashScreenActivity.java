@@ -25,8 +25,6 @@ public class SplashScreenActivity extends AppCompatActivity {
              */
             @Override
             public void run() {
-
-                // Após o timer acabar uma nova activity será aberta
                 Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
