@@ -79,7 +79,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".InfoEventoActivity"
-
             android:label="Info Evento"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

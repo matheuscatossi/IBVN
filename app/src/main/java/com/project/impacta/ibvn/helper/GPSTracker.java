@@ -43,7 +43,6 @@ public class GPSTracker extends Service implements LocationListener {
         getLocation();
     }
 
-    //Recupera a localização atual via APPI google maps
     public Location getLocation() {
 
         try {
@@ -65,31 +64,9 @@ public class GPSTracker extends Service implements LocationListener {
 
             canGetLocation = true;
 
-            // First get location from Network Provider
             if (isNetworkEnabled) {
 
                 location = getLocale(locationManager);
-
-                /*
-                if (ContextCompat.checkSelfPermission(this.mContext,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) this.mContext,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                        location = getLocale(locationManager);
-
-                    } else {
-
-                        //Solicita permissão para uso do GPS
-                        ActivityCompat.requestPermissions((Activity) this.mContext,
-                                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-                        this.canGetLocation = false;
-                    }
-                }else{
-                    location = getLocale(locationManager);
-                }*/
             }
 
         } catch (Exception e) {

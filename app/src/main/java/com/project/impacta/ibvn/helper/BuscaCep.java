@@ -29,7 +29,6 @@ public class BuscaCep {
         StringBuilder cepHif;
 
         try {
-
             if (!CEP.contains("-")) {
                 cepHif = new StringBuilder(CEP);
                 cepHif.insert(CEP.length() - 3, '-');
@@ -68,7 +67,6 @@ public class BuscaCep {
         Map dados = new HashMap();
 
         try {
-
             Document doc = Jsoup
                     .connect("http://api.postmon.com.br/v1/cep/" + CEP + "?format=xml")
                     .timeout(120000).get();
@@ -91,8 +89,6 @@ public class BuscaCep {
                 dados.put("latitude", arrDados[0]);
                 dados.put("longitude", arrDados[1]);
             }
-
-
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
         } catch (HttpStatusException w) {

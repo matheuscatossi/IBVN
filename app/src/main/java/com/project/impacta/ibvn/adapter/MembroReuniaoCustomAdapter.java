@@ -33,7 +33,6 @@ import retrofit2.Response;
 
 public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> implements View.OnClickListener {
 
-
     private Call<Membro> callMembroReuniao;
     private ArrayList<MembroReuniao> dataSet;
     private Context mContext;
@@ -51,12 +50,10 @@ public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> impl
         super(context, R.layout.row_item_membro_reuniao, data);
         this.dataSet = data;
         this.mContext = context;
-
     }
 
     @Override
     public void onClick(View v) {
-
         int position = (Integer) v.getTag();
         Object object = getItem(position);
         MembroReuniao membroReuniao = (MembroReuniao) object;
@@ -67,10 +64,8 @@ public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> impl
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         final MembroReuniao membroReuniao = getItem(position);
         ViewHolder viewHolder;
-
 
         final View result;
 

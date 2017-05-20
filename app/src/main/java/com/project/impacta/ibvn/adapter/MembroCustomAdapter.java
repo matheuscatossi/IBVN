@@ -38,30 +38,25 @@ public class MembroCustomAdapter extends ArrayAdapter<Membro> implements View.On
         super(context, R.layout.row_item_membro, data);
         this.dataSet = data;
         this.mContext = context;
-
     }
 
     @Override
     public void onClick(View v) {
-
         int position = (Integer) v.getTag();
         Object object = getItem(position);
         Membro membro = (Membro) object;
-
     }
 
     private int lastPosition = -1;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         final Membro membro = getItem(position);
         ViewHolder viewHolder;
 
         final View result;
 
         if (convertView == null) {
-
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item_membro, parent, false);
@@ -83,7 +78,6 @@ public class MembroCustomAdapter extends ArrayAdapter<Membro> implements View.On
 
         lastPosition = position;
 
-
         if (membro.getSexo() != null) {
             if (membro.getSexo().equals("M")) {
                 viewHolder.img_user.setImageResource(R.drawable.user_m);
@@ -94,7 +88,6 @@ public class MembroCustomAdapter extends ArrayAdapter<Membro> implements View.On
 
         viewHolder.tv_nome.setText(membro.getNome());
         viewHolder.tv_nome.setTypeface(null, Typeface.BOLD);
-
         viewHolder.tv_email.setText(membro.getEmail());
 
         viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {

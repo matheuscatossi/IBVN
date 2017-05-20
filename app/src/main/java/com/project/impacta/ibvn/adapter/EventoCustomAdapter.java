@@ -45,8 +45,6 @@ public class EventoCustomAdapter extends RecyclerView.Adapter<EventoCustomAdapte
             thumbnail     = (ImageView) view.findViewById(R.id.thumbnail);
             overflow      = (ImageView) view.findViewById(R.id.overflow);
             ll_card_evento = (LinearLayout) view.findViewById(R.id.newsfeeds_card);
-
-
         }
     }
 
@@ -90,7 +88,6 @@ public class EventoCustomAdapter extends RecyclerView.Adapter<EventoCustomAdapte
         });
 
         new DownloadImageTask(holder.thumbnail).execute(Constants.URL + evento.getLink_imagem());
-        //Glide.with(mContext).load(evento.getLink_imagem()).into(holder.thumbnail);
     }
 
     @Override

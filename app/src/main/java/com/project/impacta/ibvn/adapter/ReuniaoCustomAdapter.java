@@ -59,7 +59,6 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.
         final View result;
 
         if (convertView == null) {
-
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item_reuniao, parent, false);

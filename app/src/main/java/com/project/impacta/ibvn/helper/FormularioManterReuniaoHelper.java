@@ -14,8 +14,6 @@ import java.util.Map;
  */
 
 public class FormularioManterReuniaoHelper {
-
-
     private EditText campoId;
     private EditText campoLongitude;
     private EditText campoLatitude;
@@ -31,9 +29,6 @@ public class FormularioManterReuniaoHelper {
     private EditText campoDescricao;
     private Reuniao Reuniao;
     private TextView campoHeader;
-
-    //Contrutor Getters E Setters
-
 
     public FormularioManterReuniaoHelper(ManterReuniaoActivity activity) {
 
@@ -226,7 +221,6 @@ public class FormularioManterReuniaoHelper {
 
 
     public void preencherDadosEndereco(Map<String, String> dados) {
-
         this.campoCep.setText(dados.get("cep").toString());
         this.campoCidade.setText(dados.get("cidade").toString());
         this.campoBairro.setText(dados.get("bairro").toString());

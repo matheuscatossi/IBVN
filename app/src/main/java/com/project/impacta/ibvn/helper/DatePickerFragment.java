@@ -18,7 +18,6 @@ import java.util.Calendar;
 public  class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
-
     private final EditText etToInput;
     private final View toSetFocus;
 

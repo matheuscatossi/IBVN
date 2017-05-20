@@ -31,7 +31,6 @@ public class FormularioManterMembroHelper {
 
     private com.project.impacta.ibvn.model.Membro Membro;
 
-
     //Contrutor Getters E Setters
     public EditText getCampoSexo() {
         return campoSexo;
@@ -171,7 +170,6 @@ public class FormularioManterMembroHelper {
 
 
     public FormularioManterMembroHelper(ManterMembroActivity activity) {
-
         campoNome = (EditText) activity.findViewById(R.id.et_manter_membro_nome);
         campoEmail = (EditText) activity.findViewById(R.id.et_manter_membro_email);
         campoCpf = (EditText) activity.findViewById(R.id.et_manter_membro_cpf);
@@ -199,7 +197,6 @@ public class FormularioManterMembroHelper {
 
 
     public Membro getMembroFromData() {
-
         this.Membro.setNome(campoNome.getText().toString());
         this.Membro.setCpf(campoCpf.getText().toString());
         this.Membro.setEmail(campoEmail.getText().toString());
@@ -223,7 +220,6 @@ public class FormularioManterMembroHelper {
     }
 
     public void setMembroFromModel(Membro membro) {
-
         campoNome.setText(membro.getNome());
         campoCpf.setText(membro.getCpf());
         campoEmail.setText(membro.getEmail());

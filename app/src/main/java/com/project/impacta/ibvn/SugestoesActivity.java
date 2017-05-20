@@ -8,9 +8,6 @@ import android.os.Bundle;
  */
 
 public class SugestoesActivity extends AppCompatActivity {
-
-    // XX
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
