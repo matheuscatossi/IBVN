@@ -65,7 +65,6 @@ public class ManterMembroActivity extends AppCompatActivity {
         if (codigo_membro != null) {
 
             getSupportActionBar().setTitle("Editando Membro");
-
             progress = new ProgressDialog(this);
             progress.setMessage("Recuperando informações!");
             progress.show();
@@ -77,9 +76,7 @@ public class ManterMembroActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Membro> call, Response<Membro> response) {
                     if (response.raw().code() == 200) {
-
                         helperFormManterMembro.setMembroFromModel(response.body());
-                        progress.dismiss();
                     }
                 }
 
@@ -89,6 +86,8 @@ public class ManterMembroActivity extends AppCompatActivity {
                     Log.e("INFOMEMBRO", t.toString());
                 }
             });
+
+            progress.dismiss();
 
         } else { //criando
             getSupportActionBar().setTitle("Adicionando Membro");
