@@ -35,7 +35,6 @@ public class InfoReuniaoActivity extends AppCompatActivity {
     private APIInterface apiService;
     private ProgressDialog progress;
     private double latitudeReuniao = 0f, longitudeReuniao = 0f, latitudeAtual = 0f, longitudeAtual = 0f;
-
     private TextView tv_info_celula, tv_info_criado_em, tv_info_criado_por, tv_info_data, tv_info_descricao, tv_info_bairro, tv_info_cep, tv_info_cidade, tv_info_lider, tv_info_logradouro, tv_info_tema;
     private ImageView iv_map_reuniao;
     private String codigo;

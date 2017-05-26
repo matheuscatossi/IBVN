@@ -20,8 +20,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.nearby.messages.Message;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.firebase.messaging.RemoteMessage.Notification;
 import com.project.impacta.ibvn.MainActivity;
 import com.project.impacta.ibvn.ManterMembroActivity;
 import com.project.impacta.ibvn.Utils.Constants;
@@ -76,6 +78,33 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
 
 
+    public static void sendNotificationToUser(String userId, final String message){
+        FirebaseMessaging messaging = FirebaseMessaging.getInstance();
+
+        Bundle someBundle = new Bundle();
+        someBundle.putString("STRING_KEY_HERE", "STRING_VALUE_HERE");
+        //I have tried excluding the @gcm as well, no luck.
+        String str = "ibvn-gestao-de-eventos@gcm.googleapis.com";
+
+        RemoteMessage.Builder myBuilder = new RemoteMessage.Builder(str);
+        Map<String, String> aMap = new HashMap<>();
+
+        aMap.put("DATA_KEY_1", "DATA_VALUE_1");
+        myBuilder.setData(aMap);
+        myBuilder.addData("ADD_DATA1", "ADD_DATA11");
+        myBuilder.setMessageId("SOME_MESSAGE_ID123");
+        myBuilder.setTtl(0); //Send immediately
+        myBuilder.setMessageType("SOME_MESSAGE_TYPE");
+        myBuilder.setCollapseKey("SOME_COLLAPSE_KEY");
+
+        //Can't do this, private access, how do I instantiate this?
+        RemoteMessage remoteMessage = myBuilder.build();
+        messaging.send(remoteMessage);
+    }
+
 }
+
+
+
 
 

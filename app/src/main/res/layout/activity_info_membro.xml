@@ -355,6 +355,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="right"
                         android:layout_marginLeft="10dp"
+                        android:id="@+id/info_membro_maps"
                         android:src="@drawable/maps" />
                 </LinearLayout>
 

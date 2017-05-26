@@ -214,7 +214,10 @@ public class FormularioManterMembroHelper {
         this.Membro.setNumero(campoNumero.getText().toString());
         this.Membro.setLatitude(campoLatitude.getText().toString());
         this.Membro.setLongitude(campoLongitude.getText().toString());
-        this.Membro.setId(Integer.parseInt(campoId.getText().toString()));
+
+        if(!campoId.getText().toString().isEmpty()){
+            this.Membro.setId(Integer.parseInt(campoId.getText().toString()));
+        }
 
         return this.Membro;
     }

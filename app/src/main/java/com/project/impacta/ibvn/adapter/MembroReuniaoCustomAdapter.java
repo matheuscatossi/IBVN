@@ -27,9 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by matheuscatossi on 5/8/17.
- */
+
 
 public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> implements View.OnClickListener {
 
@@ -152,4 +150,5 @@ public class MembroReuniaoCustomAdapter extends ArrayAdapter<MembroReuniao> impl
 
         return convertView;
     }
+
 }

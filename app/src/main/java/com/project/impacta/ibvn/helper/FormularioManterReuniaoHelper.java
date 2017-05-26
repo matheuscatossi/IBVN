@@ -195,7 +195,11 @@ public class FormularioManterReuniaoHelper {
         this.Reuniao.setNumero(campoNumero.getText().toString());
         this.Reuniao.setLatitude(Double.parseDouble(campoLatitude.getText().toString()));
         this.Reuniao.setLongitude(Double.parseDouble(campoLongitude.getText().toString()));
-        this.Reuniao.setId(Integer.parseInt((campoId.getText().toString())));
+
+        if (!campoId.getText().toString().isEmpty()) {
+            this.Reuniao.setId(Integer.parseInt((campoId.getText().toString())));
+        }
+
         return this.Reuniao;
     }
 
@@ -228,6 +232,5 @@ public class FormularioManterReuniaoHelper {
         this.campoBairro.setText(dados.get("uf").toString());
         this.campoLatitude.setText(dados.get("latitude").toString());
         this.campoLongitude.setText(dados.get("longitude").toString());
-
     }
 }

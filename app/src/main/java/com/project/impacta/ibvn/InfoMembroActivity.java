@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -21,9 +22,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.project.impacta.ibvn.helper.GPSTracker;
 import com.project.impacta.ibvn.model.Membro;
 import com.project.impacta.ibvn.webservice.APIClient;
 import com.project.impacta.ibvn.webservice.APIInterface;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +56,8 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
 
     ProgressDialog progress;
     private String codigoMembro;
+    private ImageView iv_map_membro;
+    private GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +160,36 @@ public class InfoMembroActivity extends AppCompatActivity implements NavigationV
                 startActivity(manterMembroIntent);
             }
         });
+
+
+        iv_map_membro = (ImageView) findViewById(R.id.info_membro_maps);
+        iv_map_membro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+
+                    gps = new GPSTracker(InfoMembroActivity.this);
+
+
+                    if (gps.canGetLocation()) {
+
+                        double latitudeAtual = gps.getLatitude();
+                        double longitudeAtual = gps.getLongitude();
+
+
+                        String uri = String.format(Locale.ROOT, "http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f", latitudeAtual, longitudeAtual,0d,0d);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                        startActivity(intent);
+
+                    }
+
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

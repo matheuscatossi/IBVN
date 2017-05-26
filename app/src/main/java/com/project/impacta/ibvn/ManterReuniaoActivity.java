@@ -84,14 +84,7 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     private String HubSasKeyName = null;
     private String HubSasKeyValue = null;
 
-    /**
-     * Example code from http://msdn.microsoft.com/library/azure/dn495627.aspx
-     * to parse the connection string so a SaS authentication token can be
-     * constructed.
-     *
-     * @param connectionString This must be the DefaultFullSharedAccess connection
-     *                         string for this example.
-     */
+
     private void ParseConnectionString(String connectionString) {
         String[] parts = connectionString.split(";");
         if (parts.length != 3)
@@ -110,15 +103,6 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Example code from http://msdn.microsoft.com/library/azure/dn495627.aspx to
-     * construct a SaS token from the access key to authenticate a request.
-     *
-     * @param uri The unencoded resource URI string for this operation. The resource
-     *            URI is the full URI of the Service Bus resource to which access is
-     *            claimed. For example,
-     *            "http://<namespace>.servicebus.windows.net/<hubName>"
-     */
     private String generateSasToken(String uri) {
 
         String targetUri;
@@ -294,7 +278,6 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                     callReuniao = apiService.postReunioes(reuniao);
                 }
 
-
                 callReuniao.enqueue(new Callback<Reuniao>() {
 
                     @Override
@@ -305,8 +288,9 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                             Toast.makeText(ManterReuniaoActivity.this, "Reunião " + t.getTema() + " salva!", Toast.LENGTH_LONG).show();
 
 
+                            MyFirebaseMessagingService.sendNotificationToUser(",",",");
                             FirebaseMessaging fm = FirebaseMessaging.getInstance();
-                            fm.send(new RemoteMessage.Builder("testes" + "@gcm.googleapis.com")
+                            fm.send(new RemoteMessage.Builder("ibvn-gestao-de-eventos@gcm.googleapis.com")
                                     .setMessageId(Integer.toString(2))
                                     .addData("my_message", "Hello World")
                                     .addData("my_action", "SAY_HELLO")
@@ -324,6 +308,8 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                 finish();
                 break;
             case android.R.id.home:
+                Intent i = new Intent(ManterReuniaoActivity.this,MainActivity.class);
+                startActivity(i);
                 finish();
                 break;
         }
@@ -331,4 +317,17 @@ public class ManterReuniaoActivity extends AppCompatActivity {
         progress.dismiss();
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent i = new Intent(ManterReuniaoActivity.this,MainActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
+
+
+
+
 }

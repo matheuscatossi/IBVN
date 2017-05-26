@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.project.impacta.ibvn.Utils.Constants;
 import com.project.impacta.ibvn.handler.DatabaseHandlerLogin;
 import com.project.impacta.ibvn.helper.CarregarEnderecoTask;
@@ -190,8 +192,15 @@ public class ManterMembroActivity extends AppCompatActivity {
                             Membro t = response.body();
                             Log.e("INFOMEMBRO", "" + response.raw().body().toString());
                             Toast.makeText(ManterMembroActivity.this, "Membro " + t.getNome() + " salvo!", Toast.LENGTH_LONG).show();
-                            finish();
 
+                            FirebaseMessaging fm = FirebaseMessaging.getInstance();
+                            fm.send(new RemoteMessage.Builder("ibvn-gestao-de-eventos" + "@gcm.googleapis.com")
+                                    .setMessageId(Integer.toString(12))
+                                    .addData("my_message", "Hello World")
+                                    .addData("my_action","SAY_HELLO")
+                                    .build());
+
+                            finish();
                         }
                     }
 
