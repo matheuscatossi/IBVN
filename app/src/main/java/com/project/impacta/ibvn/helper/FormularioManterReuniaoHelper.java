@@ -177,7 +177,7 @@ public class FormularioManterReuniaoHelper {
     }
 
 
-    public Reuniao getReuniaoFromData() {
+    public Reuniao getReuniaoFromData() throws Exception {
 
         String[] strData = campoData.getText().toString().split("/");
         this.Reuniao.setData(strData[2] + "-" + strData[1] + "-" + strData[0]);

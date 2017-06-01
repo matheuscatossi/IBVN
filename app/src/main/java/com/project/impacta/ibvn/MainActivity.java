@@ -1,6 +1,9 @@
 package com.project.impacta.ibvn;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +31,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -93,10 +97,33 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Reuniao> reuniaoList;
     private ListView listViewReuniao;
 
+    private BroadcastReceiver deliveryBroadcastReceiver;
+    private BroadcastReceiver sendBroadcastReceiver;
+
+
+    //Utilizado para verificar mensagens do Firebase.
+    private BroadcastReceiver activityReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getBundleExtra("msg");
+            Toast.makeText(MainActivity.this, bundle.getString("msgBody"), Toast.LENGTH_LONG).show();
+
+            unregisterReceiver(this);
+
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Verifica se existem mensagem do firebase
+        if (activityReceiver != null) {
+            IntentFilter intentFilter = new IntentFilter("ACTION_STRING_ACTIVITY");
+            registerReceiver(activityReceiver, intentFilter);
+        }
 
         //GET control
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -136,6 +163,7 @@ public class MainActivity extends AppCompatActivity
                     Intent manterReuniaoIntent = new Intent(MainActivity.this, ManterReuniaoActivity.class);
                     manterReuniaoIntent.putExtra("CELULA", celula);
                     startActivity(manterReuniaoIntent);
+                    finish();
                 }
             });
 
@@ -192,9 +220,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.mensagem) {
             Intent i = new Intent(this, MensagemActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.celula) {
             Intent i = new Intent(this, CelulaActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.logout) {
 
             if (sEvento != null) {

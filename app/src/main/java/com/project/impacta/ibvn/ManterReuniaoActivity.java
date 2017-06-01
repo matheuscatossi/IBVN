@@ -249,7 +249,10 @@ public class ManterReuniaoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         dbLogin = new DatabaseHandlerLogin(ManterReuniaoActivity.this);
+        Intent i;
+
         switch (item.getItemId()) {
+
             case R.id.menu_manter_reuniao_salvar_ok:
 
                 progress = new ProgressDialog(ManterReuniaoActivity.this);
@@ -257,7 +260,15 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                 progress.show();
 
 
-                Reuniao reuniao = helperFormManterReuniao.getReuniaoFromData();
+                Reuniao reuniao = null;
+                try {
+                    reuniao = helperFormManterReuniao.getReuniaoFromData();
+                } catch (Exception e) {
+                    Toast.makeText(ManterReuniaoActivity.this, "Verificar o preenchimento de todos os campos!", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                    progress.dismiss();
+                    return false;
+                }
                 Membro lider = new Membro();
 
                 //recupera dados do usuário logado.
@@ -287,11 +298,9 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                             Log.e("INFOREUNIAO", "" + response.raw().body().toString());
                             Toast.makeText(ManterReuniaoActivity.this, "Reunião " + t.getTema() + " salva!", Toast.LENGTH_LONG).show();
 
-
-                            MyFirebaseMessagingService.sendNotificationToUser(",",",");
                             FirebaseMessaging fm = FirebaseMessaging.getInstance();
                             fm.send(new RemoteMessage.Builder("ibvn-gestao-de-eventos@gcm.googleapis.com")
-                                    .setMessageId(Integer.toString(2))
+                                    .setMessageId(Long.toString(2))
                                     .addData("my_message", "Hello World")
                                     .addData("my_action", "SAY_HELLO")
                                     .build());
@@ -305,16 +314,21 @@ public class ManterReuniaoActivity extends AppCompatActivity {
                     }
                 });
 
+                progress.dismiss();
+
+               i = new Intent(ManterReuniaoActivity.this, MainActivity.class);
+                startActivity(i);
                 finish();
+
                 break;
             case android.R.id.home:
-                Intent i = new Intent(ManterReuniaoActivity.this,MainActivity.class);
+                i = new Intent(ManterReuniaoActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
                 break;
         }
 
-        progress.dismiss();
+
         return super.onOptionsItemSelected(item);
     }
 

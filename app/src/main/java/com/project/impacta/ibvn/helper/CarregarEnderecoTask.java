@@ -110,24 +110,32 @@ public class CarregarEnderecoTask extends AsyncTask<Void, Void, Map<String, Stri
 
         clearFields();
 
+        if (stringStringMap == null) {
+            Toast.makeText(context, "O Campo Cep deve ser preenchido!", Toast.LENGTH_LONG).show();
+            progress.dismiss();
+            return;
+        }
+
         if (stringStringMap.size() == 0) {
             Toast.makeText(context, "CEP inválido", Toast.LENGTH_LONG).show();
             progress.dismiss();
             return;
         }
 
-        if (stringStringMap != null) {
-            this.campoCep.setText(String.format("%s-%s", stringStringMap.get("cep").substring(0, 5), stringStringMap.get("cep").substring(5)));
-            this.campoCidade.setText(stringStringMap.get("cidade").toString());
-            this.campoBairro.setText(stringStringMap.get("bairro").toString());
-            this.campoLogradouro.setText(stringStringMap.get("logradouro").toString());
-            this.campoUf.setText(stringStringMap.get("uf").toString());
-            this.campoLatitude.setText(stringStringMap.get("latitude").toString());
-            this.campoLongitude.setText(stringStringMap.get("longitude").toString());
-            this.campoNumero.requestFocus();
-        }
+
+        this.campoCep.setText(String.format("%s-%s", stringStringMap.get("cep").substring(0, 5), stringStringMap.get("cep").substring(5)));
+        this.campoCidade.setText(stringStringMap.get("cidade").toString());
+        this.campoBairro.setText(stringStringMap.get("bairro").toString());
+        this.campoLogradouro.setText(stringStringMap.get("logradouro").toString());
+        this.campoUf.setText(stringStringMap.get("uf").toString());
+        this.campoLatitude.setText(stringStringMap.get("latitude").toString());
+        this.campoLongitude.setText(stringStringMap.get("longitude").toString());
+        this.campoNumero.requestFocus();
+
         progress.dismiss();
+
     }
+
 
     private void clearFields() {
         this.campoCep.setText("");

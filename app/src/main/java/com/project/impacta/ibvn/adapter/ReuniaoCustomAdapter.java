@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.project.impacta.ibvn.InfoReuniaoActivity;
+import com.project.impacta.ibvn.MainActivity;
 import com.project.impacta.ibvn.R;
 import com.project.impacta.ibvn.model.Reuniao;
 
@@ -40,13 +41,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.
     }
 
     @Override
-    public void onClick(View v) {
-
-        int position = (Integer) v.getTag();
-        Object object = getItem(position);
-        Reuniao reuniao = (Reuniao) object;
-
-    }
+    public void onClick(View v) {}
 
     @NonNull
     @Override
@@ -83,7 +78,7 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.
             viewHolder.tv_tema.setText(reuniao.getTema());
             viewHolder.tv_tema.setTypeface(null, Typeface.BOLD);
 
-            viewHolder.tv_data.setText(reuniao.getData().substring(8) + "/"+ reuniao.getData().substring(5,7) + "/" + reuniao.getData().substring(0,4));
+            viewHolder.tv_data.setText(reuniao.getData().substring(8) + "/" + reuniao.getData().substring(5, 7) + "/" + reuniao.getData().substring(0, 4));
             viewHolder.tv_data.setTypeface(null, Typeface.BOLD);
 
             viewHolder.ll_linha.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +86,9 @@ public class ReuniaoCustomAdapter extends ArrayAdapter<Reuniao> implements View.
                 public void onClick(View v) {
 
                     Intent i = new Intent(mContext, InfoReuniaoActivity.class);
-
                     i.putExtra("id", String.valueOf(reuniao.getId()));
-
                     mContext.startActivity(i);
+                    ((MainActivity)mContext).finish();
                 }
             });
 

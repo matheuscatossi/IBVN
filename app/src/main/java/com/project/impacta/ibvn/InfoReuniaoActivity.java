@@ -115,6 +115,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
                 Intent i = new Intent(view.getContext(), MembroReuniaoActivity.class);
                 i.putExtra("id", ""+ String.valueOf(codigo));
                 startActivity(i);
+                finish();
             }
         });
 
@@ -125,6 +126,7 @@ public class InfoReuniaoActivity extends AppCompatActivity {
                 Intent manterMembroIntent = new Intent(InfoReuniaoActivity.this, ManterReuniaoActivity.class);
                 manterMembroIntent.putExtra("REUNIAO_ID", codigo);
                 startActivity(manterMembroIntent);
+                finish();
             }
         });
 
@@ -150,7 +152,6 @@ public class InfoReuniaoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // getMenuInflater().inflate(R.menu.menu_manter_reuniao, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
